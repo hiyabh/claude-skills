@@ -2,7 +2,9 @@
 
 Usage:  python build/build.py [--no-pack]
 """
+import os
 import shutil
+import stat
 import sys
 
 import package
@@ -36,11 +38,17 @@ def validate(pages):
     return errors
 
 
+def _clear_readonly(func, path, _exc):
+    # Windows marks some folders FILE_ATTRIBUTE_READONLY, which blocks rmdir.
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
+
+
 def prune(names):
     """Delete generated pages/tarballs of skills that no longer exist."""
     for page_dir in PAGES_DIR.glob("*"):
         if page_dir.is_dir() and page_dir.name not in names:
-            shutil.rmtree(page_dir)
+            shutil.rmtree(page_dir, onexc=_clear_readonly)
     for tarball in DL_DIR.glob("*.tar.gz"):
         if tarball.name[:-len(".tar.gz")] not in names:
             tarball.unlink()

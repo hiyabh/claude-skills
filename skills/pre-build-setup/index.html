@@ -8,15 +8,17 @@
 <meta property="og:title" content="תכנון לפני בנייה - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="עוצר לפני שורת קוד ראשונה - PRD, אילוצים ותוכנית מאושרת - כדי לא לבנות דבר לא נכון.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📋%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">📋</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>📋</span></div>
   <h1 class="rise">תכנון לפני בנייה</h1>
   <p class="sub rise">עוצר לפני שורת קוד ראשונה - PRD, אילוצים ותוכנית מאושרת - כדי לא לבנות דבר לא נכון.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/pre-build-setup">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>לפני פרויקט חדש או פיצ&#x27;ר משמעותי, הסקיל מריץ ראיון מובנה (PRD): מה בונים, למי, אילו תרחישי שימוש, ומה בכוונה נשאר מחוץ ל-scope.</p><p>כותב קובץ אילוצים שליליים עם חלופה לכל אילוץ (&#x27;אל תעשה X - תעשה Y במקום, כי Z&#x27;), כותב טסטים ראשוניים מתוך ה-PRD בלבד (בלי להסתכל על קוד קיים), ובונה תוכנית מימוש מפורטת.</p><p>אסור לכתוב קוד לפני שהמשתמש אישר את התוכנית במפורש - יש לולאת משוב שבה מוסיפים הערות inline עד שהיא מאושרת. בסוף נשארים גם קבצי מעקב התקדמות ותיעוד טעויות לכל אורך הפרויקט.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מתחילים פרויקט חדש מאפס (אתר, אפליקציה, API)</li><li>מוסיפים פיצ&#x27;ר גדול שנוגע בכמה קבצים והחלטות ארכיטקטורה</li><li>רוצים למנוע מצב שבו הסוכן בונה משהו שלא בדיוק מה שביקשתם</li><li>צריך תיעוד PRD ותוכנית שאפשר להעביר לצוות אחר</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"אני רוצה לבנות אפליקציה חדשה ל..."</li><li class="say">"בואו נתכנן פיצ&#x27;ר משמעותי לפני שמתחילים"</li><li class="say">"פרויקט חדש - תעשה קודם ראיון דרישות"</li><li class="say">"תכין PRD ותוכנית לפני שאתה נוגע בקוד"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"אני רוצה לבנות אפליקציה חדשה ל..."</li><li class="say reveal">"בואו נתכנן פיצ&#x27;ר משמעותי לפני שמתחילים"</li><li class="say reveal">"פרויקט חדש - תעשה קודם ראיון דרישות"</li><li class="say reveal">"תכין PRD ותוכנית לפני שאתה נוגע בקוד"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;אני רוצה לבנות מערכת ניהול מלאי לחנות קטנה&quot;</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">סדרת שאלות ממוקדות, ואז docs/PRD.md מלא, docs/constraints.md עם חלופות, טסטים ראשוניים, ו-docs/plan.md שממתין לאישור שורה-שורה לפני שנכתבת שורת קוד אחת.</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> מתאים לפרויקטים ופיצ&#x27;רים משמעותיים בלבד - לתיקון באג, refactor קטן או סקריפט חד-פעמי הוא מיותר ומאט.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

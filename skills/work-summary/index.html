@@ -8,15 +8,17 @@
 <meta property="og:title" content="סיכומי עבודה וטיקטים - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="קלוד הופך סשן עבודה שלם לסיכום מסודר, דוח התקדמות או טיקט מוכן להעברה - תוך שנייה.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📋%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">📋</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>📋</span></div>
   <h1 class="rise">סיכומי עבודה וטיקטים</h1>
   <p class="sub rise">קלוד הופך סשן עבודה שלם לסיכום מסודר, דוח התקדמות או טיקט מוכן להעברה - תוך שנייה.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/work-summary">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>בסוף סשן, קלוד מנתח מה נעשה בפועל ומייצר אחד משלושה סוגי מסמכים: סיכום סשן קצר (בוצע / בתהליך / חסימות), דוח התקדמות מפורט לעדכון גורמים אחרים, או טיקט משימה עצמאי שמפתח אחר יכול להבין בלי הקשר נוסף.</p><p>הפלט נשמר בקובץ מסודר ומוצג לך לעריכה, וניתן לבקש אותו גם בעברית עסקית, וגם כטקסט מוכן להדבקה בוואטסאפ/סלאק/מייל.</p><p>הכלל המרכזי: הסיכום חייב להיות כנה - &#x27;בתהליך&#x27; זו תשובה לגיטימית, וחסימות מודגשות בבירור במקום להיטמע בטקסט.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מסיימים יום עבודה ורוצים סיכום מהיר של מה שהתקדם</li><li>צריך לעדכן מנהל/לקוח על התקדמות בפרויקט בשפה ברורה, לא טכנית מדי</li><li>רוצים להעביר משימה למפתח אחר עם קריטריוני קבלה ברורים</li><li>צריך פלט מוכן להדבקה בקבוצת וואטסאפ או ערוץ סלאק של הצוות</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"סכם מה שעשינו"</li><li class="say">"תפתח טיקט על זה"</li><li class="say">"דוח התקדמות על הפרויקט"</li><li class="say">"סיכום עבודה יומי"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"סכם מה שעשינו"</li><li class="say reveal">"תפתח טיקט על זה"</li><li class="say reveal">"דוח התקדמות על הפרויקט"</li><li class="say reveal">"סיכום עבודה יומי"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">תפתח טיקט על הבאג שמצאנו בטופס ההרשמה</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">נוצר קובץ טיקט עם תיאור הבעיה, קריטריוני קבלה, הערות טכניות (קבצים רלוונטיים), עדיפות והערכת מאמץ</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> הסיכום נשען על מה שקרה בשיחה הנוכחית בלבד - הוא לא &#x27;זוכר&#x27; עבודה שנעשתה מחוץ לסשן.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

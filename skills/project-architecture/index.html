@@ -8,15 +8,17 @@
 <meta property="og:title" content="מדריך ארכיטקטורה - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="קלוד לומד את מבנה הפרויקט שלך פעם אחת, ואז בונה קוד חדש בדיוק באותו סגנון.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏗️%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">🏗️</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>🏗️</span></div>
   <h1 class="rise">מדריך ארכיטקטורה</h1>
   <p class="sub rise">קלוד לומד את מבנה הפרויקט שלך פעם אחת, ואז בונה קוד חדש בדיוק באותו סגנון.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/project-architecture">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>במקום שקלוד ינחש איך לבנות קובץ חדש, הסקיל שומר לכל פרויקט מסמך אחד עם ההחלטות שכבר התקבלו: איך מסודרות התיקיות, איך קוראים לקבצים, איזו ספריית עיצוב בשימוש, איך מטפלים בשגיאות ועוד - עם דוגמאות קוד אמיתיות, לא רק הסברים.</p><p>בפעם הראשונה שעובדים על פרויקט, קלוד סורק את הקוד הקיים (אם יש), שואל כמה שאלות על ההעדפות שלך, וכותב את כל זה למסמך ייעודי. מאותו רגע, כל קוד חדש שנכתב עובר קודם דרך המסמך הזה.</p><p>כשאתה אומר באמצע עבודה &#x27;תמיד תעשה ככה&#x27; או &#x27;אני מעדיף X על פני Y&#x27; - קלוד מוסיף את זה מיד למסמך, כדי שהכלל יישמר גם בשיחות הבאות.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מתחילים פרויקט קוד חדש וקלוד צריך להחליט על מוסכמות שמירה, שמות ומבנה תיקיות</li><li>פרויקט קיים בלי תיעוד - וקלוד כל פעם &#x27;ממציא&#x27; סגנון קצת שונה</li><li>אתה מעדיף גישה מסוימת (Tailwind ולא CSS Modules, Zustand ולא Redux) ורוצה שזה יישמר קבוע</li><li>צריך לתעד &#x27;טעם עיצובי&#x27; - מינימליזם מול עושר פיצ&#x27;רים, מובייל-קודם וכו&#x27;</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"תגדיר ארכיטקטורה לפרויקט הזה"</li><li class="say">"תמיד תשתמש ב-X בפרויקט הזה"</li><li class="say">"מה המוסכמות של הפרויקט הזה?"</li><li class="say">"אני מעדיף X על פני Y"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"תגדיר ארכיטקטורה לפרויקט הזה"</li><li class="say reveal">"תמיד תשתמש ב-X בפרויקט הזה"</li><li class="say reveal">"מה המוסכמות של הפרויקט הזה?"</li><li class="say reveal">"אני מעדיף X על פני Y"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">אני מעדיף Zustand על פני Context API בפרויקט הזה</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">קלוד מוסיף שורה למסמך הארכיטקטורה של הפרויקט תחת &#x27;ניהול State&#x27;, ומיישם את זה מיד בקוד הבא שהוא כותב</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> המסמך שנוצר משרת רק את הפרויקט הספציפי שבו נכתב - לכל פרויקט צריך קובץ משלו.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

@@ -8,15 +8,17 @@
 <meta property="og:title" content="עריכת תמלול נאמנה - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="הופך תמלול גולמי של שיחה או ראיון למסמך קריא - בלי לקצר או לשנות מילה אחת">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎙️%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>📄 מסמכים ועברית</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">🎙️</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>🎙️</span></div>
   <h1 class="rise">עריכת תמלול נאמנה</h1>
   <p class="sub rise">הופך תמלול גולמי של שיחה או ראיון למסמך קריא - בלי לקצר או לשנות מילה אחת</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/coherent-transcript-editor">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>מקבל תמלול אוטומטי גולמי (עם חותמות זמן, גמגומים ושיבושים) של שיחה, ראיון, פאנל או דיון - ומפיק ממנו מסמך עברי קריא וזורם, בלי לסכם ובלי לקצר.</p><p>כל דובר נשאר בגוף ראשון שלו, עם תווית דובר מודגשת בכל מעבר. מתקן פיסוק וחלוקה לפסקאות, מסיר חותמות זמן וגמגומים, ומוסיף כותרות נושא קלות שמארגנות את הקריאה בלי לגעת בתוכן עצמו.</p><p>פסוקים שצוטטו במהלך השיחה משוחזרים לנוסח המדויק עם ניקוד ומקור. התוצר הסופי הוא קובץ Word בעברית מלאה מימין לשמאל, מוכן להדפסה או שיתוף.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>תמלול ריאיון או פודקאסט שרוצים להפוך למאמר קריא בלי לאבד אף פרט</li><li>פאנל או דיון עם כמה דוברים שצריך לתעד במדויק, כל אחד בקולו שלו</li><li>שיעור שאלות-ותשובות שהוקלט ותומלל אוטומטית</li><li>כל תמלול עם חותמות זמן ושיבושי מכונה שצריך להפוך למסמך מקצועי</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"עריכה קוהרנטית של התמלול הזה"</li><li class="say">"ערוך לי את תמלול הראיון"</li><li class="say">"תהפוך את התמלול הזה לכתבה בלי לקצר כלום"</li><li class="say">"כל מילה ככתבה וכלשונה"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"עריכה קוהרנטית של התמלול הזה"</li><li class="say reveal">"ערוך לי את תמלול הראיון"</li><li class="say reveal">"תהפוך את התמלול הזה לכתבה בלי לקצר כלום"</li><li class="say reveal">"כל מילה ככתבה וכלשונה"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">תמלול גולמי: &#x27;0:06 אז... תשמע, אני חושב ש... 1:09 כן בדיוק, זה מה שקרה&#x27;</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">מסמך Word ערוך: **המנחה:** תשמע, אני חושב ש... **אורח:** כן, בדיוק זה מה שקרה.</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Python 3.9+ עם python-docx</b></td><td>התקנה: pip install python-docx</td></tr><tr><td><b>קובץ תמלול קלט</b></td><td>DOCX / TXT / SRT / VTT</td></tr><tr><td><b>Microsoft Word</b></td><td>רק אם מבקשים הדפסה ישירה בסוף התהליך; בניית הקובץ עצמה לא דורשת Word</td></tr></table><p class="tag"><b>לתשומת לבך:</b> תמלול ארוך מאוד (כמה שעות) עלול לדרוש כמה הודעות רצופות כדי להשלים את העריכה בלי לדלג על נושא - זה תקין, לא סימן לבעיה.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

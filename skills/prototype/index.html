@@ -8,15 +8,17 @@
 <meta property="og:title" content="פרוטוטייפ ממוקאפ - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="הופך תמונה או עיצוב סטטי לפרוטוטייפ קליקבילי, ואז משווה לתמונת המקור ומתקן הבדלים.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🖱️%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">🖱️</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>🖱️</span></div>
   <h1 class="rise">פרוטוטייפ ממוקאפ</h1>
   <p class="sub rise">הופך תמונה או עיצוב סטטי לפרוטוטייפ קליקבילי, ואז משווה לתמונת המקור ומתקן הבדלים.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/prototype">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>מקבל מוקאפ - תמונה, סקרינשוט, קובץ פיגמה או תיאור כתוב - ובונה ממנו מסך שאפשר ללחוץ עליו בפועל: ניווט בין מסכים, טאבים, מודלים, וכל מצב שמופיע בעיצוב (טעינה, שגיאה, ריק וכו&#x27;).</p><p>בורר את הסטאק הכי קל שמתאים - לרוב קובץ HTML אחד לזרימה פשוטה, או React/Tailwind אם הפרויקט כבר בנוי כך. בלי backend אמיתי ובלי בסיס נתונים - רק מה שצריך כדי להראות את הזרימה.</p><p>אופציה נוספת: לולאת השוואה ויזואלית - הסקיל מצלם מסך של התוצאה, משווה אותה לעיצוב המקורי, ומתקן הבדלים בצבע/מרווח/גודל - עד שהתוצאה קרובה מאוד למקור.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>יש מוקאפ או סקרינשוט של עיצוב ורוצים גרסה קליקבילית להראות ללקוח</li><li>צריך אב-טיפוס מהיר לפני שמשקיעים בפיתוח מלא</li><li>רוצים לבדוק שהמימוש בקוד תואם בדיוק לעיצוב שקיבלתם</li><li>יש עיצוב בפיגמה ורוצים ממנו פרוטוטייפ עובד</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"הנה מוקאפ, תבנה ממנו פרוטוטייפ קליקבילי"</li><li class="say">"תהפוך את התמונה הזו לאתר שאפשר ללחוץ עליו"</li><li class="say">"תממש את העיצוב, תצלם מסך, תשווה למקור ותתקן הבדלים"</li><li class="say">"תבנה לי דמו מהיר של המסך הזה"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"הנה מוקאפ, תבנה ממנו פרוטוטייפ קליקבילי"</li><li class="say reveal">"תהפוך את התמונה הזו לאתר שאפשר ללחוץ עליו"</li><li class="say reveal">"תממש את העיצוב, תצלם מסך, תשווה למקור ותתקן הבדלים"</li><li class="say reveal">"תבנה לי דמו מהיר של המסך הזה"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">מצרפים תמונה של מסך התחברות ומבקשים &quot;תבנה מזה פרוטוטייפ&quot;</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">קובץ HTML/React עובד עם השדות, הכפתורים והמצבים (שגיאה, טעינה) שמופיעים בתמונה, ורשימה של מה מזויף (למשל: בלי אימות אמיתי).</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Playwright MCP</b></td><td>רק אם רוצים את לולאת ההשוואה הוויזואלית האוטומטית (צילום מסך והשוואה למקור)</td></tr></table><p class="tag"><b>לתשומת לבך:</b> התוצאה היא פרוטוטייפ להדגמה בלבד - בלי backend, אימות או נתונים אמיתיים - לא מיועד לשימוש ישיר בפרודקשן.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

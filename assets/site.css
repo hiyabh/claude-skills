@@ -5,6 +5,7 @@
   --bg:#0f1115; --card:#181b22; --card-2:#1e222b;
   --ink:#f3f5f8; --muted:#9aa3b2; --gold:#ffd36e; --line:#262b34; --green:#7ee08a;
   --ease-out:cubic-bezier(.23,1,.32,1);
+  --ease-in-out:cubic-bezier(.77,0,.175,1);
   --radius:14px;
 }
 *{box-sizing:border-box}
@@ -13,7 +14,7 @@ body{
   margin:0; background:var(--bg); color:var(--ink);
   font:100%/1.65 "Segoe UI",system-ui,Arial,Helvetica,sans-serif; font-size:16px;
 }
-.wrap{max-width:1040px; margin:0 auto; padding-inline:20px; padding-block:0 90px}
+.wrap{position:relative; max-width:1040px; margin:0 auto; padding-inline:20px; padding-block:0 90px}
 a{color:var(--gold)}
 p{margin:0 0 14px}
 code{background:var(--card-2); padding:2px 6px; border-radius:5px;
@@ -25,9 +26,10 @@ code{background:var(--card-2); padding:2px 6px; border-radius:5px;
 @keyframes rise{to{opacity:1; transform:none}}
 .rise{opacity:0; transform:translateY(10px); animation:rise .5s var(--ease-out) forwards}
 .hero .rise:nth-child(2){animation-delay:50ms}
-.hero .rise:nth-child(3){animation-delay:100ms}
-.hero .rise:nth-child(4){animation-delay:150ms}
-.hero .rise:nth-child(5){animation-delay:200ms}
+.hero .rise:nth-child(3){animation-delay:300ms}
+.hero .rise:nth-child(4){animation-delay:380ms}
+.hero .rise:nth-child(5){animation-delay:460ms}
+.hero .rise:nth-child(6){animation-delay:540ms}
 
 /* ---------- hero ---------- */
 .hero{padding-block:64px 18px; max-width:760px}
@@ -65,7 +67,8 @@ h3{font-size:1rem; margin:0 0 10px; color:var(--gold); font-weight:600}
   transition:border-color 160ms var(--ease-out);
 }
 .search:focus{outline:none; border-color:var(--gold)}
-.chips{display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; padding-bottom:2px}
+.chips{position:relative; overflow-x:auto; scrollbar-width:none; padding-bottom:2px}
+.chips-row{display:flex; gap:8px; width:max-content}
 .chips::-webkit-scrollbar{display:none}
 .chip{
   flex:none; text-decoration:none; color:var(--ink); background:var(--card);
@@ -77,7 +80,7 @@ h3{font-size:1rem; margin:0 0 10px; color:var(--gold); font-weight:600}
 .chip[aria-pressed="true"]{background:var(--gold); color:#1a1407; border-color:var(--gold)}
 .chip[aria-pressed="true"] .n{color:#5a4a1a}
 .empty{margin-top:30px; color:var(--muted)}
-@media (min-width:760px){.chips{flex-wrap:wrap; overflow:visible}}
+@media (min-width:760px){.chips{overflow:visible} .chips-row{flex-wrap:wrap; width:auto}}
 
 /* ---------- card grid ---------- */
 .cat h2 span{margin-inline-end:4px}
@@ -182,3 +185,116 @@ details.alt[open] summary{margin-bottom:10px}
   .card,.skill-card,.chip{border-color:#5a6473}
   .sub,.muted,.tag,.foot,.skill-card .d{color:#c6ccd6}
 }
+
+/* =====================================================================
+   Motion layer. Everything that starts hidden is gated on .js, so the
+   page is fully visible without JS. Only transform/opacity/clip-path move.
+   ===================================================================== */
+
+/* ---------- aurora: pre-blurred gradients drifting behind the hero ---------- */
+body{position:relative; overflow-x:hidden}
+.aurora{
+  position:absolute; inset-inline:0; inset-block-start:0; height:760px; z-index:0;
+  overflow:hidden; pointer-events:none;
+  -webkit-mask-image:linear-gradient(#000 55%,transparent); mask-image:linear-gradient(#000 55%,transparent);
+}
+.aurora.dim{height:520px; opacity:.55}
+.aurora i{
+  position:absolute; width:560px; height:560px; border-radius:50%;
+  background:radial-gradient(circle,rgba(255,211,110,.20),rgba(255,211,110,0) 64%);
+  animation:drift 26s var(--ease-in-out) infinite alternate;
+}
+.aurora i:nth-child(1){inset-inline-start:-120px; inset-block-start:-180px}
+.aurora i:nth-child(2){inset-inline-start:34%; inset-block-start:-240px; animation-duration:32s; animation-delay:-8s;
+  background:radial-gradient(circle,rgba(255,153,77,.16),rgba(255,153,77,0) 64%)}
+.aurora i:nth-child(3){inset-inline-end:-160px; inset-block-start:60px; animation-duration:29s; animation-delay:-14s}
+.aurora i:nth-child(4){inset-inline-start:18%; inset-block-start:220px; width:420px; height:420px; animation-duration:36s;
+  background:radial-gradient(circle,rgba(126,224,138,.08),rgba(126,224,138,0) 64%)}
+@keyframes drift{
+  0%{transform:translate3d(0,0,0) scale(1)}
+  50%{transform:translate3d(60px,40px,0) scale(1.12)}
+  100%{transform:translate3d(-40px,80px,0) scale(.94)}
+}
+/* static film grain: kills gradient banding and adds texture */
+.aurora::after{
+  content:""; position:absolute; inset:0; opacity:.07; mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.wrap{z-index:1}
+
+/* ---------- headline: word-by-word focus-in (once, on load) ---------- */
+.words .w{display:inline-block; opacity:0; filter:blur(8px); transform:translateY(14px);
+  animation:focus-in .8s var(--ease-out) forwards; animation-delay:calc(var(--i) * 70ms + 60ms)}
+@keyframes focus-in{to{opacity:1; filter:blur(0); transform:none}}
+.words .w:last-child{color:var(--gold)}
+
+/* ---------- ticker: real phrases you can say to Claude ---------- */
+.ticker{display:flex; flex-wrap:wrap; align-items:baseline; gap:6px 10px; margin:4px 0 0;
+  font-size:1.05rem; min-height:2.2em}
+.ticker-label{color:var(--muted)}
+.ticker-link{text-decoration:none; color:var(--ink); display:inline-flex; flex-wrap:wrap; gap:4px 10px; align-items:baseline}
+.ticker-say{font-weight:700; color:var(--gold)}
+.ticker-skill{color:var(--muted); font-size:.92rem}
+.ticker-link.swap-out{opacity:0; filter:blur(4px); transform:translateY(-8px);
+  transition:opacity 200ms var(--ease-out), filter 200ms var(--ease-out), transform 200ms var(--ease-out)}
+.ticker-link.swap-in{opacity:0; filter:blur(4px); transform:translateY(8px)}
+.ticker-link{transition:opacity 320ms var(--ease-out), filter 320ms var(--ease-out), transform 320ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){ .ticker-link:hover .ticker-skill{color:var(--gold)} }
+
+/* ---------- constellation: skill icons floating beside the hero ---------- */
+.constellation{display:none}
+@media (min-width:980px){
+  .constellation{display:block; position:absolute; inset-inline-end:10px; inset-block-start:70px;
+    width:280px; height:400px; pointer-events:none}
+}
+.star{position:absolute; inset-inline-start:var(--x); inset-block-start:var(--y);
+  font-size:calc(1.1rem + var(--depth) * 1.5rem); opacity:calc(.25 + var(--depth) * .6);
+  filter:blur(calc((1 - var(--depth)) * 1.6px))}
+.star > span{display:inline-block; animation:bob var(--bob) var(--ease-in-out) var(--delay) infinite alternate}
+@keyframes bob{from{transform:translateY(-6px) rotate(-4deg)} to{transform:translateY(6px) rotate(4deg)}}
+
+/* ---------- scroll reveal (hub cards, skill page sections) ---------- */
+.js .reveal{opacity:0; transform:translateY(16px);
+  transition:opacity 560ms var(--ease-out), transform 560ms var(--ease-out)}
+.js .reveal[data-visible]{opacity:1; transform:none}
+
+/* ---------- card spotlight follows the pointer ---------- */
+.skill-card{position:relative; overflow:hidden; isolation:isolate}
+.skill-card::before{content:""; position:absolute; inset:0; z-index:-1; opacity:0;
+  background:radial-gradient(260px circle at var(--mx,50%) var(--my,0%),rgba(255,211,110,.13),transparent 65%);
+  transition:opacity 240ms ease}
+.skill-card .ic{display:inline-block; transform-origin:50% 80%; transition:transform 260ms var(--ease-out)}
+@media (hover:hover) and (pointer:fine){
+  .skill-card:hover::before{opacity:1}
+  .skill-card:hover .ic{transform:translateY(-3px) rotate(-8deg) scale(1.1)}
+}
+
+/* ---------- sliding filter pill (clip-path over an "active" copy) ---------- */
+.pill-copy{position:absolute; inset-block-start:0; inset-inline-start:0; pointer-events:none;
+  clip-path:inset(0 100% 100% 0 round 999px)}
+.pill-copy.ready{transition:clip-path 260ms var(--ease-in-out)}
+.pill-copy .chip{background:var(--gold); color:#1a1407; border-color:var(--gold)}
+.pill-copy .chip .n{color:#5a4a1a}
+@media (min-width:760px){ .pill-copy{width:100%} }
+.has-pill .chips-row:not(.pill-copy) .chip[aria-pressed="true"]{background:var(--card); color:var(--ink); border-color:var(--line)}
+.has-pill .chips-row:not(.pill-copy) .chip[aria-pressed="true"] .n{color:var(--muted)}
+
+/* ---------- skill page: breathing halo around the big icon ---------- */
+.skill-icon{position:relative; display:inline-block}
+.skill-icon::before{content:""; position:absolute; inset:-60%; z-index:-1; border-radius:50%;
+  background:radial-gradient(circle,rgba(255,211,110,.28),rgba(255,211,110,0) 62%);
+  animation:breathe 7s var(--ease-in-out) infinite alternate}
+.skill-icon > span{display:inline-block; animation:bob 9s var(--ease-in-out) infinite alternate}
+@keyframes breathe{from{opacity:.55; transform:scale(.9)} to{opacity:1; transform:scale(1.08)}}
+.copybtn[data-done]{animation:pop 320ms var(--ease-out)}
+@keyframes pop{0%{transform:scale(.92)} 60%{transform:scale(1.05)} 100%{transform:scale(1)}}
+
+/* ---------- reduced motion: keep fades, drop movement ---------- */
+@media (prefers-reduced-motion:reduce){
+  .aurora i,.star > span,.skill-icon > span,.skill-icon::before,.copybtn[data-done]{animation:none}
+  .words .w{animation:fade .3s ease forwards; filter:none; transform:none}
+  .js .reveal{transform:none}
+  .ticker-link.swap-out,.ticker-link.swap-in{transform:none; filter:none}
+}
+@keyframes fade{to{opacity:1}}
+@media (prefers-reduced-transparency:reduce){ .aurora{display:none} }

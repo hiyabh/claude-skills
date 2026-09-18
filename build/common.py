@@ -1,4 +1,5 @@
 """Shared paths, constants and small helpers for the site build."""
+import hashlib
 import html
 import json
 from pathlib import Path
@@ -65,12 +66,30 @@ def load_internal():
     return sorted(items, key=lambda p: p.get("title", p["name"]))
 
 
-def page_shell(title, description, icon, css_href, body, script_src=None):
+def versioned(href):
+    """Append a content hash so browsers refetch assets as soon as they change."""
+    digest = hashlib.sha1((ROOT / "assets" / Path(href).name).read_bytes()).hexdigest()[:8]
+    return f"{href}?v={digest}"
+
+
+def aurora_html(dim=False):
+    """Decorative drifting glow behind the hero (pure CSS, aria-hidden)."""
+    cls = "aurora dim" if dim else "aurora"
+    return f'<div class="{cls}" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'
+
+
+def page_shell(title, description, icon, css_href, body, scripts=()):
     """Wrap page body in the shared RTL document skeleton."""
     favicon = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
                "viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E"
                f"{icon}%3C/text%3E%3C/svg%3E")
-    script = f'\n<script src="{script_src}" defer></script>' if script_src else ""
+    # The `js` class gates every "starts hidden" motion style, so without JS
+    # (or before it loads) all content is visible and static.
+    # Failsafe: if motion.js never runs (blocked, 404), un-hide everything.
+    script = ("\n<script>document.documentElement.classList.add('js');"
+              "setTimeout(function(){if(!window.motionReady)"
+              "document.documentElement.classList.remove('js')},2500)</script>")
+    script += "".join(f'\n<script src="{versioned(src)}" defer></script>' for src in scripts)
     return f"""<!doctype html>
 <html lang="he" dir="rtl">
 <head>
@@ -81,7 +100,7 @@ def page_shell(title, description, icon, css_href, body, script_src=None):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(description)}">
 <link rel="icon" href="{favicon}">
-<link rel="stylesheet" href="{css_href}">{script}
+<link rel="stylesheet" href="{versioned(css_href)}">{script}
 </head>
 <body>
 {body}

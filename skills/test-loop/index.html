@@ -8,15 +8,17 @@
 <meta property="og:title" content="טסטים עד ירוק - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="כותב טסטים משמעותיים לקוד קיים, או טסטים קודם (TDD), ומריץ עד שהכל עובר.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E✅%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">✅</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>✅</span></div>
   <h1 class="rise">טסטים עד ירוק</h1>
   <p class="sub rise">כותב טסטים משמעותיים לקוד קיים, או טסטים קודם (TDD), ומריץ עד שהכל עובר.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/test-loop">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>שני מסלולים: הוספת כיסוי טסטים לקוד קיים, או TDD - כתיבת הטסטים לפני הקוד ומימוש עד שהם עוברים.</p><p>מזהה קודם את מסגרת הטסטים של הפרויקט (Jest, Pytest וכו&#x27;) ומחקה בדיוק את הסגנון הקיים, כדי שהטסטים החדשים ישתלבו טבעי.</p><p>כותב טסטים על פי התנהגות אמיתית - כולל מקרי קצה ושגיאות, לא רק את המסלול התקין - ומריץ שוב ושוב עד שהכל ירוק. אם התיקון חושף באג אמיתי בקוד, זה מדווח במפורש ולא מוסתר.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>קוד קיים בלי כיסוי טסטים כלל</li><li>רוצים לבנות פיצ&#x27;ר בגישת TDD - טסטים קודם</li><li>אחרי refactor, לוודא שההתנהגות לא השתנתה</li><li>צריך לכסות מקרי קצה שלא נבדקו</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"תכתוב טסטים לקובץ הזה, תריץ ותתקן כשלים"</li><li class="say">"תכתוב טסטים למנוע ההנחות קודם, ואז תממש אותו עד שהם עוברים"</li><li class="say">"תוסיף כיסוי בדיקות לפיצ&#x27;ר הזה"</li><li class="say">"תעשה TDD על הפונקציה הזו"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"תכתוב טסטים לקובץ הזה, תריץ ותתקן כשלים"</li><li class="say reveal">"תכתוב טסטים למנוע ההנחות קודם, ואז תממש אותו עד שהם עוברים"</li><li class="say reveal">"תוסיף כיסוי בדיקות לפיצ&#x27;ר הזה"</li><li class="say reveal">"תעשה TDD על הפונקציה הזו"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;תכתוב טסטים ל-feed.py, תריץ ותתקן כל כשל&quot;</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">קובץ טסטים חדש שמכסה מסלול תקין ומקרי קצה, הרצה שמראה הכל ירוק, ודיווח על באג אמיתי אחד שנמצא ותוקן בדרך.</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>מסגרת טסטים בפרויקט (או הסכמה להתקין אחת)</b></td><td>Jest/Vitest/Pytest וכו&#x27;, לפי שפת הפרויקט</td></tr></table><p class="tag"><b>לתשומת לבך:</b> אם אי אפשר להגיע לירוק אחרי כמה ניסיונות ממוקדים, הסקיל עוצר ומדווח על החסם בפועל, במקום להמשיך לנסות בלי סוף.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

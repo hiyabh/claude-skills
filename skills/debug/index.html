@@ -8,15 +8,17 @@
 <meta property="og:title" content="דיבאג שיטתי - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="מוצא את שורש הבעיה במקום לתקן סימפטומים - עם הוכחה שהתיקון באמת עובד.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🐞%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">🐞</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>🐞</span></div>
   <h1 class="rise">דיבאג שיטתי</h1>
   <p class="sub rise">מוצא את שורש הבעיה במקום לתקן סימפטומים - עם הוכחה שהתיקון באמת עובד.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/debug">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>כשמשהו נשבר - טסט נכשל, שגיאה בפרודקשן, או שגיאת בנייה (build) - הסקיל לא מנחש. הוא קודם משחזר את התקלה ומוכיח אותה, ורק אז מחפש את הסיבה האמיתית.</p><p>התהליך: שחזור התקלה, איתור השורש (לא רק הסימפטום), תיקון מינימלי וממוקד, ואז הרצה חוזרת שמוכיחה שהתיקון עבד ושלא נשבר שום דבר אחר.</p><p>מקבלים: הסבר בעברית של הסיבה האמיתית לבעיה, תיאור התיקון, וההוכחה - לפני התיקון (כישלון) ואחריו (הצלחה).</p><h3>מתי זה שימושי</h3><ul class="checks"><li>טסט אוטומטי נכשל ולא ברור למה</li><li>משתמשים מדווחים על שגיאות בפרודקשן וצריך לאתר את הגורם</li><li>ה-build נשבר אחרי שינוי ואין זמן לחפור לבד</li><li>יש חשד לבאג שחוזר על עצמו במקומות שונים בקוד</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"הטסט הזה נכשל, תמצא למה ותתקן"</li><li class="say">"יש שגיאות 500 בעמוד התשלום, תחקור"</li><li class="say">"תתקן את שגיאת ה-build מהשורש ותוודא שהיא נפתרה"</li><li class="say">"למה זה נשבר?"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"הטסט הזה נכשל, תמצא למה ותתקן"</li><li class="say reveal">"יש שגיאות 500 בעמוד התשלום, תחקור"</li><li class="say reveal">"תתקן את שגיאת ה-build מהשורש ותוודא שהיא נפתרה"</li><li class="say reveal">"למה זה נשבר?"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;הטסט checkout.test.ts נכשל, תבין למה ותתקן&quot;</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">דוח קצר: הסיבה האמיתית לכישלון, השורה שתוקנה, והרצה חוזרת שמראה טסט ירוק וכל שאר הטסטים עדיין עוברים.</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>גישה להרצת טסטים/build של הפרויקט</b></td><td>כדי שהסקיל יוכל לשחזר את התקלה ולאמת את התיקון בפועל, לא רק לנחש</td></tr></table><p class="tag"><b>לתשומת לבך:</b> לפעמים השחזור דורש פרטים נוספים (סביבה, קלט מדויק) - אם אי אפשר לשחזר, הסקיל עוצר ושואל במקום לנחש.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

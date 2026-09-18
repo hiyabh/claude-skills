@@ -8,15 +8,17 @@
 <meta property="og:title" content="ספריית קטעי קוד - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="קטעי קוד שהוכחו כעובדים נשמרים במקום אחד, כדי שקלוד ישתמש בהם שוב במקום להמציא מחדש.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">📚</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>📚</span></div>
   <h1 class="rise">ספריית קטעי קוד</h1>
   <p class="sub rise">קטעי קוד שהוכחו כעובדים נשמרים במקום אחד, כדי שקלוד ישתמש בהם שוב במקום להמציא מחדש.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/code-snippets-library">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>במקום שקלוד יכתוב כל פעם מחדש קוד סטנדרטי (middleware, hook נפוץ, קונפיג), הסקיל שומר קטעי קוד מוכחים בתיקיות לפי קטגוריה - React, Python, TypeScript, CSS, API, RTL עברי ועוד.</p><p>לכל קטע קוד יש קובץ עם תיאור, הקוד עצמו, דוגמת שימוש והערות/מלכודות - וכל הקטעים מאונדקסים בקובץ אחד עם תגיות לחיפוש מהיר.</p><p>לפני שקלוד כותב קוד סטנדרטי, הוא בודק אם כבר יש קטע מתאים בספריה, ומתאים אותו להקשר הנוכחי - לא מעתיק בעיוורון.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>כתבת קטע קוד טוב (middleware, hook, פונקציית עזר) ורוצה שישמש שוב בפרויקטים אחרים</li><li>יש לך תבניות קונפיג קבועות (tsconfig, vite.config) שחוזרות בכל פרויקט</li><li>עובד הרבה עם RTL עברי ורוצה ספריית פתרונות ייעודית לזה</li><li>רוצה שקלוד יבדוק אוטומטית אם יש כבר פתרון מוכן לפני שהוא כותב boilerplate</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"שמור את הקוד הזה כ-snippet"</li><li class="say">"תוסיף את זה לספריה"</li><li class="say">"תראה לי מה יש לי בספריית הקטעים"</li><li class="say">"יש לי snippet מוכן ל-X?"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"שמור את הקוד הזה כ-snippet"</li><li class="say reveal">"תוסיף את זה לספריה"</li><li class="say reveal">"תראה לי מה יש לי בספריית הקטעים"</li><li class="say reveal">"יש לי snippet מוכן ל-X?"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">שמור את זה כ-snippet בקטגוריית api</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">נוצר קובץ snippets/api/auth-middleware.md עם הקוד, תיאור ותגיות, ונרשם באינדקס לחיפוש עתידי</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> הספריה מתחילה ריקה - הערך שלה נבנה ככל שנשמרים בה יותר קטעים מוכחים מתוך הפרויקטים שלך.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>

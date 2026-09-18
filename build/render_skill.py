@@ -1,9 +1,9 @@
 """Render one skill landing page from content/<name>.json."""
-from common import (BASE_URL, CATEGORIES, PAGES_DIR, REPO_URL, category_of,
-                    esc, footer_html, page_shell, write_text)
+from common import (BASE_URL, CATEGORIES, PAGES_DIR, REPO_URL, aurora_html,
+                    category_of, esc, footer_html, page_shell, write_text)
 
 CSS_HREF = "../../assets/site.css"
-JS_SRC = "../../assets/site.js"
+SCRIPTS = ["../../assets/motion.js"]
 
 
 def install_prompt(page):
@@ -30,7 +30,7 @@ def header_html(page):
     return f"""<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>{icon} {esc(label)}</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">{esc(page['icon'])}</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>{esc(page['icon'])}</span></div>
   <h1 class="rise">{esc(page['title'])}</h1>
   <p class="sub rise">{esc(page['tagline'])}</p>
   <div class="cta rise">
@@ -44,15 +44,15 @@ def what_html(page):
     paras = "".join(f"<p>{esc(p)}</p>" for p in page.get("what", []))
     cases = "".join(f"<li>{esc(c)}</li>" for c in page.get("use_cases", []))
     cases_block = f"<h3>מתי זה שימושי</h3><ul class=\"checks\">{cases}</ul>" if cases else ""
-    return f"""<section><h2>מה זה עושה</h2>
+    return f"""<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose">{paras}{cases_block}</div></section>"""
 
 
 def say_html(page):
-    chips = "".join(f'<li class="say">"{esc(s)}"</li>' for s in page.get("say", []))
+    chips = "".join(f'<li class="say reveal">"{esc(s)}"</li>' for s in page.get("say", []))
     if not chips:
         return ""
-    return f"""<section><h2>מה אומרים לקלוד</h2>
+    return f"""<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
 <ul class="says">{chips}</ul></section>"""
 
@@ -61,7 +61,7 @@ def example_html(page):
     ex = page.get("example")
     if not ex or not ex.get("in"):
         return ""
-    return f"""<section><h2>דוגמה</h2>
+    return f"""<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">{esc(ex['in'])}</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">{esc(ex.get('out', ''))}</div></div></div>
 </section>"""
@@ -74,13 +74,13 @@ def requires_html(page):
             if rows else "<p>שום דבר מעבר ל-Claude Code עצמו.</p>")
     caution = page.get("caution")
     note = f'<p class="tag"><b>לתשומת לבך:</b> {esc(caution)}</p>' if caution else ""
-    return f"""<section><h2>מה צריך שיהיה מותקן</h2>
+    return f"""<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card">{body}{note}</div></section>"""
 
 
 def install_html(page):
     name = esc(page["name"])
-    return f"""<section id="install"><h2>התקנה בהדבקה אחת</h2>
+    return f"""<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>
@@ -97,11 +97,11 @@ def install_html(page):
 
 def render(page):
     body = "\n".join([
-        '<div class="wrap">', header_html(page), what_html(page), say_html(page),
+        aurora_html(dim=True), '<div class="wrap">', header_html(page), what_html(page), say_html(page),
         example_html(page), requires_html(page), install_html(page),
         '<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>',
         footer_html(), "</div>",
     ])
     title = f"{page['title']} - סקיל ל-Claude Code · בין קודש לקלוד"
-    html = page_shell(title, page["tagline"], page["icon"], CSS_HREF, body, JS_SRC)
+    html = page_shell(title, page["tagline"], page["icon"], CSS_HREF, body, SCRIPTS)
     write_text(PAGES_DIR / page["name"] / "index.html", html)

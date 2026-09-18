@@ -8,15 +8,17 @@
 <meta property="og:title" content="שומר בטיחות פרודקשן - סקיל ל-Claude Code · בין קודש לקלוד">
 <meta property="og:description" content="עוצר ומבקש אישור מפורש לפני כל פעולה הרסנית על מערכת חיה - מחיקה, שינוי סכמה, גישה.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="../../assets/site.css">
-<script src="../../assets/site.js" defer></script>
+<link rel="stylesheet" href="../../assets/site.css?v=51bc89fc">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
 </head>
 <body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
 <div class="wrap">
 <nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
   <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
 <header class="hero hero-skill">
-  <div class="skill-icon rise" aria-hidden="true">🛡️</div>
+  <div class="skill-icon rise" aria-hidden="true"><span>🛡️</span></div>
   <h1 class="rise">שומר בטיחות פרודקשן</h1>
   <p class="sub rise">עוצר ומבקש אישור מפורש לפני כל פעולה הרסנית על מערכת חיה - מחיקה, שינוי סכמה, גישה.</p>
   <div class="cta rise">
@@ -24,18 +26,18 @@
     <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/production-safety-guard">הקבצים ב-GitHub</a>
   </div>
 </header>
-<section><h2>מה זה עושה</h2>
+<section class="reveal"><h2>מה זה עושה</h2>
 <div class="card prose"><p>כשמזוהה עבודה על סביבה חיה/פרודקשן (connection string, משתני סביבה, שם דומיין, או הצהרה מפורשת של המשתמש) - הסקיל נכנס למצב זהירות: כל פעולה הרסנית דורשת אישור בנפרד.</p><p>חוסם באופן טכני (לא רק ממליץ) פעולות כמו מחיקת טבלה/מסד נתונים, עדכון בלי תנאי סינון, שינויי סכמה, שינויי הרשאות או מפתחות, ודיפלוי ישיר בלי אימות קודם ב-staging.</p><p>לפני כל פעולת כתיבה כזו: מציג בדיוק מה ישתנה, מציע גיבוי/הרצת בדיקה יבשה/תזמון לשעה שקטה, וממתין לאישור מפורש - לא ל-&#x27;אוקיי&#x27; או &#x27;בטח&#x27;.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>עובדים ישירות מול מסד נתונים או שרת production</li><li>צריך להריץ migration על סכמה בסביבה חיה</li><li>מבצעים דיפלוי לסביבת פרודקשן</li><li>רוצים רשת ביטחון נוספת נגד מחיקה או שינוי בטעות בנתוני אמת</li></ul></div></section>
-<section><h2>מה אומרים לקלוד</h2>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
 <p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
-<ul class="says"><li class="say">"אנחנו עובדים על הפרודקשן עכשיו"</li><li class="say">"תריץ migration על מסד הנתונים החי"</li><li class="say">"צריך למחוק רשומות מטבלת המשתמשים בפרודקשן"</li><li class="say">"שרת לייב - תיזהר בפעולות כתיבה"</li></ul></section>
-<section><h2>דוגמה</h2>
+<ul class="says"><li class="say reveal">"אנחנו עובדים על הפרודקשן עכשיו"</li><li class="say reveal">"תריץ migration על מסד הנתונים החי"</li><li class="say reveal">"צריך למחוק רשומות מטבלת המשתמשים בפרודקשן"</li><li class="say reveal">"שרת לייב - תיזהר בפעולות כתיבה"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
 <div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;תמחק את כל המשתמשים הלא פעילים מטבלת users בפרודקשן&quot;</div></div>
 <div class="card after"><h3>מה מקבלים</h3><div class="sample">הצגת השאילתה המדויקת, אזהרה מפורשת על היקף המחיקה, המלצה לגיבוי קודם, והמתנה לאישור מפורש לפני ההרצה בפועל.</div></div></div>
 </section>
-<section><h2>מה צריך שיהיה מותקן</h2>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
 <div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> זו שכבת בטיחות התנהגותית (איך Claude מתנהג) - היא לא מחליפה הרשאות מסד נתונים אמיתיות, גיבויים אוטומטיים או בקרת גישה ברמת התשתית.</p></div></section>
-<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
 <p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
 <div class="card promptbox">
   <button class="copybtn" type="button" data-copy="prompt">העתק</button>
