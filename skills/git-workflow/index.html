@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>עבודת Git מקצה לקצה - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="פותר קונפליקטים עם תיעוד החלטות, כותב הודעות commit מקצועיות, ובונה pipeline של CI/CD.">
+<meta property="og:title" content="עבודת Git מקצה לקצה - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="פותר קונפליקטים עם תיעוד החלטות, כותב הודעות commit מקצועיות, ובונה pipeline של CI/CD.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔀%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🔀</div>
+  <h1 class="rise">עבודת Git מקצה לקצה</h1>
+  <p class="sub rise">פותר קונפליקטים עם תיעוד החלטות, כותב הודעות commit מקצועיות, ובונה pipeline של CI/CD.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/git-workflow">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>שלושה תהליכי Git שקלוד מבצע בעצמו מקצה לקצה (בלי להחזיר פקודה למשתמש): פתרון קונפליקטים ב-merge/rebase, כתיבת הודעת commit מהדיף האמיתי, ובניית תסריט (workflow) ל-GitHub Actions.</p><p>בפתרון קונפליקטים - מבין את הכוונה של שני הצדדים לפני שמכריע, שומר על שתי הכוונות כשהן לא סותרות, ותמיד מריץ build וטסטים אחרי כדי לוודא שה&#x27;פתרון&#x27; באמת עובד.</p><p>הודעות commit נכתבות בפורמט מקובל (Conventional Commits) מתוך הדיף עצמו - לא ניחוש - וה-CI/CD נבנה לפי הפרויקט האמיתי (שפה, כלי בדיקה, יעד דיפלוי), כולל רשימת secrets שצריך להוסיף ידנית.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>יש קונפליקט ב-merge/rebase ורוצים שיפתר עם הסבר מה נשמר מכל צד</li><li>רוצים הודעת commit מקצועית שמסכמת נכון את השינוי בפועל</li><li>צריך pipeline של GitHub Actions שמריץ טסטים, בונה ומפרסם ל-staging</li><li>עובדים בענף משותף ורוצים למנוע טעויות מיזוג</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תפתור את קונפליקטי המיזוג ותסביר מה שמרת מכל צד"</li><li class="say">"תעשה commit עם הודעה שמסכמת מה עשיתי"</li><li class="say">"תכתוב workflow ל-GitHub Actions שמריץ טסטים ומפרסם ל-staging"</li><li class="say">"CI/CD לפרויקט הזה"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;תכתוב GitHub Actions workflow שמריץ טסטים, בונה ומפרסם ל-staging בכל push ל-develop&quot;</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">קובץ .github/workflows מוכן עם שלבים מקושרים (test -&gt; build -&gt; deploy), caching, ורשימת secrets שצריך להוסיף בהגדרות הריפו.</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> פעולות הרסניות כמו push --force לענף משותף תמיד מסומנות לאישור מפורש - הסקיל לא מבצע אותן על דעת עצמו.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;עבודת Git מקצה לקצה&quot; (git-workflow).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/git-workflow.tar.gz
+3. חלץ ממנה את התיקייה skills/git-workflow אל ~/.claude/skills/git-workflow. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. ודא שהקובץ SKILL.md נמצא בתיקייה.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תפתור את קונפליקטי המיזוג ותסביר מה שמרת מכל צד&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- git-workflow</pre>
+</div>
+<p class="muted">או <a href="../../dl/git-workflow.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

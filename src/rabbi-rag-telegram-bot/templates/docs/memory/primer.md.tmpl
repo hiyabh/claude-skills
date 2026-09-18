@@ -1,0 +1,25 @@
+# Primer — {{SLUG}}-bot
+
+## מצב הפרויקט
+- **שלב:** ✅ הופץ ל-Railway. הבוט online ופועל.
+- **stack:** Python 3.12 (Docker) + Cohere embed-v4 + rerank-v3.5 + Qdrant Cloud + Claude Sonnet 4.6 + python-telegram-bot 21.7
+- **collection ב-Qdrant:** `{{QDRANT_COLLECTION}}`
+- **בוט:** `@{{BOT_USERNAME}}` ב-Telegram, פרטי (user_id {{OWNER_USER_ID}} בלבד)
+
+## מה הושלם
+1. בנייה מאפס של ה-pipeline המלא (extractors, ingest, rag, bot, scripts)
+2. `data/books_index.json` עם מיפוי קבצים → ספרים
+3. Ingestion: ראה stats.py
+4. Smoke tests
+5. Deploy ל-Railway
+
+## Next Steps (אופציונלי)
+1. אם recall נמוך — להעלות `TOP_K_VECTOR=30` ולהוריד `RERANK_SCORE_THRESHOLD=0.10`
+2. OCR ל-PDF סרוקים שנכשלו ב-ingest (אם יש)
+
+## קבצים מרכזיים
+- [bot.py](../../bot.py)
+- [rag/prompts.py](../../rag/prompts.py)
+- [ingest/chunk.py](../../ingest/chunk.py)
+- [data/books_index.json](../../data/books_index.json)
+- [config.py](../../config.py)

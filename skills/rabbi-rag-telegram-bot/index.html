@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>בוט שו&quot;ת על כתבי רב - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="תגיד לקלוד על מי - והוא בונה לך בוט טלגרם פרטי שעונה מתוך הכתבים שלו, עם מקור לכל תשובה">
+<meta property="og:title" content="בוט שו&quot;ת על כתבי רב - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="תגיד לקלוד על מי - והוא בונה לך בוט טלגרם פרטי שעונה מתוך הכתבים שלו, עם מקור לכל תשובה">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🤖 בוטים</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">📖</div>
+  <h1 class="rise">בוט שו&quot;ת על כתבי רב</h1>
+  <p class="sub rise">תגיד לקלוד על מי - והוא בונה לך בוט טלגרם פרטי שעונה מתוך הכתבים שלו, עם מקור לכל תשובה</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/rabbi-rag-telegram-bot">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>הסקיל בונה מאפס בוט טלגרם פרטי שעונה בעברית על שאלות מתוך כתבים של רב מסוים - כל תשובה מגיעה עם ציון מדויק של הספר והפרק שממנו היא נלקחה, כדי שאפשר יהיה לבדוק את המקור בעצמך.</p><p>העבודה מתבססת על שיטת RAG: קלוד סורק תיקייה של קבצי DOC/DOCX/PDF שאתה מספק, מחלק אותם לקטעים, הופך אותם לוקטורים (Cohere) ושומר אותם במאגר חיפוש (Qdrant). כשמישהו שואל שאלה בטלגרם, הבוט מאתר את הקטעים הרלוונטיים ומבקש מקלוד לנסח תשובה רק על בסיסם - בלי להמציא דברים שלא כתובים שם.</p><p>בסוף התהליך מקבלים פרויקט מלא ועובד: קוד מאורגן, בוט טלגרם פרטי (מוגבל למשתמשים שתאשר), ופריסה לשרת Railway כדי שהבוט ירוץ 24/7 גם כשהמחשב שלך כבוי.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>יש לך אוסף כתבים, שיעורים כתובים או ספרים של רב או מורה מסוים, ואתה רוצה ממשק שאלות-תשובות פרטי עליהם</li><li>תלמידים או בני משפחה שואלים אותך שוב ושוב שאלות שהתשובה עליהן כבר כתובה במקום כלשהו בארכיון - ואתה רוצה שבוט יענה במקומך עם מקור מדויק</li><li>אתה מנהל ארכיון תורני דיגיטלי (PDF/DOC סרוקים או ממוחשבים) ורוצה להנגיש אותו בצורה שיחתית בלי לאבד דיוק במקורות</li><li>רוצה בוט טלגרם פרטי (לא ציבורי) שרק אתה ואנשים שתאשר יכולים להשתמש בו</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"בנה לי בוט טלגרם על כתבי הרב X"</li><li class="say">"תבנה לי מאגר וקטורי על ספרי הרב Y ובוט שאלות-תשובות עליו"</li><li class="say">"אני רוצה RAG bot over writings של רב מסוים"</li><li class="say">"בנה בוט רב פרטי בטלגרם שעונה מהכתבים שלו עם ציטוט מקור"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">בנה לי בוט טלגרם על כתבי הרמח&quot;ל, התיקייה עם הספרים נמצאת ב-C:\Documents\רמחל</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">פרויקט מלא עם pipeline של קליטת קבצים, מאגר וקטורי ב-Qdrant, ובוט טלגרם פרטי בשם ramchalBot שרץ ב-Railway ועונה כל שאלה עם ציון הספר והפרק המדויקים</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>מפתח API של Cohere</b></td><td>לבניית הוקטורים (embed) ולדירוג התוצאות (rerank) - יש tier חינמי להתחלה</td></tr><tr><td><b>חשבון Qdrant Cloud</b></td><td>מאגר הוקטורים שבו נשמרים קטעי הטקסט - יש tier חינמי (עד כ-1GB)</td></tr><tr><td><b>מפתח API של Anthropic</b></td><td>קלוד הוא זה שמנסח את התשובה הסופית מתוך הקטעים שנשלפו</td></tr><tr><td><b>טוקן בוט טלגרם</b></td><td>נוצר תוך דקה דרך @BotFather בטלגרם</td></tr><tr><td><b>חשבון Railway</b></td><td>לפריסת הבוט כדי שירוץ באופן קבוע בענן (עלות משוערת כמה דולרים בחודש)</td></tr><tr><td><b>תיקיית כתבים</b></td><td>אוסף קבצי DOC/DOCX/PDF (או TXT) של כתבי הרב, מאורגנים בתיקיות לפי ספרים</td></tr></table><p class="tag"><b>לתשומת לבך:</b> בניית המאגר לוקחת זמן (לרוב 15-25 דקות בגלל מגבלת קצב של Cohere ב-tier החינמי), ודורשת שיקול דעת אנושי בשלב אחד - מיפוי שמות הקבצים לשמות הספרים הרשמיים לפני הקליטה.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;בוט שו&quot;ת על כתבי רב&quot; (rabbi-rag-telegram-bot).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/rabbi-rag-telegram-bot.tar.gz
+3. חלץ ממנה את התיקייה skills/rabbi-rag-telegram-bot אל ~/.claude/skills/rabbi-rag-telegram-bot. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: מפתח API של Cohere, חשבון Qdrant Cloud, מפתח API של Anthropic, טוקן בוט טלגרם, חשבון Railway, תיקיית כתבים. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;בנה לי בוט טלגרם על כתבי הרב X&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- rabbi-rag-telegram-bot</pre>
+</div>
+<p class="muted">או <a href="../../dl/rabbi-rag-telegram-bot.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

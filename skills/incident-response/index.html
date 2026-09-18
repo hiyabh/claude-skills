@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>טריאז&#x27; לתקרית חיה - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="מאתר את הגורם הכי סביר לתקרית פרודקשן חיה - מלוגים, דיפלויים ותצורה - וממליץ על פעולה.">
+<meta property="og:title" content="טריאז&#x27; לתקרית חיה - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="מאתר את הגורם הכי סביר לתקרית פרודקשן חיה - מלוגים, דיפלויים ותצורה - וממליץ על פעולה.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚨%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🚨</div>
+  <h1 class="rise">טריאז&#x27; לתקרית חיה</h1>
+  <p class="sub rise">מאתר את הגורם הכי סביר לתקרית פרודקשן חיה - מלוגים, דיפלויים ותצורה - וממליץ על פעולה.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/incident-response">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>מיועד לתקריות חיות (לא באג בודד שאפשר לשחזר בנחת) - קפיצת latency, שגיאות שמתרבות, שירות שנופל. מצליב זמן התחלה, דיפלויים אחרונים, שינויי תצורה ולוגים כדי לדרג חשודים.</p><p>יודע גם לקרוא סקרינשוט של קונסולת ענן (AWS/GCP וכו&#x27;) ולתת פקודות מדויקות לתיקון, כולל אזהרה ברורה על כל פעולה הרסנית לפני שמריצים אותה.</p><p>מסלול שלישי: כתיבת שאילתת אבחון על לוגים/מטריקות (SQL, LogQL, CloudWatch Insights וכו&#x27;) והרצה שלה, עם פרשנות של מה שהתוצאה אומרת - לא רק הצגת מספרים יבשים.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>יש עלייה פתאומית ב-latency או בשיעור שגיאות בפרודקשן</li><li>שירות או מסד נתונים בענן נופל ויש רק סקרינשוט מהקונסולה</li><li>צריך לכתוב שאילתת חיפוש על לוגים כדי להבין מה קרה ב-24 השעות האחרונות</li><li>יש חשד שדיפלוי אחרון קשור לתקלה</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"ה-latency קפץ בשעה האחרונה, תבדוק לוגים ודיפלויים ותגיד מה הגורם הכי סביר"</li><li class="say">"הנה סקרינשוט מהקונסולה, תסביר למה זה נופל ותן פקודות תיקון"</li><li class="say">"תכתוב שאילתה על כל שגיאות ה-5xx ב-24 השעות האחרונות ותגיד מה בולט"</li><li class="say">"תקרית פרודקשן - תעזור לי בטריאז&#x27;"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;5xx בעמוד /payments ב-24 השעות האחרונות - תכתוב שאילתה, תריץ ותגיד מה בולט&quot;</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">שאילתה מוכנה, תוצאה מרוכזת (למשל: קפיצה ספציפית בשעה מסוימת שמתלכדת עם דיפלוי), והמלצה על שאילתת המשך לאישוש ההשערה.</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>גישה ללוגים/מטריקות/היסטוריית דיפלויים של הפרויקט</b></td><td>ככל שיש יותר גישה (CLI לענן, מסד נתונים) - האבחון מדויק יותר</td></tr></table><p class="tag"><b>לתשומת לבך:</b> זה כלי אבחון וטריאז&#x27; - לא מחליף runbook רשמי או צוות תפעול; פעולות הרסניות על תשתית חיה תמיד מסומנות לאישור מפורש.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;טריאז&#x27; לתקרית חיה&quot; (incident-response).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/incident-response.tar.gz
+3. חלץ ממנה את התיקייה skills/incident-response אל ~/.claude/skills/incident-response. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: גישה ללוגים/מטריקות/היסטוריית דיפלויים של הפרויקט. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;ה-latency קפץ בשעה האחרונה, תבדוק לוגים ודיפלויים ותגיד מה הגורם הכי סביר&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- incident-response</pre>
+</div>
+<p class="muted">או <a href="../../dl/incident-response.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

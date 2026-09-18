@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>גשר וואטסאפ-טלגרם - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="מעביר אוטומטית הודעות מקבוצת וואטסאפ לערוץ טלגרם, רץ בענן 24/7 בלי לפתוח מחשב.">
+<meta property="og:title" content="גשר וואטסאפ-טלגרם - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="מעביר אוטומטית הודעות מקבוצת וואטסאפ לערוץ טלגרם, רץ בענן 24/7 בלי לפתוח מחשב.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🌉%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🤖 בוטים</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🌉</div>
+  <h1 class="rise">גשר וואטסאפ-טלגרם</h1>
+  <p class="sub rise">מעביר אוטומטית הודעות מקבוצת וואטסאפ לערוץ טלגרם, רץ בענן 24/7 בלי לפתוח מחשב.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/whatsapp-railway-bridge">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>הסקיל בונה שירות שמאזין לקבוצת וואטסאפ ומעביר כל הודעה - טקסט, תמונה, סרטון או קובץ - לערוץ או קבוצה בטלגרם. הבסיס הוא ספריית whatsapp-web.js שמפעילה דפדפן כרום מוסתר ומתחברת לוואטסאפ Web, בדיוק כמו חיבור מכשיר נוסף בהגדרות וואטסאפ.</p><p>השירות רץ בענן על פלטפורמת Railway בתוך מכולת Docker, כך שהוא ממשיך לפעול גם כשהמחשב כבוי. קוד הסריקה של וואטסאפ נשלח כתמונה לטלגרם במקום להופיע בטרמינל, כי קוד QR בטרמינל לא תמיד מוצג נכון. פרטי ההתחברות נשמרים על דיסק קבוע (volume) כדי שלא יהיה צורך לסרוק מחדש בכל עדכון.</p><p>מה שמקבלים: קובץ קוד מוכן (index.js), Dockerfile לפריסה, קובץ הגדרות סביבה לדוגמה, ורשימת &#x27;שיעורים שנלמדו&#x27; מפריסה אמיתית - כולל טיפול בתקיעות של כרום, המרת עיצוב טקסט מוואטסאפ ל-HTML של טלגרם, והתמודדות עם שמות קבוצה בעברית.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>קבוצת וואטסאפ משפחתית או קהילתית שרוצים לארכב אוטומטית בערוץ טלגרם</li><li>עסק שרוצה שהודעות מקבוצת לקוחות בוואטסאפ יופיעו גם בטלגרם לצוות</li><li>מעקב אחרי הודעות שאתה שולח בעצמך לקבוצה מסוימת, לגיבוי או לתיעוד</li><li>העברת מדיה (תמונות, סרטונים, מסמכים) מקבוצת וואטסאפ לארכיון בטלגרם</li><li>בניית שכבת אינטגרציה ראשונית לפני חיבור וואטסאפ למערכת אוטומציה גדולה יותר</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תבנה לי גשר בין וואטסאפ לטלגרם ותפרוס אותו ב-Railway"</li><li class="say">"אני רוצה להעביר הודעות מקבוצת וואטסאפ לערוץ טלגרם אוטומטית"</li><li class="say">"תעזור לי לחבר את whatsapp-web.js לענן עם Docker"</li><li class="say">"תבנה בוט שמאזין לקבוצה בוואטסאפ ושולח לטלגרם"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">תבנה לי גשר שמעביר הודעות מקבוצת &#x27;צוות עבודה&#x27; בוואטסאפ לערוץ טלגרם שלי, ותפרוס ב-Railway</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">פרויקט Node.js מוכן עם index.js, Dockerfile ו-.env.example; הוראות התקנה, פריסה ל-Railway עם volume קבוע, וקוד QR שנשלח כתמונה לטלגרם לסריקה ראשונית</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Node.js 20 ומעלה</b></td><td>לפיתוח מקומי ובדיקה לפני הפריסה</td></tr><tr><td><b>חשבון Railway</b></td><td>לפריסת השירות בענן עם Docker ו-volume קבוע לשמירת ההתחברות</td></tr><tr><td><b>בוט טלגרם</b></td><td>נוצר תוך דקה דרך @BotFather בטלגרם, מספק טוקן חינמי</td></tr><tr><td><b>מכשיר וואטסאפ עם גישה לסריקת קוד QR</b></td><td>פעם אחת בהתחלה, ולעיתים נדירות שוב אחרי פריסה מחדש</td></tr></table><p class="tag"><b>לתשומת לבך:</b> וואטסאפ לא מספקת API רשמי לשימוש הזה - הגשר מדמה דפדפן מחובר, ועדכון פתאומי של וואטסאפ Web עלול לדרוש תיקון או סריקה מחדש.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;גשר וואטסאפ-טלגרם&quot; (whatsapp-railway-bridge).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/whatsapp-railway-bridge.tar.gz
+3. חלץ ממנה את התיקייה skills/whatsapp-railway-bridge אל ~/.claude/skills/whatsapp-railway-bridge. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Node.js 20 ומעלה, חשבון Railway, בוט טלגרם, מכשיר וואטסאפ עם גישה לסריקת קוד QR. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תבנה לי גשר בין וואטסאפ לטלגרם ותפרוס אותו ב-Railway&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- whatsapp-railway-bridge</pre>
+</div>
+<p class="muted">או <a href="../../dl/whatsapp-railway-bridge.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

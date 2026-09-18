@@ -1,0 +1,349 @@
+<!--
+  CODE VISUALIZER — Base Template Reference
+  Shared CSS custom properties, JS initialization, keyboard navigation.
+  Claude reads this and inlines relevant parts into each generated HTML.
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <style>
+    /* === CSS Custom Properties === */
+    :root {
+      --bg-primary: #282a36;
+      --bg-secondary: #1e1f29;
+      --bg-card: #343746;
+      --text-primary: #f8f8f2;
+      --text-secondary: #9ea4b3;
+      --accent: #bd93f9;
+      --accent-hover: #caa4ff;
+      --green: #50fa7b;
+      --red: #ff5555;
+      --yellow: #f1fa8c;
+      --orange: #ffb86c;
+      --cyan: #8be9fd;
+      --pink: #ff79c6;
+      --border: #44475a;
+      --font-code: 'JetBrains Mono', monospace;
+      --font-text: 'Inter', sans-serif;
+      --radius: 8px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8f9fa;
+      --bg-secondary: #ffffff;
+      --bg-card: #ffffff;
+      --text-primary: #1a1a2e;
+      --text-secondary: #6c757d;
+      --accent: #7c3aed;
+      --accent-hover: #6d28d9;
+      --border: #dee2e6;
+      --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    }
+
+    /* === Base Styles === */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: var(--font-text);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* === Header === */
+    .viz-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .viz-header h1 {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .viz-header .controls {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+
+    .viz-header .controls button {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-primary);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: var(--font-text);
+      transition: all 0.2s;
+    }
+
+    .viz-header .controls button:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    /* === Code Blocks === */
+    pre { border-radius: var(--radius); overflow: auto; }
+    code { font-family: var(--font-code); font-size: 0.9rem; }
+    pre code { padding: 1.5rem !important; }
+
+    .code-block {
+      position: relative;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .code-block .code-label {
+      background: var(--bg-card);
+      padding: 0.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border);
+      font-family: var(--font-code);
+    }
+
+    /* === Line highlighting === */
+    .highlight-line {
+      background: rgba(189, 147, 249, 0.15);
+      display: block;
+      margin: 0 -1.5rem;
+      padding: 0 1.5rem;
+      border-left: 3px solid var(--accent);
+    }
+
+    /* === Cards === */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      box-shadow: var(--shadow);
+    }
+
+    /* === Steps === */
+    .step {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .step:hover, .step.active {
+      background: var(--bg-card);
+      border-color: var(--accent);
+    }
+
+    .step-number {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--accent);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+    }
+
+    .step.active .step-number {
+      background: var(--green);
+      color: var(--bg-primary);
+    }
+
+    /* === Mermaid === */
+    .mermaid {
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+
+    /* === Metadata === */
+    .metadata {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      padding: 1rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius);
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .metadata span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* === Fullscreen === */
+    .fullscreen {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: var(--bg-primary);
+      overflow: auto;
+    }
+
+    /* === Keyboard hints === */
+    .kbd-hints {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 0.5rem 0.75rem;
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      opacity: 0.7;
+      z-index: 50;
+    }
+
+    kbd {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 3px;
+      padding: 0.1rem 0.4rem;
+      font-family: var(--font-code);
+      font-size: 0.75rem;
+    }
+
+    /* === Responsive === */
+    @media (max-width: 768px) {
+      .container { padding: 1rem; }
+      .viz-header { padding: 0.75rem 1rem; }
+      .viz-header h1 { font-size: 1rem; }
+      .two-panel { grid-template-columns: 1fr !important; }
+    }
+
+    /* === Print === */
+    @media print {
+      .viz-header .controls, .kbd-hints { display: none; }
+      body { background: white; color: black; }
+      .card, .code-block { box-shadow: none; border: 1px solid #ddd; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TEMPLATE CONTENT GOES HERE -->
+
+<div class="kbd-hints">
+  <kbd>←</kbd><kbd>→</kbd> navigate &nbsp;
+  <kbd>F</kbd> fullscreen &nbsp;
+  <kbd>T</kbd> theme &nbsp;
+  <kbd>Esc</kbd> exit
+</div>
+
+<script>
+  // Initialize highlight.js
+  hljs.highlightAll();
+
+  // Initialize Mermaid
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: document.documentElement.dataset.theme === 'dark' ? 'dark' : 'default',
+    fontFamily: 'Inter, sans-serif',
+  });
+
+  // Theme toggle
+  function toggleTheme() {
+    const html = document.documentElement;
+    const next = html.dataset.theme === 'dark' ? 'light' : 'dark';
+    html.dataset.theme = next;
+    localStorage.setItem('cv-theme', next);
+    // Re-init mermaid for theme
+    mermaid.initialize({ theme: next === 'dark' ? 'dark' : 'default' });
+  }
+
+  // Restore saved theme
+  const saved = localStorage.getItem('cv-theme');
+  if (saved) document.documentElement.dataset.theme = saved;
+
+  // Keyboard navigation
+  let currentStep = 0;
+  const steps = document.querySelectorAll('.step');
+  const slides = document.querySelectorAll('.slide');
+  const navigable = steps.length > 0 ? steps : slides;
+
+  function goToStep(n) {
+    if (navigable.length === 0) return;
+    currentStep = Math.max(0, Math.min(n, navigable.length - 1));
+    navigable.forEach((el, i) => {
+      el.classList.toggle('active', i === currentStep);
+      if (el.classList.contains('slide')) {
+        el.style.display = i === currentStep ? 'block' : 'none';
+      }
+    });
+    navigable[currentStep].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    switch(e.key) {
+      case 'ArrowRight':
+      case 'ArrowDown':
+        e.preventDefault();
+        goToStep(currentStep + 1);
+        break;
+      case 'ArrowLeft':
+      case 'ArrowUp':
+        e.preventDefault();
+        goToStep(currentStep - 1);
+        break;
+      case 'f':
+      case 'F':
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') break;
+        document.body.classList.toggle('fullscreen');
+        break;
+      case 't':
+      case 'T':
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') break;
+        toggleTheme();
+        break;
+      case 'Escape':
+        document.body.classList.remove('fullscreen');
+        break;
+    }
+  });
+
+  // Click navigation for steps
+  navigable.forEach((el, i) => {
+    el.addEventListener('click', () => goToStep(i));
+  });
+
+  // Initialize first step
+  if (navigable.length > 0) goToStep(0);
+</script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!--
+  CODE VISUALIZER — Code Review Template
+  Annotated code review with severity markers and summary stats.
+  Placeholders: {{TITLE}}, {{SUBTITLE}}, {{LANGUAGE}}, {{CODE}}, {{ANNOTATIONS}}, {{METADATA}}
+  ANNOTATIONS JSON: [{line, severity: "info|suggestion|warning|blocker", message, fix}]
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} — Code Review</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <style>
+    :root {
+      --bg: #282a36; --bg2: #1e1f29; --bg3: #343746; --fg: #f8f8f2; --fg2: #9ea4b3;
+      --accent: #bd93f9; --green: #50fa7b; --red: #ff5555; --yellow: #f1fa8c; --cyan: #8be9fd;
+      --border: #44475a; --font-code: 'JetBrains Mono', monospace; --font: 'Inter', sans-serif;
+    }
+    [data-theme="light"] {
+      --bg: #f8f9fa; --bg2: #fff; --bg3: #fff; --fg: #1a1a2e; --fg2: #6c757d;
+      --accent: #7c3aed; --border: #dee2e6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.6; }
+
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--bg2); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .header h1 { font-size: 1.25rem; }
+    .header button { background: var(--bg3); border: 1px solid var(--border); color: var(--fg); padding: .4rem .8rem; border-radius: 8px; cursor: pointer; font-size: .85rem; }
+    .header button:hover { background: var(--accent); color: #fff; }
+
+    .stats { display: flex; gap: 1rem; padding: 1rem 2rem; background: var(--bg2); flex-wrap: wrap; }
+    .stat { display: flex; align-items: center; gap: .4rem; padding: .4rem .8rem; border-radius: 20px; font-size: .85rem; font-weight: 600; }
+    .stat.blocker { background: rgba(255,85,85,.15); color: var(--red); }
+    .stat.warning { background: rgba(241,250,140,.15); color: var(--yellow); }
+    .stat.suggestion { background: rgba(139,233,253,.15); color: var(--cyan); }
+    .stat.info { background: rgba(189,147,249,.15); color: var(--accent); }
+
+    .review-container { display: grid; grid-template-columns: 1fr 400px; max-width: 1400px; margin: 0 auto; }
+    .code-panel { padding: 1rem; overflow: auto; }
+    .code-panel pre { margin: 0; }
+    .code-panel code { font-size: .85rem; }
+
+    .annotations-panel { padding: 1rem; border-left: 1px solid var(--border); overflow-y: auto; max-height: calc(100vh - 120px); }
+    .annotation { padding: 1rem; margin-bottom: .75rem; border-radius: 8px; border-left: 3px solid; cursor: pointer; transition: all .2s; }
+    .annotation:hover, .annotation.active { transform: translateX(4px); }
+    .annotation.blocker { border-color: var(--red); background: rgba(255,85,85,.08); }
+    .annotation.warning { border-color: var(--yellow); background: rgba(241,250,140,.08); }
+    .annotation.suggestion { border-color: var(--cyan); background: rgba(139,233,253,.08); }
+    .annotation.info { border-color: var(--accent); background: rgba(189,147,249,.08); }
+    .annotation .line-ref { font-family: var(--font-code); font-size: .75rem; color: var(--fg2); margin-bottom: .25rem; }
+    .annotation .severity { font-size: .7rem; text-transform: uppercase; font-weight: 700; letter-spacing: .5px; margin-bottom: .25rem; }
+    .annotation .message { font-size: .9rem; margin-bottom: .5rem; }
+    .annotation .fix { font-size: .85rem; color: var(--green); font-family: var(--font-code); padding: .5rem; background: rgba(80,250,123,.08); border-radius: 4px; }
+
+    .highlight-line { background: rgba(255,85,85,.12) !important; display: block; margin: 0 -1.5rem; padding: 0 1.5rem; border-left: 3px solid var(--red); }
+
+    @media (max-width: 900px) { .review-container { grid-template-columns: 1fr; } .annotations-panel { border-left: none; border-top: 1px solid var(--border); max-height: none; } }
+    @media print { .header button { display: none; } }
+
+    .kbd-hints { position: fixed; bottom: 1rem; right: 1rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; font-size: .75rem; color: var(--fg2); opacity: .7; }
+    kbd { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: .1rem .4rem; font-family: var(--font-code); font-size: .75rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div><h1>{{TITLE}}</h1><small style="color:var(--fg2)">{{SUBTITLE}}</small></div>
+    <div style="display:flex;gap:.5rem">
+      <button onclick="toggleTheme()">🌓 Theme</button>
+    </div>
+  </div>
+  <div class="stats" id="stats"></div>
+  <div class="review-container">
+    <div class="code-panel">
+      <pre><code class="language-{{LANGUAGE}}" id="codeBlock">{{CODE}}</code></pre>
+    </div>
+    <div class="annotations-panel" id="annotationsPanel"></div>
+  </div>
+  <div class="kbd-hints"><kbd>↑</kbd><kbd>↓</kbd> navigate <kbd>T</kbd> theme <kbd>F</kbd> fullscreen</div>
+
+  <script>
+    hljs.highlightAll();
+    const annotations = {{ANNOTATIONS}};
+    const panel = document.getElementById('annotationsPanel');
+    const stats = document.getElementById('stats');
+
+    // Render stats
+    const counts = { blocker: 0, warning: 0, suggestion: 0, info: 0 };
+    annotations.forEach(a => counts[a.severity]++);
+    Object.entries(counts).forEach(([sev, count]) => {
+      if (count > 0) stats.innerHTML += `<div class="stat ${sev}">${count} ${sev}${count > 1 ? 's' : ''}</div>`;
+    });
+
+    // Render annotations
+    annotations.forEach((a, i) => {
+      const el = document.createElement('div');
+      el.className = `annotation ${a.severity}`;
+      el.dataset.index = i;
+      el.innerHTML = `
+        <div class="line-ref">Line ${a.line}</div>
+        <div class="severity" style="color:var(--${a.severity === 'blocker' ? 'red' : a.severity === 'warning' ? 'yellow' : a.severity === 'suggestion' ? 'cyan' : 'accent'})">${a.severity}</div>
+        <div class="message">${a.message}</div>
+        ${a.fix ? `<div class="fix">💡 ${a.fix}</div>` : ''}
+      `;
+      el.addEventListener('click', () => goTo(i));
+      panel.appendChild(el);
+    });
+
+    let current = -1;
+    function goTo(n) {
+      current = Math.max(0, Math.min(n, annotations.length - 1));
+      document.querySelectorAll('.annotation').forEach((el, i) => el.classList.toggle('active', i === current));
+      // Highlight line in code
+      document.querySelectorAll('.highlight-line').forEach(el => el.classList.remove('highlight-line'));
+      const codeEl = document.getElementById('codeBlock');
+      const lines = codeEl.innerHTML.split('\n');
+      const targetLine = annotations[current].line - 1;
+      if (targetLine >= 0 && targetLine < lines.length) {
+        lines[targetLine] = `<span class="highlight-line">${lines[targetLine]}</span>`;
+        codeEl.innerHTML = lines.join('\n');
+      }
+    }
+
+    function toggleTheme() {
+      const h = document.documentElement;
+      h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 't' || e.key === 'T') toggleTheme();
+      if (e.key === 'f' || e.key === 'F') document.body.classList.toggle('fullscreen');
+      if (e.key === 'Escape') document.body.classList.remove('fullscreen');
+    });
+  </script>
+</body>
+</html>

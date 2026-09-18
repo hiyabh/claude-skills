@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מעקב טעויות נפוצות - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="כל תיקון שאתה נותן לקלוד נשמר, כדי שהוא לא יחזור על אותה טעות בפעם הבאה.">
+<meta property="og:title" content="מעקב טעויות נפוצות - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="כל תיקון שאתה נותן לקלוד נשמר, כדי שהוא לא יחזור על אותה טעות בפעם הבאה.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧠%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🧠</div>
+  <h1 class="rise">מעקב טעויות נפוצות</h1>
+  <p class="sub rise">כל תיקון שאתה נותן לקלוד נשמר, כדי שהוא לא יחזור על אותה טעות בפעם הבאה.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/common-mistakes-tracker">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>הסקיל שומר יומן טעויות לכל טכנולוגיה ופרויקט. כשאתה מתקן את קלוד, או שהוא מזהה שגיאה שהוא עצמו גרם לה, הטעות נרשמת עם: מה קרה, מה הגישה הנכונה, ובאיזה הקשר זה קורה.</p><p>בתחילת כל משימת קידוד, קלוד קורא את היומן ומסנן לפי הטכנולוגיה הרלוונטית - כך שהוא נכנס לעבודה כשהוא כבר &#x27;זוכר&#x27; מה לא לעשות, במקום לגלות את זה שוב על בשרו.</p><p>זה מבוסס על שיטת עבודה פנימית של Anthropic: לתת למודל &#x27;איזור טעויות נפוצות&#x27; לקרוא לפני שהוא מתחיל לעבוד.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>קלוד עשה טעות טכנית וקיבל תיקון ממך - כדאי שזה יירשם כדי שלא יחזור</li><li>יש לך הרגלי Git או דפוסי קוד ספציפיים שקלוד ממשיך &#x27;לשכוח&#x27;</li><li>עובדים הרבה עם טכנולוגיה מסוימת (React, Python וכו&#x27;) ורוצים שכל המלכודות המוכרות יישמרו במקום אחד</li><li>רוצים שקלוד יבדוק אוטומטית לפני שהוא כותב קוד אם הוא עומד לחזור על טעות ידועה</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תזכור את הטעות הזאת"</li><li class="say">"אל תעשה את זה שוב"</li><li class="say">"תוסיף את זה ליומן הטעויות"</li><li class="say">"בדוק ביומן הטעויות לפני שאתה מתחיל"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">תיקנת אותי - השתמשתי ב-useEffect במקום useMemo לחישוב רשימה מסוננת</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">נוספת רשומה ביומן תחת קטגוריית react, כולל מתי זה קורה ומה הגישה הנכונה - ובפעם הבאה קלוד יבדוק את זה מראש</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> היומן מתחיל ריק - הערך שלו נבנה בהדרגה ככל שמצטברות יותר טעויות מתועדות.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;מעקב טעויות נפוצות&quot; (common-mistakes-tracker).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/common-mistakes-tracker.tar.gz
+3. חלץ ממנה את התיקייה skills/common-mistakes-tracker אל ~/.claude/skills/common-mistakes-tracker. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. ודא שהקובץ SKILL.md נמצא בתיקייה.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תזכור את הטעות הזאת&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- common-mistakes-tracker</pre>
+</div>
+<p class="muted">או <a href="../../dl/common-mistakes-tracker.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

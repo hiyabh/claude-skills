@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תכנון לפני בנייה - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="עוצר לפני שורת קוד ראשונה - PRD, אילוצים ותוכנית מאושרת - כדי לא לבנות דבר לא נכון.">
+<meta property="og:title" content="תכנון לפני בנייה - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="עוצר לפני שורת קוד ראשונה - PRD, אילוצים ותוכנית מאושרת - כדי לא לבנות דבר לא נכון.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📋%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">📋</div>
+  <h1 class="rise">תכנון לפני בנייה</h1>
+  <p class="sub rise">עוצר לפני שורת קוד ראשונה - PRD, אילוצים ותוכנית מאושרת - כדי לא לבנות דבר לא נכון.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/pre-build-setup">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>לפני פרויקט חדש או פיצ&#x27;ר משמעותי, הסקיל מריץ ראיון מובנה (PRD): מה בונים, למי, אילו תרחישי שימוש, ומה בכוונה נשאר מחוץ ל-scope.</p><p>כותב קובץ אילוצים שליליים עם חלופה לכל אילוץ (&#x27;אל תעשה X - תעשה Y במקום, כי Z&#x27;), כותב טסטים ראשוניים מתוך ה-PRD בלבד (בלי להסתכל על קוד קיים), ובונה תוכנית מימוש מפורטת.</p><p>אסור לכתוב קוד לפני שהמשתמש אישר את התוכנית במפורש - יש לולאת משוב שבה מוסיפים הערות inline עד שהיא מאושרת. בסוף נשארים גם קבצי מעקב התקדמות ותיעוד טעויות לכל אורך הפרויקט.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מתחילים פרויקט חדש מאפס (אתר, אפליקציה, API)</li><li>מוסיפים פיצ&#x27;ר גדול שנוגע בכמה קבצים והחלטות ארכיטקטורה</li><li>רוצים למנוע מצב שבו הסוכן בונה משהו שלא בדיוק מה שביקשתם</li><li>צריך תיעוד PRD ותוכנית שאפשר להעביר לצוות אחר</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"אני רוצה לבנות אפליקציה חדשה ל..."</li><li class="say">"בואו נתכנן פיצ&#x27;ר משמעותי לפני שמתחילים"</li><li class="say">"פרויקט חדש - תעשה קודם ראיון דרישות"</li><li class="say">"תכין PRD ותוכנית לפני שאתה נוגע בקוד"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;אני רוצה לבנות מערכת ניהול מלאי לחנות קטנה&quot;</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">סדרת שאלות ממוקדות, ואז docs/PRD.md מלא, docs/constraints.md עם חלופות, טסטים ראשוניים, ו-docs/plan.md שממתין לאישור שורה-שורה לפני שנכתבת שורת קוד אחת.</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> מתאים לפרויקטים ופיצ&#x27;רים משמעותיים בלבד - לתיקון באג, refactor קטן או סקריפט חד-פעמי הוא מיותר ומאט.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;תכנון לפני בנייה&quot; (pre-build-setup).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/pre-build-setup.tar.gz
+3. חלץ ממנה את התיקייה skills/pre-build-setup אל ~/.claude/skills/pre-build-setup. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. ודא שהקובץ SKILL.md נמצא בתיקייה.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;אני רוצה לבנות אפליקציה חדשה ל...&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- pre-build-setup</pre>
+</div>
+<p class="muted">או <a href="../../dl/pre-build-setup.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

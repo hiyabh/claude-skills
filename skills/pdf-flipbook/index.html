@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ספר דיגיטלי לדפדוף - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="הופך PDF לאתר שמדפדפים בו כמו בספר אמיתי, עם קישור מוכן לשיתוף">
+<meta property="og:title" content="ספר דיגיטלי לדפדוף - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="הופך PDF לאתר שמדפדפים בו כמו בספר אמיתי, עם קישור מוכן לשיתוף">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📖%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>📄 מסמכים ועברית</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">📖</div>
+  <h1 class="rise">ספר דיגיטלי לדפדוף</h1>
+  <p class="sub rise">הופך PDF לאתר שמדפדפים בו כמו בספר אמיתי, עם קישור מוכן לשיתוף</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/pdf-flipbook">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>לוקח קובץ PDF (או קישור לצפיין flipbook קיים כמו heyzine) ובונה ממנו אתר סטטי עצמאי שבו כל עמוד נהפך בעזרת אנימציה שנראית כמו דפדוף בספר אמיתי.</p><p>התמיכה בעברית מובנית כברירת מחדל - כריכה מימין, דפדוף מימין לשמאל, וכל עמוד נשאר קריא כרגיל. יש זום, מסך מלא, תמונות ממוזערות לניווט מהיר, וניווט מקלדת.</p><p>בסיום מפרסם את האתר לקישור ציבורי דרך Vercel, כך שאפשר לשלוח לינק אחד ולכל אחד יש גישה מיידית לספר.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>קטלוג או חוברת שרוצים לשתף כלינק במקום קובץ PDF להורדה</li><li>ספר או חוברת לילדים שרוצים להציג בצורה אינטראקטיבית</li><li>מגזין או ידיעון תקופתי שצריך גרסת דפדוף נוחה</li><li>הפיכת ספר שכבר קיים כ-flipbook בשירות חיצוני לאתר עצמאי</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תבנה לי אתר לדפדף בקובץ ה-PDF הזה"</li><li class="say">"תהפוך את ה-PDF הזה לספר דיגיטלי"</li><li class="say">"אני רוצה אתר flipbook מהחוברת הזו"</li><li class="say">"דפדוף כמו ספר מה-PDF שצירפתי"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">book.pdf, 40 עמודים בעברית</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">אתר עם קישור לשיתוף שבו מדפדפים בספר מימין לשמאל, עם זום, תמונות ממוזערות והורדת ה-PDF המקורי</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Python עם pymupdf ו-pillow</b></td><td>התקנה: pip install pymupdf pillow</td></tr><tr><td><b>חשבון Vercel (יש חינמי)</b></td><td>לפריסת האתר לקישור ציבורי; אפשר גם לארח בכל אחסון סטטי אחר</td></tr><tr><td><b>קובץ PDF מקור</b></td><td>או קישור לצפיין flipbook שממנו ניתן לחלץ את ה-PDF המקורי</td></tr></table><p class="tag"><b>לתשומת לבך:</b> PDF עם הרבה עמודים באיכות גבוהה מייצר אתר כבד יחסית (תמונות בכל עמוד) - שווה לבדוק את גודל הקבצים הכולל לפני הפריסה.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;ספר דיגיטלי לדפדוף&quot; (pdf-flipbook).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/pdf-flipbook.tar.gz
+3. חלץ ממנה את התיקייה skills/pdf-flipbook אל ~/.claude/skills/pdf-flipbook. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Python עם pymupdf ו-pillow, חשבון Vercel (יש חינמי), קובץ PDF מקור. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תבנה לי אתר לדפדף בקובץ ה-PDF הזה&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- pdf-flipbook</pre>
+</div>
+<p class="muted">או <a href="../../dl/pdf-flipbook.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

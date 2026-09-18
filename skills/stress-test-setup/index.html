@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>בדיקות עומס - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="בונה בדיקות עומס (k6) - עומס רגיל, זינוק פתאומי ועומס ממושך - לפי נפח המשתמשים הצפוי.">
+<meta property="og:title" content="בדיקות עומס - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="בונה בדיקות עומס (k6) - עומס רגיל, זינוק פתאומי ועומס ממושך - לפי נפח המשתמשים הצפוי.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📈%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">📈</div>
+  <h1 class="rise">בדיקות עומס</h1>
+  <p class="sub rise">בונה בדיקות עומס (k6) - עומס רגיל, זינוק פתאומי ועומס ממושך - לפי נפח המשתמשים הצפוי.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/stress-test-setup">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>מתאים לאפליקציות/API שרצים בפרודקשן עם משתמשים אמיתיים או SLA. שולף את נפח העומס הצפוי (בקשות בשנייה, משתמשים במקביל) ובונה שלוש בדיקות k6: עומס בסיסי, זינוק פתאומי (spike) ועומס ממושך לאיתור דליפות זיכרון (soak).</p><p>לפני כתיבת הקוד, עובר על נקודות חנק צפויות (מסד נתונים, קריאות חיצוניות), נפילה בחן, הגבלת קצב (rate limiting) ו-caching - ומתעד הכל בתוכנית סקלביליות.</p><p>מוסיף את הבדיקות לתסריטי ההרצה של הפרויקט, עם סף כשלון ברור (זמן תגובה, אחוז שגיאות) שנשלף מדרישות המוצר בפועל - לא ברירת מחדל שרירותית.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>אפליקציית web/API שעומדת לצאת לפרודקשן עם משתמשים אמיתיים</li><li>יש SLA לזמינות או לזמן תגובה שצריך לוודא שעומדים בו</li><li>לפני דיפלוי משמעותי, רוצים לוודא שהמערכת עומדת בעומס</li><li>יש חשד לדליפת זיכרון תחת עומס ממושך</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תבנה בדיקת עומס לפרויקט הזה"</li><li class="say">"צריך load test עם k6"</li><li class="say">"תבדוק שהמערכת עומדת ב-500 משתמשים במקביל"</li><li class="say">"בדיקת עומס לפני שעולים לאוויר"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;תבנה בדיקות עומס - צפי 200 משתמשים במקביל, זמן תגובה מתחת ל-500ms&quot;</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">תיקיית בדיקות עומס עם שלושה תסריטים מוכנים (רגיל / זינוק / ממושך), חיבור לתסריטי ההרצה של הפרויקט, וסף כשלון מוגדר לפי הדרישה.</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>k6</b></td><td>בינארי נפרד (לא חבילת npm) - מותקן לפי מערכת ההפעלה: brew / choco / winget / הוראות Grafana הרשמיות</td></tr></table><p class="tag"><b>לתשומת לבך:</b> אסור להריץ את בדיקת העומס הממושכת (soak) על סביבת פרודקשן חיה - רק על staging או סביבה מבוקרת.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;בדיקות עומס&quot; (stress-test-setup).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/stress-test-setup.tar.gz
+3. חלץ ממנה את התיקייה skills/stress-test-setup אל ~/.claude/skills/stress-test-setup. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: k6. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תבנה בדיקת עומס לפרויקט הזה&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- stress-test-setup</pre>
+</div>
+<p class="muted">או <a href="../../dl/stress-test-setup.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

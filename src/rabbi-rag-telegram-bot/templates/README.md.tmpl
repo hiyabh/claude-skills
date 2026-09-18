@@ -1,0 +1,60 @@
+# {{SLUG}}-bot
+
+בוט טלגרם פרטי בעברית שעונה על שאלות מתוך כתבי {{RABBI_NAME}} ({{RABBI_FULL_NAME}}). מבוסס RAG: Cohere (embed + rerank) + Qdrant Cloud + Claude Sonnet 4.6.
+
+כל תשובה כוללת: תשובה קצרה → הסבר → מקור (ספר + פרק/שער/סימן).
+
+## הקמה לוקלית
+
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate     # Windows
+pip install -r requirements.txt
+cp .env.example .env         # מלא את כל המפתחות
+```
+
+### דרישות מערכת
+
+- **Python 3.12+**
+- **LibreOffice** — נדרש להמרת קבצי `.doc` (Word 97-2003). Windows: התקן מ-https://www.libreoffice.org/ והוסף `C:\Program Files\LibreOffice\program` ל-PATH.
+
+## Ingestion (פעם אחת)
+
+```bash
+python -m ingest.run_ingest
+```
+
+`data/manifest.json` שומר hash לכל קובץ — הרצה חוזרת מדלגת על קבצים ללא שינוי.
+
+## בדיקה
+
+```bash
+python scripts/stats.py
+python scripts/smoke_query.py "<שאלה בעברית>"
+python scripts/smoke_all.py
+```
+
+## הפעלת הבוט
+
+```bash
+python bot.py
+```
+
+## Deploy ל-Railway
+
+```bash
+railway init --name {{SLUG}}-bot
+railway add --service {{SLUG}}-bot
+railway variables --set "TELEGRAM_BOT_TOKEN=..." --set "..."
+railway up --service {{SLUG}}-bot --detach
+```
+
+## מבנה
+
+```
+ingest/      צינור קליטה DOC/DOCX/PDF → Qdrant
+rag/         retrieve + answer + prompts
+extractors/  DOC/DOCX/PDF → paragraphs
+data/        books_index.json, manifest.json
+scripts/     smoke_query, smoke_all, stats
+```

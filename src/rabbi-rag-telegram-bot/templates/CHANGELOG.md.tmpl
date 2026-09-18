@@ -1,0 +1,18 @@
+# Changelog
+
+כל שינוי משמעותי לפרויקט מתועד כאן.
+פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
+
+## [Unreleased]
+
+## [1.0.0] — {{DATE_TODAY}}
+
+### Added (תוסף)
+- תשתית פרויקט מלאה: ingestion pipeline + RAG pipeline + Telegram bot ({{RABBI_NAME}})
+- מאגר וקטורי על קורפוס כתבי {{RABBI_NAME}}
+- system prompt עברי שמחייב ציטוט מקור בכל תשובה, מבדיל "מקור" (ראשוני) מ"ביאור" (משני)
+- chunking לפי גבולות סמנטיות עבריות + sliding window
+- idempotent ingestion עם cache
+- תמיכה בקבצי .DOC ישנים דרך LibreOffice headless
+- בוט פרטי בטלגרם עם פקודות `/start`, `/help`, `/about`, `/sources`
+- Dockerfile + railway.toml מוכנים ל-production

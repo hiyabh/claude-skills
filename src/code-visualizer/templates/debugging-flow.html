@@ -1,0 +1,136 @@
+<!--
+  CODE VISUALIZER — Debugging Flow Template
+  Bug investigation walkthrough with state changes at each step.
+  Placeholders: {{TITLE}}, {{SUBTITLE}}, {{LANGUAGE}}, {{MERMAID_DIAGRAM}}, {{STEPS}}, {{METADATA}}
+  STEPS JSON: [{number, title, description, code, state: {varName: value}, isError: bool}]
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} — Debug Flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg: #282a36; --bg2: #1e1f29; --bg3: #343746; --fg: #f8f8f2; --fg2: #9ea4b3;
+      --accent: #bd93f9; --green: #50fa7b; --red: #ff5555; --yellow: #f1fa8c; --cyan: #8be9fd;
+      --border: #44475a; --font-code: 'JetBrains Mono', monospace; --font: 'Inter', sans-serif;
+    }
+    [data-theme="light"] {
+      --bg: #f8f9fa; --bg2: #fff; --bg3: #fff; --fg: #1a1a2e; --fg2: #6c757d;
+      --accent: #7c3aed; --border: #dee2e6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.6; }
+
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--bg2); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .header h1 { font-size: 1.25rem; }
+    .header button { background: var(--bg3); border: 1px solid var(--border); color: var(--fg); padding: .4rem .8rem; border-radius: 8px; cursor: pointer; font-size: .85rem; }
+    .header button:hover { background: var(--accent); color: #fff; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .mermaid { background: var(--bg2); border-radius: 8px; padding: 1.5rem; text-align: center; border: 1px solid var(--border); margin-bottom: 2rem; }
+
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 15px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+
+    .debug-step { position: relative; margin-bottom: 1.5rem; padding: 1.5rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; transition: all .2s; }
+    .debug-step:hover, .debug-step.active { border-color: var(--accent); transform: translateX(4px); }
+    .debug-step.error { border-color: var(--red); }
+    .debug-step.error::before { background: var(--red) !important; }
+    .debug-step::before { content: ''; position: absolute; left: -22px; top: 1.5rem; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+    .debug-step.active::before { background: var(--green); box-shadow: 0 0 8px var(--green); }
+
+    .step-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .5rem; }
+    .step-number { font-size: .75rem; color: var(--fg2); font-family: var(--font-code); }
+    .step-title { font-weight: 600; font-size: 1rem; }
+    .step-desc { color: var(--fg2); font-size: .9rem; margin-bottom: .75rem; }
+
+    .step-code { margin-bottom: .75rem; }
+    .step-code pre { border-radius: 6px; margin: 0; }
+    .step-code code { font-size: .8rem; }
+
+    .state-watch { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .state-var { display: inline-flex; gap: .25rem; padding: .25rem .6rem; background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; font-family: var(--font-code); font-size: .8rem; }
+    .state-var .name { color: var(--cyan); }
+    .state-var .eq { color: var(--fg2); }
+    .state-var .val { color: var(--yellow); }
+    .state-var.changed { border-color: var(--yellow); background: rgba(241,250,140,.08); }
+
+    .error-callout { background: rgba(255,85,85,.1); border: 1px solid var(--red); border-radius: 8px; padding: 1rem; margin-top: .5rem; color: var(--red); font-family: var(--font-code); font-size: .85rem; }
+
+    @media (max-width: 768px) { .container { padding: 1rem; } }
+    .kbd-hints { position: fixed; bottom: 1rem; right: 1rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; font-size: .75rem; color: var(--fg2); opacity: .7; }
+    kbd { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: .1rem .4rem; font-family: var(--font-code); font-size: .75rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div><h1>🐛 {{TITLE}}</h1><small style="color:var(--fg2)">{{SUBTITLE}}</small></div>
+    <button onclick="toggleTheme()">🌓 Theme</button>
+  </div>
+  <div class="container">
+    <div class="mermaid">{{MERMAID_DIAGRAM}}</div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+  <div class="kbd-hints"><kbd>↑</kbd><kbd>↓</kbd> navigate <kbd>T</kbd> theme <kbd>F</kbd> fullscreen</div>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', fontFamily: 'Inter, sans-serif' });
+    const steps = {{STEPS}};
+    const timeline = document.getElementById('timeline');
+    let prevState = {};
+
+    steps.forEach((s, i) => {
+      const changedVars = {};
+      if (s.state) {
+        Object.entries(s.state).forEach(([k, v]) => {
+          changedVars[k] = JSON.stringify(v) !== JSON.stringify(prevState[k]);
+        });
+        prevState = { ...prevState, ...s.state };
+      }
+
+      const el = document.createElement('div');
+      el.className = `debug-step${s.isError ? ' error' : ''}`;
+      el.dataset.index = i;
+      el.innerHTML = `
+        <div class="step-header">
+          <span class="step-title">${s.title}</span>
+          <span class="step-number">Step ${s.number}</span>
+        </div>
+        <div class="step-desc">${s.description}</div>
+        ${s.code ? `<div class="step-code"><pre><code class="language-{{LANGUAGE}}">${escapeHtml(s.code)}</code></pre></div>` : ''}
+        ${s.state ? `<div class="state-watch">${Object.entries(s.state).map(([k, v]) =>
+          `<span class="state-var${changedVars[k] ? ' changed' : ''}"><span class="name">${k}</span><span class="eq">=</span><span class="val">${JSON.stringify(v)}</span></span>`
+        ).join('')}</div>` : ''}
+        ${s.isError ? `<div class="error-callout">⚠ Error detected at this step</div>` : ''}
+      `;
+      el.addEventListener('click', () => goTo(i));
+      timeline.appendChild(el);
+    });
+
+    hljs.highlightAll();
+    let current = 0;
+    function goTo(n) {
+      current = Math.max(0, Math.min(n, steps.length - 1));
+      document.querySelectorAll('.debug-step').forEach((el, i) => el.classList.toggle('active', i === current));
+      document.querySelectorAll('.debug-step')[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function toggleTheme() { const h = document.documentElement; h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark'; }
+    function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 't' || e.key === 'T') toggleTheme();
+      if (e.key === 'f' || e.key === 'F') document.body.classList.toggle('fullscreen');
+      if (e.key === 'Escape') document.body.classList.remove('fullscreen');
+    });
+    goTo(0);
+  </script>
+</body>
+</html>

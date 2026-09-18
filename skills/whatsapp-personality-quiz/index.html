@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>מבחן אישיות מוואטסאפ - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="בונה קוויז מצחיק ומדויק על מישהו, מתוך הצ&#x27;אט האמיתי שלו בוואטסאפ">
+<meta property="og:title" content="מבחן אישיות מוואטסאפ - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="בונה קוויז מצחיק ומדויק על מישהו, מתוך הצ&#x27;אט האמיתי שלו בוואטסאפ">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🎭%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>📄 מסמכים ועברית</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🎭</div>
+  <h1 class="rise">מבחן אישיות מוואטסאפ</h1>
+  <p class="sub rise">בונה קוויז מצחיק ומדויק על מישהו, מתוך הצ&#x27;אט האמיתי שלו בוואטסאפ</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/whatsapp-personality-quiz">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>מקבל קובץ ייצוא של שיחת וואטסאפ (או שתיים) ולומד את הסגנון האמיתי של אדם אחד או שניים - ביטויים חוזרים, הומור, דעות, כינויים פנימיים - כדי לבנות עליו קוויז אישיות בסגנון באזפיד.</p><p>כל שאלה בנויה כסולם מדורג: תשובה משעממת, תשובה עם קצת ברק, תשובה שכמעט מדויקת, ותשובה שהיא כמעט ציטוט מילולי מהצ&#x27;אט האמיתי. ככל שהתשובה &#x27;יותר הם&#x27; - כך היא שווה יותר נקודות.</p><p>בסוף מפיק מסמך Word בעברית מלא, עם 25 שאלות וטבלת תוצאות ב-5 רמות, מוכן לשליחה לקבוצת וואטסאפ משפחתית.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מתנה מצחיקה למישהו במשפחה או בין חברים</li><li>קוויז לשיתוף בקבוצת וואטסאפ סביב אירוע או יום הולדת</li><li>&#x27;מי אני יותר דומה ל-X או ל-Y&#x27; על בסיס שני חברים בקבוצה</li><li>תיעוד הומוריסטי של הסגנון והביטויים של מישהו לאורך זמן</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תבנה לי מבחן אישיות מהצ&#x27;אט הזה"</li><li class="say">"קוויז בסגנון באזפיד על השניים האלה"</li><li class="say">"מבחן מצחיק על המשפחה מהוואטסאפ"</li><li class="say">"מי אני יותר דומה ל-X או ל-Y"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">שני ייצואי וואטסאפ, כ-2000 וכ-1000 הודעות</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">קובץ Word עם 25 שאלות מדורגות וטבלת תוצאות ב-5 רמות, בסגנון הדיבור האמיתי של שני האנשים</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>קובץ/קבצי ייצוא WhatsApp בפורמט .txt</b></td><td>רצוי לפחות כ-300 הודעות לכל מטרה, אחרת הקוויז יישאר שטחי</td></tr><tr><td><b>Python עם python-docx</b></td><td>התקנה: pip install python-docx</td></tr></table><p class="tag"><b>לתשומת לבך:</b> איכות הקוויז תלויה לגמרי בכמות ובתוכן ההודעות - צ&#x27;אט קצר מדי או שגרתי ייתן שאלות גנריות שיכולות להתאים לכל אחד.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;מבחן אישיות מוואטסאפ&quot; (whatsapp-personality-quiz).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/whatsapp-personality-quiz.tar.gz
+3. חלץ ממנה את התיקייה skills/whatsapp-personality-quiz אל ~/.claude/skills/whatsapp-personality-quiz. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: קובץ/קבצי ייצוא WhatsApp בפורמט .txt, Python עם python-docx. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תבנה לי מבחן אישיות מהצ&#x27;אט הזה&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- whatsapp-personality-quiz</pre>
+</div>
+<p class="muted">או <a href="../../dl/whatsapp-personality-quiz.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,92 @@
+"""Centralized config — env vars + tunables."""
+from __future__ import annotations
+
+import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+load_dotenv(override=False)
+
+ROOT = Path(__file__).resolve().parent
+TMP_DIR = ROOT / "tmp"
+TMP_DIR.mkdir(exist_ok=True)
+DATA_DIR = ROOT / "data"
+DATA_DIR.mkdir(exist_ok=True)
+
+# === Telegram ===
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+
+def _parse_user_ids(raw: str) -> set[int]:
+    if not raw.strip():
+        return set()
+    return {int(x.strip()) for x in raw.split(",") if x.strip()}
+
+TELEGRAM_ALLOWED_USER_IDS: set[int] = _parse_user_ids(
+    os.environ.get("TELEGRAM_ALLOWED_USER_IDS", "")
+)
+
+# === Cohere ===
+COHERE_API_KEY = os.environ.get("COHERE_API_KEY", "")
+EMBED_MODEL = os.environ.get("EMBED_MODEL", "embed-v4.0")
+RERANK_MODEL = os.environ.get("RERANK_MODEL", "rerank-v3.5")
+
+# === Qdrant ===
+QDRANT_URL = os.environ.get("QDRANT_URL", "")
+QDRANT_API_KEY = os.environ.get("QDRANT_API_KEY", "")
+QDRANT_COLLECTION = os.environ.get("QDRANT_COLLECTION", "{{QDRANT_COLLECTION}}")
+
+# === Anthropic ===
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+ANTHROPIC_MODEL = os.environ.get("ANTHROPIC_MODEL", "claude-sonnet-4-6")
+
+# === Source corpus ===
+SOURCE_DIR = Path(os.environ.get("SOURCE_DIR", r"{{SOURCE_DIR}}"))
+
+# === Retrieval tunables ===
+TOP_K_VECTOR = int(os.environ.get("TOP_K_VECTOR", "20"))
+TOP_N_RERANK = int(os.environ.get("TOP_N_RERANK", "5"))
+RERANK_SCORE_THRESHOLD = float(os.environ.get("RERANK_SCORE_THRESHOLD", "0.15"))
+
+# === Chunking tunables ===
+CHUNK_SIZE = int(os.environ.get("CHUNK_SIZE", "1500"))
+CHUNK_OVERLAP = int(os.environ.get("CHUNK_OVERLAP", "250"))
+MIN_CHUNK_CHARS = int(os.environ.get("MIN_CHUNK_CHARS", "300"))
+
+# === Answer tunables ===
+MAX_ANSWER_TOKENS = int(os.environ.get("MAX_ANSWER_TOKENS", "4000"))
+ANSWER_TEMPERATURE = float(os.environ.get("ANSWER_TEMPERATURE", "0.2"))
+
+# === Files ===
+BOOKS_INDEX_FILE = DATA_DIR / "books_index.json"
+MANIFEST_FILE = DATA_DIR / "manifest.json"
+CONVERTED_DIR = TMP_DIR / "converted"
+CONVERTED_DIR.mkdir(exist_ok=True)
+
+
+def required_for_runtime() -> list[str]:
+    missing = []
+    pairs = [
+        ("TELEGRAM_BOT_TOKEN", TELEGRAM_BOT_TOKEN),
+        ("COHERE_API_KEY", COHERE_API_KEY),
+        ("QDRANT_URL", QDRANT_URL),
+        ("QDRANT_API_KEY", QDRANT_API_KEY),
+        ("ANTHROPIC_API_KEY", ANTHROPIC_API_KEY),
+    ]
+    for name, val in pairs:
+        if not val:
+            missing.append(name)
+    return missing
+
+
+def required_for_ingest() -> list[str]:
+    missing = []
+    pairs = [
+        ("COHERE_API_KEY", COHERE_API_KEY),
+        ("QDRANT_URL", QDRANT_URL),
+        ("QDRANT_API_KEY", QDRANT_API_KEY),
+    ]
+    for name, val in pairs:
+        if not val:
+            missing.append(name)
+    return missing

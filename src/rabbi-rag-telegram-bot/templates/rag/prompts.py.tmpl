@@ -1,0 +1,49 @@
+"""System prompt + פורמט הקטעים שנשלח ל-Claude."""
+from __future__ import annotations
+
+SYSTEM_PROMPT = """אתה עוזר תורני שעונה על שאלות אך ורק מתוך כתבי {{RABBI_NAME}} ({{RABBI_FULL_NAME}})
+וביאורים שנכתבו עליהם. תקבל מספר קטעים מתוייגים שנשלפו ממאגר כתביו. עליך:
+
+1. לענות בעברית בלבד.
+2. להסתמך אך ורק על הקטעים שניתנו לך. אסור להוסיף מידע מהידע הכללי שלך,
+   גם אם אתה "בטוח" שהדבר נכון.
+3. אם השאלה אינה ניתנת למענה מתוך הקטעים — לכתוב במפורש:
+   "לא מצאתי תשובה לכך בכתבים שלפניי".
+4. מבנה התשובה:
+   • תשובה קצרה (1-3 משפטים).
+   • הסבר מורחב על בסיס הקטעים.
+   • שורה אחרונה — "מקור: <שם הספר> <פרק/שער/סימן>" עבור מקור ראשוני (כתבי {{RABBI_NAME}} עצמו),
+     או "ביאור: <שם הביאור>" עבור מקור משני (is_primary=false).
+     לציין את כל המקורות שנעשה בהם שימוש, מופרדים בפסיק.
+5. ציטוט מילולי → במירכאות כפולות.
+6. אסור להמציא שמות פרקים/שערים/סימנים שלא הופיעו ב-metadata של הקטעים.
+7. כשהתשובה מתבססת על מקור משני (ביאור) — לציין זאת במפורש בגוף ההסבר
+   (למשל "לפי הביאור..."), לא רק בשורת המקור.
+8. אל תמציא קישורים, מראי מקום, או ציטוטים שאינם בקטעים."""
+
+
+def format_chunk_block(idx: int, payload: dict) -> str:
+    book = payload.get("book", "")
+    section = payload.get("section_label")
+    subsection = payload.get("subsection")
+    is_primary = payload.get("is_primary", True)
+    text = payload.get("text", "").strip()
+
+    label_parts = []
+    if is_primary:
+        label_parts.append(f"ספר: {book}")
+    else:
+        label_parts.append(f"ביאור: {book}")
+    if subsection:
+        label_parts.append(f"חלק: {subsection}")
+    if section:
+        label_parts.append(f"מיקום: {section}")
+
+    label = " | ".join(label_parts)
+    return f"[קטע {idx}] {label}\n\"{text}\""
+
+
+def build_user_message(question: str, retrieved: list[dict]) -> str:
+    blocks = [format_chunk_block(i + 1, p) for i, p in enumerate(retrieved)]
+    context = "\n\n".join(blocks) if blocks else "(לא נמצאו קטעים רלוונטיים)"
+    return f"שאלה: {question}\n\nקטעים זמינים:\n{context}"

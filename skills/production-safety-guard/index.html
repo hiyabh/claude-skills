@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>שומר בטיחות פרודקשן - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="עוצר ומבקש אישור מפורש לפני כל פעולה הרסנית על מערכת חיה - מחיקה, שינוי סכמה, גישה.">
+<meta property="og:title" content="שומר בטיחות פרודקשן - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="עוצר ומבקש אישור מפורש לפני כל פעולה הרסנית על מערכת חיה - מחיקה, שינוי סכמה, גישה.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🛡️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🛡️</div>
+  <h1 class="rise">שומר בטיחות פרודקשן</h1>
+  <p class="sub rise">עוצר ומבקש אישור מפורש לפני כל פעולה הרסנית על מערכת חיה - מחיקה, שינוי סכמה, גישה.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/production-safety-guard">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>כשמזוהה עבודה על סביבה חיה/פרודקשן (connection string, משתני סביבה, שם דומיין, או הצהרה מפורשת של המשתמש) - הסקיל נכנס למצב זהירות: כל פעולה הרסנית דורשת אישור בנפרד.</p><p>חוסם באופן טכני (לא רק ממליץ) פעולות כמו מחיקת טבלה/מסד נתונים, עדכון בלי תנאי סינון, שינויי סכמה, שינויי הרשאות או מפתחות, ודיפלוי ישיר בלי אימות קודם ב-staging.</p><p>לפני כל פעולת כתיבה כזו: מציג בדיוק מה ישתנה, מציע גיבוי/הרצת בדיקה יבשה/תזמון לשעה שקטה, וממתין לאישור מפורש - לא ל-&#x27;אוקיי&#x27; או &#x27;בטח&#x27;.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>עובדים ישירות מול מסד נתונים או שרת production</li><li>צריך להריץ migration על סכמה בסביבה חיה</li><li>מבצעים דיפלוי לסביבת פרודקשן</li><li>רוצים רשת ביטחון נוספת נגד מחיקה או שינוי בטעות בנתוני אמת</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"אנחנו עובדים על הפרודקשן עכשיו"</li><li class="say">"תריץ migration על מסד הנתונים החי"</li><li class="say">"צריך למחוק רשומות מטבלת המשתמשים בפרודקשן"</li><li class="say">"שרת לייב - תיזהר בפעולות כתיבה"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">&quot;תמחק את כל המשתמשים הלא פעילים מטבלת users בפרודקשן&quot;</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">הצגת השאילתה המדויקת, אזהרה מפורשת על היקף המחיקה, המלצה לגיבוי קודם, והמתנה לאישור מפורש לפני ההרצה בפועל.</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> זו שכבת בטיחות התנהגותית (איך Claude מתנהג) - היא לא מחליפה הרשאות מסד נתונים אמיתיות, גיבויים אוטומטיים או בקרת גישה ברמת התשתית.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;שומר בטיחות פרודקשן&quot; (production-safety-guard).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/production-safety-guard.tar.gz
+3. חלץ ממנה את התיקייה skills/production-safety-guard אל ~/.claude/skills/production-safety-guard. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. ודא שהקובץ SKILL.md נמצא בתיקייה.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;אנחנו עובדים על הפרודקשן עכשיו&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- production-safety-guard</pre>
+</div>
+<p class="muted">או <a href="../../dl/production-safety-guard.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

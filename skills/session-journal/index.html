@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>יומן סשן עבודה - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="קלוד שומר לעצמו תזכורת מסודרת בסוף כל סשן, כדי שהסשן הבא יתחיל בדיוק איפה שהפסקתם.">
+<meta property="og:title" content="יומן סשן עבודה - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="קלוד שומר לעצמו תזכורת מסודרת בסוף כל סשן, כדי שהסשן הבא יתחיל בדיוק איפה שהפסקתם.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📓%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">📓</div>
+  <h1 class="rise">יומן סשן עבודה</h1>
+  <p class="sub rise">קלוד שומר לעצמו תזכורת מסודרת בסוף כל סשן, כדי שהסשן הבא יתחיל בדיוק איפה שהפסקתם.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/session-journal">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>בסוף סשן עבודה משמעותי (או כשמבקשים ממנו), קלוד כותב יומן: מה נעשה, איפה הדברים עומדים עכשיו, מה הצעדים הבאים, אילו החלטות התקבלו ולמה, ואילו קבצים השתנו.</p><p>בתחילת הסשן הבא, קלוד מוצא את היומן האחרון של אותו פרויקט, מציג סיכום קצר, ומציע להמשיך בדיוק מהצעדים הבאים שתועדו - במקום לשאול &#x27;מאיפה נתחיל&#x27; ולבזבז זמן על ניתוח מחדש.</p><p>היומנים נשמרים בתיקייה ייעודית בתוך הסקיל עצמו (או במיקום אחר לפי בחירתך), קובץ אחד לכל פרויקט לכל יום.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>עובדים על פרויקט לאורך כמה ימים ורוצים רצף בין הסשנים בלי לאבד הקשר</li><li>רוצים לדעת &#x27;מה עשינו אתמול&#x27; בלי לגלול אחורה בהיסטוריית השיחה</li><li>יש הרבה החלטות טכניות שהתקבלו ורוצים שהן יישמרו, לא רק שהקוד יעבוד</li><li>עובדים עם כמה אנשים או כמה כלים על אותו פרויקט וצריך נקודת סנכרון משותפת</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"מאיפה הפסקנו?"</li><li class="say">"תמשיך מאתמול"</li><li class="say">"שמור התקדמות"</li><li class="say">"מה עשינו בסשן הקודם?"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">סיימנו להיום, תשמור את זה</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">נוצר קובץ יומן עם מה בוצע, מצב נוכחי, וסדר עדיפויות לצעדים הבאים - וכשתחזור מחר קלוד יזכיר לך את זה מעצמו</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><p>שום דבר מעבר ל-Claude Code עצמו.</p><p class="tag"><b>לתשומת לבך:</b> לא כדאי לתעד סשנים טריוויאליים (שאלה קצרה, בירור חד-פעמי) - זה נועד לעבודה מתמשכת על אותו פרויקט.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;יומן סשן עבודה&quot; (session-journal).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/session-journal.tar.gz
+3. חלץ ממנה את התיקייה skills/session-journal אל ~/.claude/skills/session-journal. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. ודא שהקובץ SKILL.md נמצא בתיקייה.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;מאיפה הפסקנו?&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- session-journal</pre>
+</div>
+<p class="muted">או <a href="../../dl/session-journal.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

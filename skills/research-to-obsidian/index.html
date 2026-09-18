@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>גרף ידע מהמחקר - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="הופך מסמך מחקר ארוך לרשת קשרים חזותית באובסידיאן - רואים מי מחובר למי ובאיזו ודאות">
+<meta property="og:title" content="גרף ידע מהמחקר - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="הופך מסמך מחקר ארוך לרשת קשרים חזותית באובסידיאן - רואים מי מחובר למי ובאיזו ודאות">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🕸️%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🔎 מחקר וארגון</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🕸️</div>
+  <h1 class="rise">גרף ידע מהמחקר</h1>
+  <p class="sub rise">הופך מסמך מחקר ארוך לרשת קשרים חזותית באובסידיאן - רואים מי מחובר למי ובאיזו ודאות</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/research-to-obsidian">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>אתה נותן לקלוד מסמך מחקר ליניארי - תיק OSINT, תיק משפטי, סקירת ספרות, כל מסמך עתיר-ישויות עם המון שמות וקשרים ביניהם. קלוד קורא את החומר, מזהה כל ישות (אדם, ארגון, מקום, אירוע, מקרה משפטי, מקור) וכל קשר ביניהן, ובונה מכך ספריית Obsidian - כלי לניהול ידע שמציג הערות מקושרות כגרף אינטראקטיבי.</p><p>כל ישות הופכת להערה נפרדת עם קישורים [[כאלה]] להערות אחרות, וכל הערה מסומנת בתגית שקובעת את הצבע שלה בגרף. כך נושא מרכזי והענפים שלו נראים במבט אחד, ולוגי דמיון-שם שלא קשורים בפועל נשארים אפורים ומנותקים מהגרף - הוכחה חזותית שהם לא אותו אדם.</p><p>בסיום קלוד גם מתקין את Obsidian (אם חסר), מוריד שלושה תוספים (Dataview לטבלאות דינמיות, Excalidraw לתרשימים, Timelines לציר זמן), ופותח לך את הספרייה מוכנה - עם מפת ניווט, לוח מחוונים וציר זמן, מוכנה לגרף עם לחיצת Ctrl+G.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>תיק OSINT או חקירה עם עשרות אנשים, ארגונים ואירועים שקשה לעקוב אחריהם בטקסט ליניארי</li><li>תיק משפטי מורכב עם צדדים, עדים, מסמכים ותאריכים שרוצים לראות כרשת ולא כרשימה</li><li>מיפוי קשרים משפחתיים או ארגוניים (גנאלוגיה, מבנה ארגוני, רשת שותפים)</li><li>סקירת ספרות אקדמית שבה רוצים לראות אילו מקורות מצטטים ומתכתבים אחד עם השני</li><li>בירור מי קשור למי בפועל, כשיש כמה אנשים עם שם דומה שרוצים להבדיל ביניהם בבירור</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תהפוך את המחקר הזה לגרף ידע באובסידיאן"</li><li class="say">"תבנה לי vault מהתיק הזה ותראה לי את הרשת"</li><li class="say">"תתקין אובסידיאן ותפתח לי את הקשרים בגרף"</li><li class="say">"המחש לי מי מחובר למי במסמך הזה"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">יש לי תיק חקירה של 15 עמודים על פרשה עם 20 שמות - אנשים, עמותות, בתי משפט. תהפוך את זה לגרף באובסידיאן</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">ספריית Obsidian עם הערה לכל ישות, קישורים בין כולן, גרף צבעוני שמראה מי במרכז ומי בשוליים, ציר זמן לאירועים, לוח מחוונים עם טבלאות לפי רמת ודאות - ו-Obsidian פתוח מולך עם הכל טעון</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Windows עם winget</b></td><td>ההתקנה האוטומטית של Obsidian ושל התוספים היא סקריפט PowerShell + winget - מיועד למחשב Windows</td></tr><tr><td><b>מסמך מחקר קיים</b></td><td>קובץ MD, DOCX או PDF עם ישויות וקשרים בין ישויות - ככל שיש יותר קשרים, התוצאה משתלמת יותר</td></tr><tr><td><b>Python 3</b></td><td>מריץ את סקריפטי הבנייה והבדיקה של הספרייה</td></tr><tr><td><b>לחיצה ידנית אחת</b></td><td>בהפעלה ראשונה Obsidian מציג חלונית אבטחה &#x27;Trust author and enable plugins&#x27; שדורשת אישור אנושי - לא ניתן לעקוף אוטומטית</td></tr></table><p class="tag"><b>לתשומת לבך:</b> זה שכבת ויזואליזציה נוספת על המסמך המקורי, לא תחליף לו - והוא משתלם בעיקר כשיש הרבה ישויות וקשרים; למסמך קצר עם מעט הפניות זה overkill</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;גרף ידע מהמחקר&quot; (research-to-obsidian).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/research-to-obsidian.tar.gz
+3. חלץ ממנה את התיקייה skills/research-to-obsidian אל ~/.claude/skills/research-to-obsidian. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Windows עם winget, מסמך מחקר קיים, Python 3, לחיצה ידנית אחת. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תהפוך את המחקר הזה לגרף ידע באובסידיאן&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- research-to-obsidian</pre>
+</div>
+<p class="muted">או <a href="../../dl/research-to-obsidian.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

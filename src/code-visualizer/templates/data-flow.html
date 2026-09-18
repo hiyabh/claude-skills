@@ -1,0 +1,118 @@
+<!--
+  CODE VISUALIZER — Data Flow Template
+  Data transformation pipeline visualization.
+  Placeholders: {{TITLE}}, {{SUBTITLE}}, {{MERMAID_DIAGRAM}}, {{STAGES}}, {{METADATA}}
+  STAGES JSON: [{name, description, input, output, code, language}]
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}} — Data Flow</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <style>
+    :root {
+      --bg: #282a36; --bg2: #1e1f29; --bg3: #343746; --fg: #f8f8f2; --fg2: #9ea4b3;
+      --accent: #bd93f9; --green: #50fa7b; --red: #ff5555; --yellow: #f1fa8c; --cyan: #8be9fd;
+      --border: #44475a; --font-code: 'JetBrains Mono', monospace; --font: 'Inter', sans-serif;
+    }
+    [data-theme="light"] {
+      --bg: #f8f9fa; --bg2: #fff; --bg3: #fff; --fg: #1a1a2e; --fg2: #6c757d;
+      --accent: #7c3aed; --border: #dee2e6;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.6; }
+
+    .header { display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; background: var(--bg2); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .header h1 { font-size: 1.25rem; }
+    .header button { background: var(--bg3); border: 1px solid var(--border); color: var(--fg); padding: .4rem .8rem; border-radius: 8px; cursor: pointer; font-size: .85rem; }
+    .header button:hover { background: var(--accent); color: #fff; }
+
+    .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+    .mermaid { background: var(--bg2); border-radius: 8px; padding: 1.5rem; text-align: center; border: 1px solid var(--border); margin-bottom: 2rem; }
+
+    .pipeline { display: flex; flex-direction: column; gap: 1.5rem; }
+    .stage { background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: 1.5rem; cursor: pointer; transition: all .2s; }
+    .stage:hover, .stage.active { border-color: var(--accent); }
+    .stage-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: .75rem; }
+    .stage-name { font-weight: 600; font-size: 1.1rem; display: flex; align-items: center; gap: .5rem; }
+    .stage-name .arrow { color: var(--accent); font-size: 1.2rem; }
+    .stage-desc { color: var(--fg2); font-size: .9rem; margin-bottom: 1rem; }
+
+    .io-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .io-box { background: var(--bg2); border: 1px solid var(--border); border-radius: 6px; padding: .75rem; }
+    .io-label { font-size: .7rem; text-transform: uppercase; letter-spacing: .5px; font-weight: 700; margin-bottom: .25rem; }
+    .io-label.input { color: var(--cyan); }
+    .io-label.output { color: var(--green); }
+    .io-content { font-family: var(--font-code); font-size: .8rem; white-space: pre-wrap; color: var(--fg2); }
+
+    .stage-code pre { border-radius: 6px; margin: 0; }
+    .stage-code code { font-size: .8rem; }
+
+    .connector { text-align: center; color: var(--accent); font-size: 1.5rem; line-height: 1; }
+
+    @media (max-width: 768px) { .container { padding: 1rem; } .io-grid { grid-template-columns: 1fr; } }
+    .kbd-hints { position: fixed; bottom: 1rem; right: 1rem; background: var(--bg3); border: 1px solid var(--border); border-radius: 8px; padding: .5rem .75rem; font-size: .75rem; color: var(--fg2); opacity: .7; }
+    kbd { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: .1rem .4rem; font-family: var(--font-code); font-size: .75rem; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div><h1>🔄 {{TITLE}}</h1><small style="color:var(--fg2)">{{SUBTITLE}}</small></div>
+    <button onclick="toggleTheme()">🌓 Theme</button>
+  </div>
+  <div class="container">
+    <div class="mermaid">{{MERMAID_DIAGRAM}}</div>
+    <div class="pipeline" id="pipeline"></div>
+  </div>
+  <div class="kbd-hints"><kbd>↑</kbd><kbd>↓</kbd> navigate <kbd>T</kbd> theme</div>
+
+  <script>
+    mermaid.initialize({ startOnLoad: true, theme: 'dark', fontFamily: 'Inter, sans-serif' });
+    const stages = {{STAGES}};
+    const pipeline = document.getElementById('pipeline');
+
+    stages.forEach((s, i) => {
+      if (i > 0) pipeline.innerHTML += '<div class="connector">▼</div>';
+      const el = document.createElement('div');
+      el.className = 'stage';
+      el.dataset.index = i;
+      el.innerHTML = `
+        <div class="stage-header">
+          <div class="stage-name"><span class="arrow">→</span> ${s.name}</div>
+          <span style="font-size:.8rem;color:var(--fg2)">Stage ${i + 1}</span>
+        </div>
+        <div class="stage-desc">${s.description}</div>
+        <div class="io-grid">
+          <div class="io-box"><div class="io-label input">Input</div><div class="io-content">${escapeHtml(s.input)}</div></div>
+          <div class="io-box"><div class="io-label output">Output</div><div class="io-content">${escapeHtml(s.output)}</div></div>
+        </div>
+        ${s.code ? `<div class="stage-code"><pre><code class="language-${s.language || 'javascript'}">${escapeHtml(s.code)}</code></pre></div>` : ''}
+      `;
+      el.addEventListener('click', () => goTo(i));
+      pipeline.appendChild(el);
+    });
+
+    hljs.highlightAll();
+    let current = 0;
+    function goTo(n) {
+      current = Math.max(0, Math.min(n, stages.length - 1));
+      document.querySelectorAll('.stage').forEach((el, i) => el.classList.toggle('active', i === current));
+      document.querySelectorAll('.stage')[current]?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+    function toggleTheme() { const h = document.documentElement; h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark'; }
+    function escapeHtml(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowDown') { e.preventDefault(); goTo(current + 1); }
+      if (e.key === 'ArrowUp') { e.preventDefault(); goTo(current - 1); }
+      if (e.key === 't' || e.key === 'T') toggleTheme();
+    });
+    goTo(0);
+  </script>
+</body>
+</html>

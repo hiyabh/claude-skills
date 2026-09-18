@@ -1,0 +1,198 @@
+"""Telegram bot — שאלות → תשובות מבוססות RAG מכתבי {{RABBI_NAME}}."""
+from __future__ import annotations
+
+import asyncio
+import html
+import json
+import logging
+import time
+
+from telegram import Update
+from telegram.constants import ChatAction
+from telegram.ext import (
+    Application,
+    CommandHandler,
+    ContextTypes,
+    MessageHandler,
+    filters,
+)
+
+from config import (
+    BOOKS_INDEX_FILE,
+    TELEGRAM_ALLOWED_USER_IDS,
+    TELEGRAM_BOT_TOKEN,
+    required_for_runtime,
+)
+from rag.answer import answer_question
+
+logging.basicConfig(
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    level=logging.INFO,
+)
+log = logging.getLogger("bot")
+
+RATE_LIMIT_PER_MIN = 10
+_last_requests: dict[int, list[float]] = {}
+
+
+def is_authorized(uid: int | None) -> bool:
+    if uid is None:
+        return False
+    if not TELEGRAM_ALLOWED_USER_IDS:
+        return True
+    return uid in TELEGRAM_ALLOWED_USER_IDS
+
+
+def _check_rate_limit(uid: int) -> bool:
+    now = time.time()
+    window = _last_requests.setdefault(uid, [])
+    while window and now - window[0] > 60:
+        window.pop(0)
+    if len(window) >= RATE_LIMIT_PER_MIN:
+        return False
+    window.append(now)
+    return True
+
+
+async def cmd_start(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    uid = user.id if user else None
+    if not TELEGRAM_ALLOWED_USER_IDS:
+        await update.message.reply_text(
+            "שלום! זה בוט {{RABBI_NAME}}.\n\n"
+            "⚠️ עדיין לא הוגדר whitelist.\n"
+            f"ה-user_id שלך: <code>{uid}</code>\n\n"
+            f"הוסף ב-.env: TELEGRAM_ALLOWED_USER_IDS={uid}",
+            parse_mode="HTML",
+        )
+        return
+    if not is_authorized(uid):
+        await update.message.reply_text(
+            f"⛔ בוט פרטי.\nה-user_id שלך: <code>{uid}</code>",
+            parse_mode="HTML",
+        )
+        return
+    await update.message.reply_text(
+        "שלום! אני בוט {{RABBI_NAME}}. שלח לי שאלה בעברית ואחזיר לך תשובה מתוך כתביו, "
+        "כולל הסבר וציון מקור.\n\n"
+        "פקודות:\n"
+        "/help — דוגמאות שאלות\n"
+        "/sources — רשימת ספרים במאגר\n"
+        "/about — על הבוט"
+    )
+
+
+async def cmd_help(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update.effective_user.id if update.effective_user else None):
+        return
+    await update.message.reply_text(
+        "דוגמאות שאלות:\n\n"
+        "{{EXAMPLE_QUESTIONS}}\n\n"
+        "כל תשובה כוללת הסבר ומקור (ספר + פרק/שער/סימן)."
+    )
+
+
+async def cmd_about(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update.effective_user.id if update.effective_user else None):
+        return
+    await update.message.reply_text(
+        "📖 בוט {{RABBI_NAME}}\n\n"
+        "הבוט עונה על שאלות אך ורק מתוך כתבי {{RABBI_FULL_NAME}} "
+        "וביאורים שנכתבו עליהם.\n\n"
+        "המאגר כולל: {{BOOKS_LIST_SHORT}} ועוד.\n\n"
+        "טכנולוגיה: Cohere embed-v4 + rerank-v3.5 + Qdrant + Claude Sonnet 4.6."
+    )
+
+
+async def cmd_sources(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update.effective_user.id if update.effective_user else None):
+        return
+    try:
+        raw = json.loads(BOOKS_INDEX_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        await update.message.reply_text("לא הצלחתי לקרוא את רשימת הספרים.")
+        return
+    primary_books = sorted({
+        v["book"] for k, v in raw.items()
+        if not k.startswith("_") and v.get("is_primary") and v.get("preferred", True)
+    })
+    secondary = sorted({
+        v["book"] for k, v in raw.items()
+        if not k.startswith("_") and not v.get("is_primary", True) and v.get("preferred", True)
+    })
+    lines = ["📚 ספרים במאגר:\n", "כתבי {{RABBI_NAME}}:"]
+    lines += [f"  • {b}" for b in primary_books]
+    if secondary:
+        lines += ["", "ביאורים משניים:"]
+        lines += [f"  • {b}" for b in secondary]
+    await update.message.reply_text("\n".join(lines))
+
+
+async def on_question(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    user = update.effective_user
+    uid = user.id if user else None
+    if not is_authorized(uid):
+        await update.message.reply_text(
+            f"⛔ בוט פרטי.\nuser_id שלך: <code>{uid}</code>",
+            parse_mode="HTML",
+        )
+        return
+
+    if not _check_rate_limit(uid):
+        await update.message.reply_text("⏳ הגעת למגבלת השאלות לדקה. נסה שוב בעוד מעט.")
+        return
+
+    question = (update.message.text or "").strip()
+    if len(question) < 3:
+        await update.message.reply_text("השאלה קצרה מדי.")
+        return
+
+    status = await update.message.reply_text("⏳ מחפש במקורות…")
+    chat = update.effective_chat
+    await ctx.bot.send_chat_action(chat_id=chat.id, action=ChatAction.TYPING)
+
+    loop = asyncio.get_running_loop()
+    try:
+        result = await loop.run_in_executor(None, lambda: answer_question(question))
+        await status.edit_text(result.text)
+    except Exception as e:
+        log.exception("answer failed")
+        await status.edit_text(f"❌ שגיאה: {html.escape(str(e)[:300], quote=False)}")
+
+
+async def on_unsupported(update: Update, ctx: ContextTypes.DEFAULT_TYPE):
+    if not is_authorized(update.effective_user.id if update.effective_user else None):
+        return
+    await update.message.reply_text("אני מקבל רק שאלות טקסט.")
+
+
+def main():
+    missing = required_for_runtime()
+    if missing:
+        log.warning(f"Missing env vars: {missing}")
+
+    if not TELEGRAM_BOT_TOKEN:
+        raise SystemExit("TELEGRAM_BOT_TOKEN חסר ב-.env")
+
+    try:
+        asyncio.get_event_loop()
+    except RuntimeError:
+        asyncio.set_event_loop(asyncio.new_event_loop())
+
+    app = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+    app.add_handler(CommandHandler("start", cmd_start))
+    app.add_handler(CommandHandler("help", cmd_help))
+    app.add_handler(CommandHandler("about", cmd_about))
+    app.add_handler(CommandHandler("sources", cmd_sources))
+    app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_question))
+    app.add_handler(MessageHandler(
+        filters.Document.ALL | filters.VOICE | filters.AUDIO | filters.VIDEO | filters.VIDEO_NOTE,
+        on_unsupported,
+    ))
+
+    log.info("{{RABBI_NAME}} bot starting...")
+    app.run_polling(allowed_updates=Update.ALL_TYPES)
+
+
+if __name__ == "__main__":
+    main()

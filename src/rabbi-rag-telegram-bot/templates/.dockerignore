@@ -1,0 +1,15 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.log
+tmp/
+data/manifest.json
+.git/
+.idea/
+.vscode/
+.env
+ingest_run.log
+bot.log
+.DS_Store
+Thumbs.db

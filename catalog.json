@@ -1,0 +1,47 @@
+{
+  "_note": "External skill pages (each lives in its own repo). Entries with topic claude-skill are added/refreshed by build/sync_repos.py; hand-edited fields (icon, title, tagline, category, badge) are preserved.",
+  "guide": {
+    "icon": "🚀",
+    "title": "מתחילים כאן: התקנת Claude Code",
+    "tagline": "עוד לא התקנת את התוכנה? המדריך הזה לוקח אותך מאפס ועד שיחה ראשונה, צעד אחרי צעד.",
+    "url": "https://hiyabh.github.io/claude-code-guide/"
+  },
+  "external": [
+    {
+      "repo": "claude-video-skills",
+      "icon": "🎬",
+      "title": "סטודיו וידאו",
+      "tagline": "27 סקילים ליצירה ועריכה של סרטונים - מאנימציה ומושן גרפיקס ועד סיכום אירוע מתמונות.",
+      "category": "video",
+      "badge": "חבילה של 27 סקילים",
+      "url": "https://hiyabh.github.io/claude-video-skills/",
+      "count": 27
+    },
+    {
+      "repo": "claude-shiur-editor-skill",
+      "icon": "📜",
+      "title": "עורך השיעורים",
+      "tagline": "הופך תמלול של שיעור או דרשה למסמך Word ערוך ומסודר, עם פסוקים מנוקדים - בלי לקצר אף נושא.",
+      "category": "docs",
+      "badge": "2 סקילים",
+      "url": "https://hiyabh.github.io/claude-shiur-editor-skill/",
+      "count": 2
+    },
+    {
+      "repo": "claude-end-session-skill",
+      "icon": "🔚",
+      "title": "סוף סשן",
+      "tagline": "כותבים \"סיימנו\" - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.",
+      "category": "dev",
+      "url": "https://hiyabh.github.io/claude-end-session-skill/"
+    },
+    {
+      "repo": "school-equipment-list",
+      "icon": "🎒",
+      "title": "רשימה אחת לכל הילדים",
+      "tagline": "מאחד את רשימות הציוד של בית הספר לכל הילדים לרשימת קנייה אחת, מסודרת לפי מדפי החנות.",
+      "category": "life",
+      "url": "https://hiyabh.github.io/school-equipment-list/"
+    }
+  ]
+}

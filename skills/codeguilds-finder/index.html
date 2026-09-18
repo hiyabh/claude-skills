@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>חיפוש כלים ב-CodeGuilds - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="לפני שקלוד יגיד &#x27;אין לי כלי לזה&#x27; - הוא מחפש במאגר קהילתי אם כבר בנו כזה.">
+<meta property="og:title" content="חיפוש כלים ב-CodeGuilds - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="לפני שקלוד יגיד &#x27;אין לי כלי לזה&#x27; - הוא מחפש במאגר קהילתי אם כבר בנו כזה.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🔍%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🔎 מחקר וארגון</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🔍</div>
+  <h1 class="rise">חיפוש כלים ב-CodeGuilds</h1>
+  <p class="sub rise">לפני שקלוד יגיד &#x27;אין לי כלי לזה&#x27; - הוא מחפש במאגר קהילתי אם כבר בנו כזה.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/codeguilds-finder">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>הסקיל הזה מחפש במאגר קהילתי בשם CodeGuilds (כ-3,000 סקילים, agents, שרתי MCP, hooks ותבניות פרומפט) כשקלוד נתקל במשימה שדורשת יכולת שאין לו - למשל חיבור לשירות חיצוני, פורמט קובץ נישתי, או workflow ספציפי לתחום.</p><p>איך זה עובד: קלוד מנסח את הפער החסר במשפט אחד, מחפש במאגר לפי מילות מפתח, ומציג לך את ההתאמות המובילות (שם, סוג, מספר הורדות, מי הכותב) - בלי להעתיק דוחות ארוכים. הוא אף פעם לא מתקין לבד: הוא תמיד עוצר ושואל אותך אישור מפורש לפני התקנה, כי התקנה כותבת לתצורה הגלובלית של Claude Code.</p><p>מה שמקבלים: גישה למאגר קהילתי בלי לצאת מהשיחה, בקרה מלאה על מה שמותקן (כולל אפשרות להסיר), ומניעת מצב שבו קלוד בונה מאפס פתרון שכבר קיים ומתוחזק על ידי מישהו אחר. חשוב לזכור שזה מאגר קהילתי ולא תוכן רשמי של Anthropic - קלוד מסמן חבילות שנראות לא מתוחזקות או לא אמינות.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>קלוד עומד להגיד &#x27;אין לי דרך לחבר את זה ל-Slack&#x27; - הוא בודק קודם אם כבר יש כלי מוכן במאגר</li><li>אתה שואל בפירוש &#x27;יש סקיל מוכן להמרת קובץ Figma לקוד?&#x27; או &#x27;תחפש ב-CodeGuilds כלי ל...&#x27;</li><li>משימה דורשת אינטגרציה נישתית (MCP server לשירות ספציפי, hook לתהליך עבודה מסוים) שלא כדאי לבנות מאפס</li><li>רוצים לראות מה הקהילה כבר בנתה לפני שמשקיעים זמן בפיתוח עצמאי של סקיל או agent</li><li>צריך להסיר כלי שהותקן קודם דרך המאגר (uninstall) או לראות מה כבר מותקן (list)</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תחפש ב-CodeGuilds כלי בשביל..."</li><li class="say">"יש תוסף או סקיל מוכן ל..."</li><li class="say">"חפש במאגר הקהילתי אם יש MCP server ל..."</li><li class="say">"תראה מה מותקן לי מ-CodeGuilds"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">אני צריך להמיר קובץ Postman collection ל-client API מוקלד, ואין לך כלי מובנה לזה</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">קלוד מחפש &quot;postman&quot; במאגר, מוצא סקיל מתאים עם מספר הורדות גבוה, מסכם אותו בשתי שורות, ושואל &quot;להתקין את זה?&quot; - רק אחרי אישור הוא מתקין ומשתמש בו</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Node.js (גרסה 18 ומעלה)</b></td><td>ה-CLI המצורף לסקיל רץ עליו; בלעדיו לא ניתן לחפש או להתקין</td></tr><tr><td><b>Bash</b></td><td>הסקריפט המצורף (cg.sh) הוא סקריפט bash - בווינדוס דורש Git Bash או WSL</td></tr><tr><td><b>חיבור אינטרנט</b></td><td>החיפוש וההתקנה פונים לשרת המאגר ול-GitHub</td></tr></table><p class="tag"><b>לתשומת לבך:</b> זה מאגר קהילתי לא רשמי - איכות והתחזוקה של כל חבילה משתנות, וההתקנה כותבת לתצורה הגלובלית של Claude Code, לכן היא דורשת אישור בכל פעם ולא רצה אוטומטית.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;חיפוש כלים ב-CodeGuilds&quot; (codeguilds-finder).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/codeguilds-finder.tar.gz
+3. חלץ ממנה את התיקייה skills/codeguilds-finder אל ~/.claude/skills/codeguilds-finder. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Node.js (גרסה 18 ומעלה), Bash, חיבור אינטרנט. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תחפש ב-CodeGuilds כלי בשביל...&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- codeguilds-finder</pre>
+</div>
+<p class="muted">או <a href="../../dl/codeguilds-finder.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

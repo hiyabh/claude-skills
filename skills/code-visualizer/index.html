@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ויזואליזציית קוד - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="קלוד הופך הסבר קוד מורכב לעמוד HTML אינטראקטיבי עם תרשימים, במקום פסקת טקסט ארוכה.">
+<meta property="og:title" content="ויזואליזציית קוד - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="קלוד הופך הסבר קוד מורכב לעמוד HTML אינטראקטיבי עם תרשימים, במקום פסקת טקסט ארוכה.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧩%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🧩</div>
+  <h1 class="rise">ויזואליזציית קוד</h1>
+  <p class="sub rise">קלוד הופך הסבר קוד מורכב לעמוד HTML אינטראקטיבי עם תרשימים, במקום פסקת טקסט ארוכה.</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/code-visualizer">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>כשקלוד עומד להסביר אלגוריתם עם כמה שלבים, ארכיטקטורת מערכת, זרימת דיבאג עם שינויי מצב, או ביקורת קוד - הוא בונה עמוד HTML עצמאי עם הדגשת תחביר, תרשימי Mermaid והליכה שלב-אחר-שלב, במקום רק לכתוב טקסט.</p><p>העמוד עובד אופליין בלחיצה כפולה, בעל עיצוב כהה (Dracula) ברירת מחדל עם אפשרות בהיר, וניווט במקלדת (חצים לשלבים, F למסך מלא). יש שישה תבניות מוכנות: הליכת אלגוריתם, סקירת ארכיטקטורה, ביקורת קוד, זרימת דיבאג, זרימת נתונים, ומצגת שקפים.</p><p>לניתוח ברמת repo שלם (קשרים בין קבצים, מפת תלויות) הסקיל יכול גם לפתוח כלי חיצוני ל-GitHub בשם Rift Code בדפדפן, בנוסף להסברי HTML נקודתיים.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מסבירים אלגוריתם או פונקציה מורכבת ורוצים שהמשתמש יראה את זה ויזואלית, לא רק יקרא</li><li>עושים code review ורוצים הערות עם רמת חומרה מסומנת ויזואלית לצד הקוד</li><li>מדבגים בעיה עם כמה שינויי מצב ורוצים להראות את הזרימה שלב-אחר-שלב</li><li>צריך להציג ארכיטקטורת מערכת עם כמה רכיבים למישהו שלא קורא קוד</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תראה לי את זה ויזואלית"</li><li class="say">"הסבר קוד עם תרשים"</li><li class="say">"תעשה לי ויזואליזציה של האלגוריתם הזה"</li><li class="say">"איך זה עובד? תראה לי גרפית"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">תסביר לי איך הפונקציה הזאת ממיינת את הרשימה, עם תרשים</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">נוצר קובץ HTML עצמאי עם קוד מודגש, תרשים Mermaid של זרימת הנתונים, והליכה שלב-אחר-שלב - נפתח בדפדפן ועובד גם אופליין</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>דפדפן</b></td><td>לפתיחת קובצי ה-HTML שנוצרים; שימוש ב-Rift Code דורש חשבון GitHub לאימות</td></tr></table><p class="tag"><b>לתשומת לבך:</b> כשמבקשים תרשים עצמאי בלי הקשר קוד (למשל דיאגרמת זרימת עסקים), עדיף כלי ייעודי לדיאגרמות - זה נועד ספציפית להסברי קוד.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;ויזואליזציית קוד&quot; (code-visualizer).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/code-visualizer.tar.gz
+3. חלץ ממנה את התיקייה skills/code-visualizer אל ~/.claude/skills/code-visualizer. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: דפדפן. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תראה לי את זה ויזואלית&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- code-visualizer</pre>
+</div>
+<p class="muted">או <a href="../../dl/code-visualizer.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

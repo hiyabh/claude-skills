@@ -1,0 +1,72 @@
+"""בדיקת אימות מלאה — 5 שאלות חיוביות + 1 negative."""
+from __future__ import annotations
+
+import sys
+import time
+from pathlib import Path
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+
+from rag.answer import NO_RESULTS_MESSAGE, answer_question
+
+# שאלות מותאמות ל{{RABBI_NAME}} — Claude מייצר אותן ב-Phase 6 לפי books_index
+QUESTIONS = [
+{{SMOKE_QUESTIONS_TUPLES}}
+]
+NEGATIVE = "מה דעת {{RABBI_NAME}} על בינה מלאכותית?"
+
+
+def _run(q: str, expected: str | None = None) -> dict:
+    t0 = time.time()
+    result = answer_question(q)
+    dt = time.time() - t0
+    hit_books = [h.payload.get("book", "?") for h in result.hits]
+    expected_hit = expected and any(expected in b for b in hit_books) if expected else None
+    return {
+        "question": q,
+        "elapsed": dt,
+        "hit_books": hit_books,
+        "expected": expected,
+        "expected_in_hits": expected_hit,
+        "answer_preview": result.text[:200],
+        "no_results": result.used_no_results_fallback,
+    }
+
+
+def main():
+    print("=" * 70)
+    print("🧪 5 שאלות חיוביות")
+    print("=" * 70)
+    passed = 0
+    for q, expected in QUESTIONS:
+        r = _run(q, expected)
+        ok = bool(r["expected_in_hits"])
+        passed += int(ok)
+        mark = "✅" if ok else "⚠️ "
+        print(f"\n{mark} {q}")
+        print(f"   ציפיתי: {expected} | במצא: {', '.join(set(r['hit_books'])) or '(ריק)'}")
+        print(f"   זמן: {r['elapsed']:.1f}s")
+        print(f"   תשובה: {r['answer_preview']}...")
+
+    print("\n" + "=" * 70)
+    print("🚫 שאלת negative — אמורה להחזיר 'לא מצאתי'")
+    print("=" * 70)
+    n = _run(NEGATIVE)
+    no_results_text = NO_RESULTS_MESSAGE in n["answer_preview"]
+    mark = "✅" if no_results_text else "⚠️ "
+    print(f"\n{mark} {NEGATIVE}")
+    print(f"   תשובה: {n['answer_preview']}")
+    if no_results_text:
+        passed += 1
+
+    print("\n" + "=" * 70)
+    print(f"סיכום: {passed}/6 בדיקות עברו")
+    print("=" * 70)
+    return 0 if passed == 6 else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())

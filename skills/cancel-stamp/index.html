@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>חותמת ביטול - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="מטביע קווים אלכסוניים עם כיתוב &#x27;בוטל&#x27; על DOCX או PDF, בלי לגעת במילה אחת בטקסט">
+<meta property="og:title" content="חותמת ביטול - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="מטביע קווים אלכסוניים עם כיתוב &#x27;בוטל&#x27; על DOCX או PDF, בלי לגעת במילה אחת בטקסט">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🚫%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css">
+<script src="../../assets/site.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>📄 מסמכים ועברית</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true">🚫</div>
+  <h1 class="rise">חותמת ביטול</h1>
+  <p class="sub rise">מטביע קווים אלכסוניים עם כיתוב &#x27;בוטל&#x27; על DOCX או PDF, בלי לגעת במילה אחת בטקסט</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/cancel-stamp">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section><h2>מה זה עושה</h2>
+<div class="card prose"><p>מוסיף שכבת ביטול שקופה-למחצה מעל מסמך קיים - שני קווים מקבילים באלכסון עם כיתוב ביניהם, או צורת X עם כיתוב במרכז - בלי לשנות שום תו בטקסט המקורי.</p><p>עובד גם על מסמכי Word וגם על PDF, כולל מסמכים עם רקע נייר-מכתבים מלא-עמוד (letterhead) - החותמת תמיד מונחת מעל הטקסט כך שהיא נראית, גם כשהרקע אטום.</p><p>לפני השמירה הסקריפט בודק שהטקסט של המסמך לא השתנה בכלל, ונכשל בלי לשמור אם כן - אז אין סיכון לפגיעה בתוכן.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>מכתב שנשלח בטעות או שהוחלט לא לשלוח</li><li>טיוטת חוזה שבוטלה והוחלפה בגרסה חדשה</li><li>מסמך רשמי שצריך לסמן כ-DRAFT או VOID לפני שמירה בארכיון</li><li>הסכם שבוטל עקב שינוי נסיבות, כשרוצים לשמור את הגרסה המקורית מסומנת</li></ul></div></section>
+<section><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say">"תוסיף חותמת ביטול למסמך הזה"</li><li class="say">"תסמן את המסמך הזה כמבוטל"</li><li class="say">"קווים מקבילים עם טקסט באלכסון"</li><li class="say">"תוסיף חותמת VOID על ה-PDF"</li></ul></section>
+<section><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">מכתב.docx חתום ומוכן</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">מכתב.docx עם קווים אלכסוניים עמומים וכיתוב &#x27;בוטל - לא נשלח&#x27; מעל הטקסט, שהטקסט עצמו נשאר קריא מתחת</div></div></div>
+</section>
+<section><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Python עם Pillow, PyMuPDF, python-docx</b></td><td>התקנה: pip install pillow pymupdf python-docx</td></tr><tr><td><b>Windows + Microsoft Word</b></td><td>נדרש רק לביטול DOCX רב-עמודים (עימוד עמודים דרך Word); PDF עובד בכל מערכת הפעלה</td></tr><tr><td><b>גופן TTF שמכסה את שפת הכיתוב</b></td><td>ברירת המחדל היא גופן מודגש של Windows</td></tr></table><p class="tag"><b>לתשומת לבך:</b> טקסט אלכסוני מיושר בסדר חזותי בלבד (בלי מנוע bidi מלא) - מתאים לשורת חותמת קצרה עם תאריך או קוד, לא לפסקה ארוכה.</p></div></section>
+<section id="install"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;חותמת ביטול&quot; (cancel-stamp).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/cancel-stamp.tar.gz
+3. חלץ ממנה את התיקייה skills/cancel-stamp אל ~/.claude/skills/cancel-stamp. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Python עם Pillow, PyMuPDF, python-docx, Windows + Microsoft Word, גופן TTF שמכסה את שפת הכיתוב. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תוסיף חותמת ביטול למסמך הזה&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- cancel-stamp</pre>
+</div>
+<p class="muted">או <a href="../../dl/cancel-stamp.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

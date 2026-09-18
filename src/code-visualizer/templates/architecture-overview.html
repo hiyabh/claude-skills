@@ -1,0 +1,198 @@
+<!--
+  CODE VISUALIZER — Architecture Overview Template
+  System architecture visualization with Mermaid diagrams and component cards.
+  Self-contained HTML. Placeholder markers filled by the code-visualizer skill.
+-->
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/dracula.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.0/dist/mermaid.min.js"></script>
+  <style>
+    :root{--bg:#282a36;--bg2:#1e1f29;--card:#343746;--text:#f8f8f2;--muted:#9ea4b3;--accent:#bd93f9;--accent-h:#caa4ff;--green:#50fa7b;--cyan:#8be9fd;--orange:#ffb86c;--pink:#ff79c6;--radius:8px;--transition:0.2s ease}
+    [data-theme="light"]{--bg:#f5f5f9;--bg2:#ffffff;--card:#e8e8ef;--text:#282a36;--muted:#585b6e;--accent:#7c4dff;--accent-h:#6535e0}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;display:flex;flex-direction:column}
+    code,pre{font-family:'JetBrains Mono',monospace}
+    header{padding:1.5rem 2rem;background:var(--bg2);border-bottom:1px solid color-mix(in srgb,var(--accent) 25%,transparent);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+    .header-text h1{font-size:1.5rem;font-weight:700;color:var(--accent)} .header-text p{color:var(--muted);font-size:0.875rem}
+    #theme-toggle{background:var(--card);border:1px solid var(--muted);color:var(--text);border-radius:var(--radius);padding:0.4rem 0.8rem;cursor:pointer;font-size:0.8rem;transition:var(--transition)}
+    #theme-toggle:hover{border-color:var(--accent)}
+    main{flex:1;padding:2rem;max-width:1400px;margin:0 auto;width:100%}
+    .diagram-section{background:var(--bg2);border-radius:var(--radius);padding:1.5rem;margin-bottom:2rem;border:1px solid color-mix(in srgb,var(--accent) 15%,transparent);overflow-x:auto}
+    .diagram-section h2{font-size:1rem;color:var(--muted);margin-bottom:1rem;text-transform:uppercase;letter-spacing:0.05em;font-weight:500}
+    .mermaid{display:flex;justify-content:center}
+    .mermaid svg{max-width:100%}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:1rem}
+    .card{background:var(--card);border-radius:var(--radius);padding:1.25rem;border:2px solid transparent;cursor:pointer;transition:var(--transition);position:relative}
+    .card:hover,.card[data-focus="true"]{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 4px 20px color-mix(in srgb,var(--accent) 15%,transparent)}
+    .card[data-focus="true"]{outline:2px solid var(--accent-h);outline-offset:2px}
+    .card h3{font-size:1.05rem;margin-bottom:0.5rem;color:var(--text)} .card p{font-size:0.85rem;color:var(--muted);margin-bottom:0.75rem}
+    .badges{display:flex;flex-wrap:wrap;gap:0.35rem;margin-bottom:0.75rem}
+    .badge{font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:999px;background:color-mix(in srgb,var(--accent) 18%,transparent);color:var(--accent);font-weight:500;white-space:nowrap}
+    .files{list-style:none;font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+    .files li::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);margin-right:0.5rem;vertical-align:middle}
+    .expand{max-height:0;overflow:hidden;transition:max-height 0.35s ease}
+    .card.open .expand{max-height:600px}
+    .expand pre{margin-top:0.75rem;border-radius:var(--radius);overflow-x:auto;font-size:0.8rem;max-height:300px;overflow-y:auto}
+    .expand pre code{padding:1rem;display:block}
+    .chevron{position:absolute;top:1.25rem;right:1.25rem;color:var(--muted);font-size:0.75rem;transition:transform 0.2s}
+    .card.open .chevron{transform:rotate(180deg)}
+    footer{padding:0.75rem 2rem;background:var(--bg2);border-top:1px solid color-mix(in srgb,var(--accent) 15%,transparent);text-align:center;font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+    footer kbd{background:var(--card);padding:0.1rem 0.4rem;border-radius:4px;border:1px solid var(--muted);margin:0 0.15rem;font-size:0.7rem}
+    .fullscreen{position:fixed!important;inset:0!important;z-index:9999;max-width:none!important;border-radius:0!important;padding:2rem!important;overflow:auto}
+    @media(max-width:600px){main{padding:1rem}.grid{grid-template-columns:1fr}header{padding:1rem}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-text">
+      <h1>{{TITLE}}</h1>
+      <p>{{SUBTITLE}}</p>
+    </div>
+    <button id="theme-toggle" title="Toggle theme (T)">Dark</button>
+  </header>
+  <main>
+    <section class="diagram-section" id="diagram">
+      <h2>System Architecture</h2>
+      <pre class="mermaid">{{MERMAID_DIAGRAM}}</pre>
+    </section>
+    <section class="grid" id="components"></section>
+  </main>
+  <footer>
+    <kbd>&larr;</kbd><kbd>&rarr;</kbd> Navigate &nbsp;
+    <kbd>Enter</kbd> Expand &nbsp;
+    <kbd>F</kbd> Fullscreen &nbsp;
+    <kbd>T</kbd> Theme &nbsp;
+    <kbd>Esc</kbd> Close
+  </footer>
+
+  <!-- {{METADATA}} -->
+
+  <script>
+  (function(){
+    "use strict";
+    /* --- Data --- */
+    const COMPONENTS = {{COMPONENTS}};
+    const grid = document.getElementById("components");
+    let focusIdx = -1;
+    let fullscreen = false;
+
+    /* --- Render cards --- */
+    function renderCards(){
+      grid.innerHTML = "";
+      COMPONENTS.forEach(function(c, i){
+        const card = document.createElement("div");
+        card.className = "card";
+        card.dataset.index = i;
+        card.setAttribute("tabindex", "0");
+        card.setAttribute("role", "button");
+        card.setAttribute("aria-expanded", "false");
+
+        const badges = (c.tech || []).map(function(t){ return '<span class="badge">' + esc(t) + '</span>'; }).join("");
+        const files = (c.files || []).map(function(f){ return "<li>" + esc(f) + "</li>"; }).join("");
+        const hasCode = c.code && c.code.trim();
+
+        card.innerHTML =
+          '<span class="chevron">&#9660;</span>' +
+          "<h3>" + esc(c.name) + "</h3>" +
+          "<p>" + esc(c.description) + "</p>" +
+          '<div class="badges">' + badges + "</div>" +
+          '<ul class="files">' + files + "</ul>" +
+          '<div class="expand">' +
+            (hasCode ? '<pre><code class="language-' + esc(c.language || "text") + '">' + esc(c.code) + "</code></pre>" : "") +
+          "</div>";
+
+        card.addEventListener("click", function(){ toggleCard(card); });
+        grid.appendChild(card);
+      });
+      hljs.highlightAll();
+    }
+
+    function esc(s){ var d = document.createElement("div"); d.textContent = s || ""; return d.innerHTML; }
+
+    function toggleCard(card){
+      var wasOpen = card.classList.contains("open");
+      document.querySelectorAll(".card.open").forEach(function(c){ c.classList.remove("open"); c.setAttribute("aria-expanded","false"); });
+      if(!wasOpen){ card.classList.add("open"); card.setAttribute("aria-expanded","true"); }
+    }
+
+    /* --- Focus management --- */
+    function setFocus(idx){
+      var cards = grid.querySelectorAll(".card");
+      if(!cards.length) return;
+      cards.forEach(function(c){ c.dataset.focus = "false"; });
+      focusIdx = ((idx % cards.length) + cards.length) % cards.length;
+      cards[focusIdx].dataset.focus = "true";
+      cards[focusIdx].scrollIntoView({ behavior:"smooth", block:"nearest" });
+      cards[focusIdx].focus();
+    }
+
+    /* --- Theme --- */
+    var html = document.documentElement;
+    var btn = document.getElementById("theme-toggle");
+    function toggleTheme(){
+      var next = html.dataset.theme === "dark" ? "light" : "dark";
+      html.dataset.theme = next;
+      btn.textContent = next === "dark" ? "Dark" : "Light";
+      mermaid.initialize({ startOnLoad:false, theme: next === "dark" ? "dark" : "default" });
+      rerenderMermaid();
+    }
+    btn.addEventListener("click", toggleTheme);
+
+    /* --- Fullscreen --- */
+    var diagramEl = document.getElementById("diagram");
+    function toggleFullscreen(){
+      fullscreen = !fullscreen;
+      diagramEl.classList.toggle("fullscreen", fullscreen);
+    }
+
+    /* --- Mermaid --- */
+    function initMermaid(){
+      mermaid.initialize({ startOnLoad:true, theme:"dark", securityLevel:"loose",
+        themeVariables:{ primaryColor:"#bd93f9", primaryTextColor:"#f8f8f2", primaryBorderColor:"#6272a4",
+          lineColor:"#8be9fd", secondaryColor:"#44475a", tertiaryColor:"#343746" }
+      });
+    }
+
+    function rerenderMermaid(){
+      var el = document.querySelector(".mermaid");
+      if(!el) return;
+      var src = el.dataset.src || el.textContent;
+      el.dataset.src = src;
+      el.removeAttribute("data-processed");
+      el.innerHTML = src;
+      mermaid.run({ nodes:[el] });
+    }
+
+    /* --- Keyboard --- */
+    document.addEventListener("keydown", function(e){
+      var tag = (e.target.tagName || "").toLowerCase();
+      if(tag === "input" || tag === "textarea") return;
+      var cards = grid.querySelectorAll(".card");
+      switch(e.key){
+        case "ArrowRight": case "ArrowDown": e.preventDefault(); setFocus(focusIdx + 1); break;
+        case "ArrowLeft": case "ArrowUp": e.preventDefault(); setFocus(focusIdx - 1); break;
+        case "Enter": if(focusIdx >= 0 && cards[focusIdx]) toggleCard(cards[focusIdx]); break;
+        case "f": case "F": if(!e.ctrlKey && !e.metaKey){ e.preventDefault(); toggleFullscreen(); } break;
+        case "t": case "T": if(!e.ctrlKey && !e.metaKey){ e.preventDefault(); toggleTheme(); } break;
+        case "Escape":
+          if(fullscreen){ toggleFullscreen(); }
+          else{ document.querySelectorAll(".card.open").forEach(function(c){ c.classList.remove("open"); c.setAttribute("aria-expanded","false"); }); }
+          break;
+      }
+    });
+
+    /* --- Init --- */
+    initMermaid();
+    renderCards();
+  })();
+  </script>
+</body>
+</html>
