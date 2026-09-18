@@ -1,5 +1,10 @@
 {
   "_note": "External skill pages (each lives in its own repo). Entries with topic claude-skill are added/refreshed by build/sync_repos.py; hand-edited fields (icon, title, tagline, category, badge) are preserved.",
+  "featured": [
+    "claude-shiur-editor-skill",
+    "claude-end-session-skill",
+    "archive-organizer"
+  ],
   "guide": {
     "icon": "🚀",
     "title": "מתחילים כאן: התקנת Claude Code",
@@ -32,7 +37,7 @@
       "icon": "🔚",
       "title": "סוף סשן",
       "tagline": "כותבים \"סיימנו\" - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.",
-      "category": "dev",
+      "category": "claude",
       "url": "https://hiyabh.github.io/claude-end-session-skill/"
     },
     {

@@ -8,7 +8,7 @@
 <meta property="og:title" content="כל הסקילים של בין קודש לקלוד">
 <meta property="og:description" content="מרכז אחד לכל הסקילים ל-Claude Code שבנינו בקהילת בין קודש לקלוד - וידאו, מסמכים בעברית, פיתוח, מחקר ובוטים. כל סקיל עם דף הסבר והתקנה בהדבקה אחת.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧰%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/site.css?v=51bc89fc">
+<link rel="stylesheet" href="assets/site.css?v=dd768a9d">
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
 <script src="assets/motion.js?v=8b14141c" defer></script>
 <script src="assets/hero.js?v=a8cd4174" defer></script>
@@ -34,6 +34,40 @@
     <span><b>מתחילים כאן: התקנת Claude Code</b><br><span class="d">עוד לא התקנת את התוכנה? המדריך הזה לוקח אותך מאפס ועד שיחה ראשונה, צעד אחרי צעד.</span></span>
     <span class="go" aria-hidden="true">←</span></a>
 </header>
+<section class="featured" aria-labelledby="feat-h">
+<h2 id="feat-h" class="reveal"><span aria-hidden="true">⭐</span> מומלצים להתחלה</h2>
+<ul class="feat-grid">
+<li class="featwrap reveal">
+  <a class="skill-card feat-card" href="https://hiyabh.github.io/claude-shiur-editor-skill/">
+    <span class="feat-top"><span class="ic" aria-hidden="true">📜</span>
+      <span class="badge solid">מומלץ</span></span>
+    <span class="t">עורך השיעורים</span>
+    <span class="d">הופך תמלול של שיעור או דרשה למסמך Word ערוך ומסודר, עם פסוקים מנוקדים - בלי לקצר אף נושא.</span>
+    <span class="say-line">תגיד לקלוד: <b>"ערוך לי את השיעור הזה"</b></span>
+    <span class="meta"><span class="go" aria-hidden="true">←</span></span>
+  </a>
+</li>
+<li class="featwrap reveal">
+  <a class="skill-card feat-card" href="https://hiyabh.github.io/claude-end-session-skill/">
+    <span class="feat-top"><span class="ic" aria-hidden="true">🔚</span>
+      <span class="badge solid">מומלץ</span></span>
+    <span class="t">סוף סשן</span>
+    <span class="d">כותבים &quot;סיימנו&quot; - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.</span>
+    <span class="say-line">תגיד לקלוד: <b>"סיימנו"</b></span>
+    <span class="meta"><span class="go" aria-hidden="true">←</span></span>
+  </a>
+</li>
+<li class="featwrap reveal">
+  <a class="skill-card feat-card" href="skills/archive-organizer/">
+    <span class="feat-top"><span class="ic" aria-hidden="true">🗂️</span>
+      <span class="badge solid">מומלץ</span></span>
+    <span class="t">ארגון ארכיון קבצים</span>
+    <span class="d">הופך ערימה של אלפי קבצים מפוזרים לתיקיות מסודרות - בלי למחוק ובלי לפספס קובץ.</span>
+    <span class="say-line">תגיד לקלוד: <b>"תעזור לי לארגן תיקייה עם אלפי קבצים"</b></span>
+    <span class="meta"><span class="go" aria-hidden="true">←</span></span>
+  </a>
+</li>
+</ul></section>
 <div class="filterbar">
   <input class="search" type="search" placeholder="חיפוש סקיל... (למשל: וורד, בוט, יוטיוב)"
          aria-label="חיפוש סקיל" hidden>
@@ -42,7 +76,8 @@
 <a class="chip" href="#top" data-filter="all" aria-pressed="true">הכול</a>
 <a class="chip" href="#cat-video" data-filter="video" aria-pressed="false">🎬 וידאו ואנימציה <span class="n">1</span></a>
 <a class="chip" href="#cat-docs" data-filter="docs" aria-pressed="false">📄 מסמכים ועברית <span class="n">5</span></a>
-<a class="chip" href="#cat-dev" data-filter="dev" aria-pressed="false">🛠️ פיתוח וזרימת עבודה <span class="n">16</span></a>
+<a class="chip" href="#cat-claude" data-filter="claude" aria-pressed="false">✨ עבודה עם קלוד <span class="n">1</span></a>
+<a class="chip" href="#cat-dev" data-filter="dev" aria-pressed="false">🛠️ פיתוח וזרימת עבודה <span class="n">15</span></a>
 <a class="chip" href="#cat-research" data-filter="research" aria-pressed="false">🔎 מחקר וארגון <span class="n">3</span></a>
 <a class="chip" href="#cat-bots" data-filter="bots" aria-pressed="false">🤖 בוטים <span class="n">1</span></a>
 <a class="chip" href="#cat-life" data-filter="life" aria-pressed="false">🏠 בית ומשפחה <span class="n">1</span></a>
@@ -51,7 +86,8 @@
 <span class="chip">הכול</span>
 <span class="chip">🎬 וידאו ואנימציה <span class="n">1</span></span>
 <span class="chip">📄 מסמכים ועברית <span class="n">5</span></span>
-<span class="chip">🛠️ פיתוח וזרימת עבודה <span class="n">16</span></span>
+<span class="chip">✨ עבודה עם קלוד <span class="n">1</span></span>
+<span class="chip">🛠️ פיתוח וזרימת עבודה <span class="n">15</span></span>
 <span class="chip">🔎 מחקר וארגון <span class="n">3</span></span>
 <span class="chip">🤖 בוטים <span class="n">1</span></span>
 <span class="chip">🏠 בית ומשפחה <span class="n">1</span></span>
@@ -113,6 +149,18 @@
     <span class="t">עריכת תמלול נאמנה</span>
     <span class="d">הופך תמלול גולמי של שיחה או ראיון למסמך קריא - בלי לקצר או לשנות מילה אחת</span>
     <span class="meta"><span class="go" aria-hidden="true">←</span></span>
+  </a>
+</li>
+</ul></section>
+<section class="cat" id="cat-claude" data-cat="claude">
+<h2 class="reveal"><span aria-hidden="true">✨</span> עבודה עם קלוד</h2>
+<ul class="grid">
+<li class="cardwrap reveal" data-cat="claude" data-search="סוף סשן כותבים &quot;סיימנו&quot; - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום. claude-end-session-skill ">
+  <a class="skill-card" href="https://hiyabh.github.io/claude-end-session-skill/">
+    <span class="ic" aria-hidden="true">🔚</span>
+    <span class="t">סוף סשן</span>
+    <span class="d">כותבים &quot;סיימנו&quot; - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.</span>
+    <span class="meta"><span class="badge ext">דף נפרד ↗</span><span class="go" aria-hidden="true">←</span></span>
   </a>
 </li>
 </ul></section>
@@ -181,14 +229,6 @@
     <span class="t">מעקב טעויות נפוצות</span>
     <span class="d">כל תיקון שאתה נותן לקלוד נשמר, כדי שהוא לא יחזור על אותה טעות בפעם הבאה.</span>
     <span class="meta"><span class="go" aria-hidden="true">←</span></span>
-  </a>
-</li>
-<li class="cardwrap reveal" data-cat="dev" data-search="סוף סשן כותבים &quot;סיימנו&quot; - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום. claude-end-session-skill ">
-  <a class="skill-card" href="https://hiyabh.github.io/claude-end-session-skill/">
-    <span class="ic" aria-hidden="true">🔚</span>
-    <span class="t">סוף סשן</span>
-    <span class="d">כותבים &quot;סיימנו&quot; - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.</span>
-    <span class="meta"><span class="badge ext">דף נפרד ↗</span><span class="go" aria-hidden="true">←</span></span>
   </a>
 </li>
 <li class="cardwrap reveal" data-cat="dev" data-search="סיכומי עבודה וטיקטים קלוד הופך סשן עבודה שלם לסיכום מסודר, דוח התקדמות או טיקט מוכן להעברה - תוך שנייה. work-summary סכם מה שעשינו תפתח טיקט על זה דוח התקדמות על הפרויקט סיכום עבודה יומי">

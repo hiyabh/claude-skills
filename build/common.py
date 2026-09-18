@@ -22,6 +22,7 @@ COMMUNITY_URL = "https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&p=a&mlu=1
 CATEGORIES = {
     "video": ("🎬", "וידאו ואנימציה"),
     "docs": ("📄", "מסמכים ועברית"),
+    "claude": ("✨", "עבודה עם קלוד"),
     "dev": ("🛠️", "פיתוח וזרימת עבודה"),
     "research": ("🔎", "מחקר וארגון"),
     "bots": ("🤖", "בוטים"),

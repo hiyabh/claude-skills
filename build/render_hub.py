@@ -76,12 +76,17 @@ def sections_html(buckets):
     return "\n".join(out)
 
 
+def say_for(item, external):
+    """The first short trigger phrase for a card, or None."""
+    options = [EXTERNAL_SAY.get(item.get("repo"))] if external else item.get("say", [])
+    options = [s.strip("\"'") for s in options if s and len(s) <= TICKER_MAX_CHARS]
+    return options[0] if options else None
+
+
 def ticker_phrases(items):
     phrases = []
     for item, external in items:
-        options = [EXTERNAL_SAY.get(item.get("repo"))] if external else item.get("say", [])
-        options = [s.strip("\"'") for s in options if s and len(s) <= TICKER_MAX_CHARS]
-        say = options[0] if options else None
+        say = say_for(item, external)
         if say:
             phrases.append({"say": say, "title": item["title"], "url": item["url"]})
     random.Random(TICKER_SEED).shuffle(phrases)
@@ -111,6 +116,36 @@ def constellation_html(items):
                      f'<span>{esc(icon)}</span></span>')
     return f'<div class="constellation" aria-hidden="true">{"".join(stars)}</div>'
 
+
+def feat_card_html(item, external):
+    say = say_for(item, external)
+    say_line = f'<span class="say-line">תגיד לקלוד: <b>"{esc(say)}"</b></span>' if say else ""
+    return f"""<li class="featwrap reveal">
+  <a class="skill-card feat-card" href="{esc(item['url'])}">
+    <span class="feat-top"><span class="ic" aria-hidden="true">{esc(item.get('icon', '🧩'))}</span>
+      <span class="badge solid">מומלץ</span></span>
+    <span class="t">{esc(item.get('title'))}</span>
+    <span class="d">{esc(item.get('tagline'))}</span>
+    {say_line}
+    <span class="meta"><span class="go" aria-hidden="true">←</span></span>
+  </a>
+</li>"""
+
+
+def featured_html(items, keys):
+    """Hand-picked cards shown above the filter; they stay in their category too."""
+    if not keys:
+        return ""
+    by_key = {item.get("repo") or item.get("name"): (item, ext) for item, ext in items}
+    missing = [k for k in keys if k not in by_key]
+    if missing:
+        raise SystemExit(f"catalog.json 'featured' names unknown skills: {missing}")
+    cards = "\n".join(feat_card_html(*by_key[k]) for k in keys)
+    return f"""<section class="featured" aria-labelledby="feat-h">
+<h2 id="feat-h" class="reveal"><span aria-hidden="true">⭐</span> מומלצים להתחלה</h2>
+<ul class="feat-grid">
+{cards}
+</ul></section>"""
 
 def hero_html(total, pages, guide, phrases):
     words = "".join(f'<span class="w" style="--i:{i}">{esc(w)}</span> '
@@ -155,6 +190,7 @@ def render():
     total = sum(skill_count(item) for item, _ in items)
     body = "\n".join([aurora_html(), '<div class="wrap">', constellation_html(items),
                       hero_html(total, len(items), catalog["guide"], ticker_phrases(items)),
+                      featured_html(items, catalog.get("featured", [])),
                       filterbar_html(buckets), '<main id="skills">', sections_html(buckets),
                       "</main>", footer_html(), "</div>"])
     html = page_shell(HUB_TITLE, HUB_DESC, "🧰", "assets/site.css", body, SCRIPTS)
