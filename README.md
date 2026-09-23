@@ -10,6 +10,12 @@
 curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- debug test-loop
 ```
 
+להתקנת **כל** הסקילים (כולל החבילות מהדפים הנפרדים):
+
+```bash
+curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- all
+```
+
 הסקריפט לא דורס סקיל קיים באותו שם.
 
 ## מבנה

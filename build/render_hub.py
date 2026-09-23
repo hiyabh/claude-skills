@@ -2,7 +2,7 @@
 import json
 import random
 
-from common import (CATALOG, CATEGORIES, ROOT, aurora_html, category_of, esc,
+from common import (BASE_URL, CATALOG, CATEGORIES, ROOT, aurora_html, category_of, esc,
                     footer_html, load_internal, load_json, page_shell, write_text)
 
 HUB_TITLE = "כל הסקילים של בין קודש לקלוד"
@@ -147,6 +147,26 @@ def featured_html(items, keys):
 {cards}
 </ul></section>"""
 
+
+def install_all_html(total):
+    """One copy-paste line that installs every skill on the page."""
+    cmd = f"curl -fsSL {BASE_URL}/install.sh | bash -s -- all"
+    prompt = (f"התקן לי את כל הסקילים של בין קודש לקלוד: הרץ ב-Bash את הפקודה {cmd} "
+              "ואז תסכם לי בקצרה מה הותקן ומה כל סקיל עושה.")
+    return f"""<section class="install-all reveal" aria-labelledby="all-h">
+<div class="card all-card">
+  <h2 id="all-h"><span aria-hidden="true">📦</span> רוצה את כולם? התקנה בשורה אחת</h2>
+  <p class="muted">מדביקים את השורה הזו ב-Claude Code, והוא מתקין את כל {total} הסקילים.
+     סקיל שכבר מותקן אצלך לא יידרס.</p>
+  <div class="promptbox"><button class="copybtn" type="button" data-copy="all-prompt">העתק</button>
+<pre id="all-prompt">{esc(prompt)}</pre></div>
+  <details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+  <div class="promptbox"><button class="copybtn" type="button" data-copy="all-cmd">העתק</button>
+<pre id="all-cmd" class="ltr">{esc(cmd)}</pre></div></details>
+  <p class="tag">חלק מהסקילים צריכים תוכנה נוספת (למשל Python). בפעם הראשונה שתשתמש בסקיל כזה,
+     קלוד יגיד לך בדיוק מה להתקין.</p>
+</div></section>"""
+
 def hero_html(total, pages, guide, phrases):
     words = "".join(f'<span class="w" style="--i:{i}">{esc(w)}</span> '
                     for i, w in enumerate(TITLE_WORDS))
@@ -191,6 +211,7 @@ def render():
     body = "\n".join([aurora_html(), '<div class="wrap">', constellation_html(items),
                       hero_html(total, len(items), catalog["guide"], ticker_phrases(items)),
                       featured_html(items, catalog.get("featured", [])),
+                      install_all_html(total),
                       filterbar_html(buckets), '<main id="skills">', sections_html(buckets),
                       "</main>", footer_html(), "</div>"])
     html = page_shell(HUB_TITLE, HUB_DESC, "🧰", "assets/site.css", body, SCRIPTS)

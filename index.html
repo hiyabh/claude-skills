@@ -8,7 +8,7 @@
 <meta property="og:title" content="כל הסקילים של בין קודש לקלוד">
 <meta property="og:description" content="מרכז אחד לכל הסקילים ל-Claude Code שבנינו בקהילת בין קודש לקלוד - וידאו, מסמכים בעברית, פיתוח, מחקר ובוטים. כל סקיל עם דף הסבר והתקנה בהדבקה אחת.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧰%3C/text%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/site.css?v=dd768a9d">
+<link rel="stylesheet" href="assets/site.css?v=8768823d">
 <script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
 <script src="assets/motion.js?v=8b14141c" defer></script>
 <script src="assets/hero.js?v=a8cd4174" defer></script>
@@ -68,6 +68,19 @@
   </a>
 </li>
 </ul></section>
+<section class="install-all reveal" aria-labelledby="all-h">
+<div class="card all-card">
+  <h2 id="all-h"><span aria-hidden="true">📦</span> רוצה את כולם? התקנה בשורה אחת</h2>
+  <p class="muted">מדביקים את השורה הזו ב-Claude Code, והוא מתקין את כל 54 הסקילים.
+     סקיל שכבר מותקן אצלך לא יידרס.</p>
+  <div class="promptbox"><button class="copybtn" type="button" data-copy="all-prompt">העתק</button>
+<pre id="all-prompt">התקן לי את כל הסקילים של בין קודש לקלוד: הרץ ב-Bash את הפקודה curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- all ואז תסכם לי בקצרה מה הותקן ומה כל סקיל עושה.</pre></div>
+  <details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+  <div class="promptbox"><button class="copybtn" type="button" data-copy="all-cmd">העתק</button>
+<pre id="all-cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- all</pre></div></details>
+  <p class="tag">חלק מהסקילים צריכים תוכנה נוספת (למשל Python). בפעם הראשונה שתשתמש בסקיל כזה,
+     קלוד יגיד לך בדיוק מה להתקין.</p>
+</div></section>
 <div class="filterbar">
   <input class="search" type="search" placeholder="חיפוש סקיל... (למשל: וורד, בוט, יוטיוב)"
          aria-label="חיפוש סקיל" hidden>

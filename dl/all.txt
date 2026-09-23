@@ -1,0 +1,27 @@
+skill geulah
+skill archive-organizer
+skill stress-test-setup
+skill rabbi-rag-telegram-bot
+skill research-to-obsidian
+skill debug
+skill code-visualizer
+skill codeguilds-finder
+skill test-loop
+skill incident-response
+skill session-journal
+skill whatsapp-personality-quiz
+skill project-architecture
+skill common-mistakes-tracker
+skill work-summary
+skill pdf-flipbook
+skill code-snippets-library
+skill git-workflow
+skill coherent-transcript-editor
+skill prototype
+skill website-launch-checklist
+skill production-safety-guard
+skill pre-build-setup
+bundle https://hiyabh.github.io/claude-video-skills/claude-video-skills.tar.gz
+bundle https://hiyabh.github.io/claude-shiur-editor-skill/shiur-editor-skill.tar.gz
+bundle https://hiyabh.github.io/claude-end-session-skill/end-session-skill.tar.gz
+repo school-equipment-list https://codeload.github.com/hiyabh/school-equipment-list/tar.gz/refs/heads/main

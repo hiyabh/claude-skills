@@ -10,7 +10,8 @@ import sys
 import package
 import render_hub
 import render_skill
-from common import CATEGORIES, DL_DIR, PAGES_DIR, SRC_DIR, load_internal
+from common import (CATALOG, CATEGORIES, DL_DIR, PAGES_DIR, SRC_DIR, load_internal,
+                    load_json, write_text)
 
 REQUIRED_FIELDS = ("name", "category", "icon", "title", "tagline", "what")
 MAX_TAGLINE = 120
@@ -44,6 +45,18 @@ def _clear_readonly(func, path, _exc):
     func(path)
 
 
+def write_manifest(pages):
+    """dl/all.txt drives `install.sh all`: one line per skill, bundle or repo."""
+    lines = [f"skill {p['name']}" for p in pages]
+    for entry in load_json(CATALOG).get("external", []):
+        src = entry.get("install", {})
+        if "bundle" in src:
+            lines.append(f"bundle {src['bundle']}")
+        elif "repo" in src:
+            lines.append(f"repo {src['name']} {src['repo']}")
+    write_text(DL_DIR / "all.txt", "\n".join(lines) + "\n")
+
+
 def prune(names):
     """Delete generated pages/tarballs of skills that no longer exist."""
     for page_dir in PAGES_DIR.glob("*"):
@@ -66,6 +79,7 @@ def main():
     for page in pages:
         render_skill.render(page)
     prune({p["name"] for p in pages})
+    write_manifest(pages)
     cards, skills = render_hub.render()
     print(f"OK: {len(pages)} skill pages, hub with {cards} cards / {skills} skills")
     return 0

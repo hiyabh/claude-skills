@@ -308,6 +308,13 @@ body{position:relative; overflow-x:hidden}
   color:var(--muted); font-size:.9rem}
 .say-line b{color:var(--gold)}
 
+/* ---------- install everything in one line ---------- */
+.install-all{max-width:none; margin-top:26px}
+.all-card{padding:20px 22px; background:linear-gradient(160deg,#16201a 0%,var(--card) 60%); border-color:#2f4a36}
+.all-card h2{margin:0 0 8px; font-size:1.2rem}
+.all-card .promptbox{background:var(--card-2); border-radius:12px; padding:4px 14px 12px; margin-top:12px}
+.all-card details.alt .promptbox{margin-top:0}
+
 /* ---------- reduced motion: keep fades, drop movement ---------- */
 @media (prefers-reduced-motion:reduce){
   .aurora i,.star > span,.skill-icon > span,.skill-icon::before,.copybtn[data-done]{animation:none}
