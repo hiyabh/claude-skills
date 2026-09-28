@@ -17,6 +17,7 @@ skill pdf-flipbook
 skill code-snippets-library
 skill git-workflow
 skill coherent-transcript-editor
+skill poster-motion
 skill prototype
 skill website-launch-checklist
 skill production-safety-guard

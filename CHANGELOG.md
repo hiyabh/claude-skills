@@ -3,6 +3,11 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.4.0] - 2026-09-28
+
+### Added (תוסף)
+- סקיל חדש "פוסטרים בתנועה": סדרת פוסטרים הופכת לסרטון מושן בשכבות על הביט ([poster-motion](src/poster-motion/SKILL.md))
+
 ## [1.3.0] - 2026-09-23
 
 ### Added (תוסף)

@@ -1,0 +1,115 @@
+/* poster-motion - composition styles. Inlined into index.html by
+   build_composition.py; W/H arrive as --w/--h on #root.
+   No filter:, blur(), clip-path or radial-gradient anywhere: past ~25 of them
+   the snapshot render path captures black frames. Shadows are box-shadow. */
+
+@font-face { font-family: "Heebo"; font-weight: 400; font-display: block;
+  src: url("assets/fonts/heebo-hebrew-400.woff2") format("woff2");
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: "Heebo"; font-weight: 400; font-display: block;
+  src: url("assets/fonts/heebo-latin-400.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+2000-206F, U+2122, U+2212; }
+@font-face { font-family: "Heebo"; font-weight: 800; font-display: block;
+  src: url("assets/fonts/heebo-hebrew-800.woff2") format("woff2");
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: "Heebo"; font-weight: 800; font-display: block;
+  src: url("assets/fonts/heebo-latin-800.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+2000-206F, U+2122, U+2212; }
+@font-face { font-family: "Karantina"; font-weight: 700; font-display: block;
+  src: url("assets/fonts/karantina-hebrew-700.woff2") format("woff2");
+  unicode-range: U+0307-0308, U+0590-05FF, U+200C-2010, U+20AA, U+25CC, U+FB1D-FB4F; }
+@font-face { font-family: "Karantina"; font-weight: 700; font-display: block;
+  src: url("assets/fonts/karantina-latin-700.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+2000-206F, U+2122, U+2212; }
+@font-face { font-family: "JetBrains Mono"; font-weight: 400; font-display: block;
+  src: url("assets/fonts/jetbrains-mono-latin-400.woff2") format("woff2"); }
+
+:root { --red: #d63a24; --ink: #1c1a18; --paper: #efebe3; --cream: #f6f2ea;
+  --kraft: #b28860; --mono: "JetBrains Mono", monospace; }
+body { margin: 0; background: #000; }
+#root { position: relative; width: var(--w); height: var(--h); overflow: hidden;
+  background: var(--paper); font-family: "Heebo", sans-serif; color: var(--ink); }
+
+/* ---------- poster shots ---------- */
+.shot { position: absolute; inset: 0; overflow: hidden; }
+.cam { position: absolute; inset: 0; transform-origin: 50% 55%; }
+.layer { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.win { position: absolute; overflow: hidden; }
+.win-in { position: absolute; top: 0; right: 0; background-repeat: no-repeat; }
+.acc { position: absolute; opacity: 0; }
+.acc img, .obj-in, .obj-in img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.peek { position: absolute; left: 0; right: 0; top: 0; overflow: hidden; }
+.strip { position: absolute; top: 0; height: 100%; background-repeat: no-repeat; opacity: 0; }
+
+/* ---------- shared kraft stage (making-of, end card) ---------- */
+.kraft { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.card { position: absolute; background: var(--cream); box-sizing: border-box;
+  box-shadow: 0 10px 28px rgba(40, 24, 8, .38), 0 2px 5px rgba(40, 24, 8, .3); }
+.card img { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.tape { position: absolute; width: 74px; height: 22px; background: rgba(236, 226, 196, .82);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .15); }
+
+/* torn caption strip */
+.torn { position: absolute; left: -10px; right: -10px; bottom: 26px; height: 74px; opacity: 0; }
+.torn svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.torn .say { position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; direction: rtl; font-weight: 800; font-size: 29px;
+  letter-spacing: -.2px; padding-top: 8px; white-space: nowrap; }
+.hl { color: var(--red); }
+bdi { white-space: nowrap; padding: 0 .12em; }
+
+/* top rail: file chip + step tag + progress segments */
+.rail { position: absolute; top: 18px; left: 20px; right: 20px; height: 40px; opacity: 0; }
+.chip { position: absolute; left: 0; top: 0; font: 400 13px var(--mono); padding: 5px 10px;
+  background: var(--cream); color: #3a332b; box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+  direction: ltr; white-space: nowrap; }
+.tag { position: absolute; right: 0; top: 0; padding: 5px 12px; background: var(--red);
+  color: #fff; font: 800 15px "Heebo"; direction: rtl; white-space: nowrap; }
+.segs { position: absolute; left: 0; right: 0; top: 36px; display: flex; gap: 6px; }
+.seg { flex: 1; height: 3px; background: rgba(28, 26, 24, .25); }
+.seg.on { background: var(--ink); }
+
+/* step card */
+.num { position: absolute; left: 50%; top: 20%; width: 300px; height: 300px;
+  margin-left: -150px; opacity: 0; }
+.num img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.num span { position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; font: 700 190px/1 "Karantina"; color: #fff8ee;
+  letter-spacing: 4px; direction: ltr; }
+.step-title { position: absolute; left: 0; right: 0; top: 57%; text-align: center;
+  font: 700 118px/1 "Karantina"; direction: rtl; opacity: 0; }
+.step-rule { position: absolute; left: 50%; top: 72%; width: 190px; height: 7px;
+  margin-left: -95px; background: var(--ink); transform-origin: 50% 50%; }
+
+/* terminal and code windows */
+.term { position: absolute; background: #f3efe6; box-shadow: 0 12px 30px rgba(40, 24, 8, .4);
+  direction: ltr; }
+.term-bar { height: 26px; background: #e4ddcf; position: relative; }
+.term-bar i { position: absolute; top: 8px; width: 10px; height: 10px; border-radius: 50%; }
+.term-bar b { position: absolute; left: 70px; top: 5px; font: 400 12px var(--mono); color: #6d6457; }
+.term-body { padding: 16px 18px; font: 400 17px/1.55 var(--mono); color: #2c2822;
+  white-space: pre-wrap; }
+.term-body .caret { display: inline-block; width: 9px; height: 18px; background: #2c2822;
+  vertical-align: -3px; }
+.lbl { position: absolute; font: 400 12px var(--mono); padding: 3px 8px; background: var(--cream);
+  color: #2c2822; box-shadow: 0 1px 3px rgba(0, 0, 0, .25); white-space: nowrap; direction: ltr; }
+.lbl b { color: var(--red); font-weight: 400; }
+
+.big { position: absolute; left: 0; right: 0; text-align: center; font: 700 150px/1 "Karantina";
+  direction: ltr; color: var(--ink); }
+.big small { font: 800 26px "Heebo"; color: #6e1c10; margin-left: 10px; }
+.wave { position: absolute; left: 30px; right: 30px; display: flex; align-items: center; gap: 2px; }
+.wave i { flex: 1; background: #cdbfa8; border-radius: 1px; }
+.wave i.on { background: var(--red); }
+.head { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--ink); }
+
+/* ---------- finale + end card ---------- */
+.rope { position: absolute; left: 0; right: 0; height: 2px; background: var(--ink); }
+.row { position: absolute; top: 0; left: 0; height: 100%; }
+.credit { position: absolute; left: 24px; right: 24px; text-align: center; direction: rtl;
+  font: 400 12px "Heebo"; color: #24190e; }
+.tools { position: absolute; left: 24px; right: 24px; text-align: center; direction: ltr;
+  font: 400 13px var(--mono); color: #2c2218; }
+.tools b { color: #4f1208; font-weight: 400; }   /* --red is 1.6:1 on kraft */
+.end-title { position: absolute; left: 0; right: 0; text-align: center; direction: rtl;
+  font: 700 64px/1 "Karantina"; color: var(--ink); }
