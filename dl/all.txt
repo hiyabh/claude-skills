@@ -11,6 +11,7 @@ skill incident-response
 skill session-journal
 skill whatsapp-personality-quiz
 skill project-architecture
+skill il-law
 skill common-mistakes-tracker
 skill work-summary
 skill pdf-flipbook

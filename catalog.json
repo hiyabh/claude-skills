@@ -1,6 +1,7 @@
 {
   "_note": "External skill pages (each lives in its own repo). Entries with topic claude-skill are added/refreshed by build/sync_repos.py; hand-edited fields (icon, title, tagline, category, badge) are preserved.",
   "featured": [
+    "il-law",
     "claude-shiur-editor-skill",
     "claude-end-session-skill",
     "archive-organizer"
