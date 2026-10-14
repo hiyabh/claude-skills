@@ -1,0 +1,44 @@
+/* Diagram beats (beat_types_diagram.py). Geometry is set inline in frame pixels. */
+.dtitle { position: absolute; top: 140px; right: 110px; margin: 0; }
+.dsvg { position: absolute; inset: 0; width: 1920px; height: 1080px; overflow: visible; }
+.dsvg .ar, .dsvg .tline { fill: none; stroke: var(--torah); stroke-width: 6; stroke-linecap: round; }
+.dsvg .ah { fill: var(--torah); opacity: 0; }
+.dsvg .tdot { fill: var(--torah); stroke: var(--bg); stroke-width: 5; }
+.dnode { position: absolute; box-sizing: border-box; display: flex; align-items: center; justify-content: center;
+  padding: 10px 18px; border-radius: 18px; background: rgba(24, 36, 28, 0.92); border: 3px solid rgba(232, 184, 74, 0.7);
+  font-family: var(--display); font-weight: 700; font-size: 44px; line-height: 1.15; text-align: center; color: var(--fg); direction: rtl; }
+.dnode.cyc { border-radius: 60px; font-size: 38px; }
+.dcenter { position: absolute; left: 760px; top: 505px; width: 400px; text-align: center; font-family: var(--display);
+  font-weight: 700; font-size: 54px; color: var(--torah); direction: rtl; }
+.tlab { position: absolute; width: 320px; text-align: center; direction: rtl; display: flex; flex-direction: column; gap: 6px; }
+.tlab.up { top: 330px; } .tlab.dn { top: 610px; }
+.tlab b { font-family: var(--ui); font-size: 32px; color: var(--torah); }
+.tlab span { font-family: var(--display); font-weight: 700; font-size: 40px; line-height: 1.2; color: var(--fg); }
+.bars { position: absolute; inset: 0; }
+.bar { position: absolute; bottom: 250px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; }
+.bar .bfill { display: block; width: 100%; height: 100%; border-radius: 14px 14px 4px 4px; transform-origin: center bottom;
+  background: linear-gradient(to top, rgba(232, 184, 74, 0.55), rgba(232, 184, 74, 0.95)); }
+.bar b { position: absolute; top: -70px; font-size: 52px; color: var(--fg); }
+.bar .blab { position: absolute; bottom: -62px; white-space: nowrap; font-family: var(--ui); font-size: 34px; color: var(--muted); direction: rtl; }
+.sc { position: absolute; inset: 0; }
+.sc .post { position: absolute; left: 950px; top: 400px; width: 20px; height: 420px; border-radius: 8px; background: var(--muted); }
+.sc .beam { position: absolute; left: 490px; top: 388px; width: 940px; height: 18px; border-radius: 9px; background: var(--torah); }
+.sc .pan { position: absolute; top: 460px; width: 360px; height: 150px; border-radius: 0 0 160px 160px; display: flex;
+  align-items: center; justify-content: center; background: rgba(33, 48, 39, 0.95); border: 3px solid var(--torah);
+  font-family: var(--display); font-weight: 700; font-size: 40px; text-align: center; padding: 0 20px; box-sizing: border-box; direction: rtl; }
+.sc .pr { left: 1250px; } .sc .pl { left: 310px; }
+.venn { position: absolute; inset: 0; }
+.vc { position: absolute; top: 250px; width: 560px; height: 560px; border-radius: 50%; display: flex; align-items: center;
+  font-family: var(--display); font-weight: 700; font-size: 50px; direction: rtl; box-sizing: border-box; }
+.vc.vr { left: 900px; background: rgba(232, 184, 74, 0.20); border: 4px solid rgba(232, 184, 74, 0.8); justify-content: flex-end; padding-right: 70px; }
+.vc.vl { left: 460px; background: rgba(141, 184, 224, 0.20); border: 4px solid rgba(141, 184, 224, 0.8); justify-content: flex-start; padding-left: 70px; }
+.vmid { position: absolute; left: 860px; top: 500px; width: 200px; text-align: center; font-family: var(--display); font-weight: 700;
+  font-size: 44px; color: var(--fg); direction: rtl; }
+.stack { position: absolute; inset: 0; }
+.blk { position: absolute; left: 50%; height: 104px; border-radius: 14px; display: flex; align-items: center; justify-content: center;
+  background: rgba(33, 48, 39, 0.95); border: 3px solid rgba(232, 184, 74, 0.75); font-family: var(--display); font-weight: 700;
+  font-size: 46px; direction: rtl; }
+.step { position: absolute; box-sizing: border-box; border-radius: 12px 12px 0 0; transform-origin: center bottom; padding-top: 18px;
+  background: rgba(232, 184, 74, 0.16); border: 3px solid rgba(232, 184, 74, 0.7); display: flex; justify-content: center;
+  font-family: var(--display); font-weight: 700; font-size: 40px; text-align: center; direction: rtl; }
+.lmark { position: absolute; width: 44px; height: 44px; border-radius: 50%; background: var(--torah); box-shadow: 0 0 18px rgba(232, 184, 74, 0.9); }

@@ -1,0 +1,74 @@
+/* Shared design system for every chapter composition (see frame.md). */
+@font-face { font-family: "Frank Ruehl CLM"; src: url("fonts/FrankRuehlCLM-Medium.otf"); font-weight: 500; }
+@font-face { font-family: "Frank Ruehl CLM"; src: url("fonts/FrankRuehlCLM-Bold.otf"); font-weight: 700; }
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-Regular.ttf"); font-weight: 400; }
+@font-face { font-family: "Rubik"; src: url("fonts/Rubik-Bold.ttf"); font-weight: 700; }
+
+:root {
+  --bg: #0F1712; --surface: #18241C; --surface-2: #213027;
+  --fg: #F1E9D6; --muted: #A9B5A2;
+  --torah: #E8B84A; --math: #8DB8E0;
+  --etrog: #E9C440; --lulav: #B49A52; --hadas: #3E9C63; --aravah: #9DBFA3; --aravah-stem: #C0634A;
+  --danger: #D9715A;
+  --display: "Frank Ruehl CLM", serif;
+  --ui: "Rubik", sans-serif;
+}
+
+/* A beat is one full-frame timed layer inside a chapter. Animate .in, never the clip. */
+.beat { position: absolute; inset: 0; direction: rtl; color: var(--fg); font-family: var(--ui); }
+.beat > .in { position: absolute; inset: 0; box-sizing: border-box; padding: 150px 110px 110px; }
+.center { display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.stack { display: flex; flex-direction: column; gap: 36px; }
+.row { display: flex; flex-direction: row; align-items: center; gap: 48px; }
+
+/* Ghost word: huge low-opacity theme word that drifts behind content. */
+.ghost { position: absolute; bottom: -60px; left: -40px; font-family: var(--display); font-weight: 700;
+  font-size: 420px; line-height: 1; color: var(--fg); opacity: 0.07; white-space: nowrap; pointer-events: none; }
+
+/* Typography */
+.eyebrow { font-family: var(--ui); font-size: 30px; font-weight: 700; letter-spacing: 0.04em; color: var(--muted); }
+.eyebrow.torah { color: var(--torah); } .eyebrow.math { color: var(--math); }
+.h1 { font-family: var(--display); font-weight: 700; font-size: 132px; line-height: 1.05; margin: 0; }
+.h2 { font-family: var(--display); font-weight: 700; font-size: 92px; line-height: 1.1; margin: 0; }
+.h3 { font-family: var(--display); font-weight: 700; font-size: 64px; line-height: 1.15; margin: 0; }
+.body { font-family: var(--ui); font-size: 44px; line-height: 1.45; color: var(--fg); }
+.label { font-family: var(--ui); font-size: 30px; color: var(--muted); }
+.num { font-family: var(--ui); font-weight: 700; font-variant-numeric: tabular-nums; }
+.gold { color: var(--torah); } .blue { color: var(--math); } .dim { color: var(--muted); } .red { color: var(--danger); }
+
+/* Source card: a quoted text with its citation. */
+.src { position: relative; max-width: 1500px; padding: 56px 72px; background: rgba(24, 36, 28, 0.82);
+  border: 3px solid rgba(232, 184, 74, 0.55); border-radius: 18px; }
+.src.math { border-color: rgba(141, 184, 224, 0.55); }
+.src .q { font-family: var(--display); font-weight: 500; font-size: 58px; line-height: 1.5; }
+.src .q.sm { font-size: 46px; }
+.src .cite { margin-top: 24px; font-family: var(--ui); font-size: 30px; color: var(--muted); }
+
+/* Highlight: wrap a word as <span class="hl">word<i class="bar"></i></span>; K.mark sweeps the bar. */
+.hl { position: relative; display: inline-block; isolation: isolate; }
+.hl > .bar { position: absolute; inset-inline: -6px; bottom: 0.08em; height: 0.34em; background: var(--torah);
+  opacity: 0.38; border-radius: 6px; transform-origin: right center; display: block; mix-blend-mode: screen; }
+.hl.math > .bar { background: var(--math); }
+
+/* Term card: a new concept and its definition. */
+.term { max-width: 1400px; padding: 52px 64px; border-radius: 18px; background: rgba(33, 48, 39, 0.9);
+  border: 3px solid rgba(141, 184, 224, 0.6); }
+.term .name { font-family: var(--display); font-weight: 700; font-size: 96px; line-height: 1.1; color: var(--fg); }
+.term .en { font-family: var(--ui); font-size: 34px; color: var(--math); direction: ltr; unicode-bidi: isolate; margin-top: 8px; }
+.term .def { font-family: var(--ui); font-size: 42px; line-height: 1.45; margin-top: 28px; color: var(--fg); }
+
+/* Keyword chip */
+.kw { display: inline-block; padding: 14px 34px; border-radius: 999px; font-family: var(--ui); font-weight: 700;
+  font-size: 40px; background: var(--surface-2); border: 3px solid var(--torah); color: var(--fg); }
+.kw.math { border-color: var(--math); }
+
+/* Species icons (SVG sprite symbols live in index.html) */
+.sp { display: block; width: 120px; height: 320px; }
+.sp-cap { font-family: var(--display); font-weight: 700; font-size: 44px; text-align: center; margin-top: 14px; }
+
+/* Full-frame illustration with Ken Burns on the inner image */
+.illus { position: absolute; inset: 0; overflow: hidden; }
+.illus img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.illus .shade { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 40%, rgba(15,23,18,0) 35%, rgba(15,23,18,0.78) 100%); }
+.caption { position: absolute; right: 110px; bottom: 110px; max-width: 1300px; padding: 26px 44px; border-radius: 14px;
+  background: rgba(15, 23, 18, 0.82); font-family: var(--display); font-weight: 700; font-size: 60px; line-height: 1.25; }

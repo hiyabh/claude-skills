@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>אפליקציה לשעון גלקסי - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="בונה, מתקין ובודק אפליקציות לשעון Samsung Galaxy ישירות מהמחשב - בלי Android Studio, בלי חנות, עם צילומי מסך מהשעון עצמו">
+<meta property="og:title" content="אפליקציה לשעון גלקסי - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="בונה, מתקין ובודק אפליקציות לשעון Samsung Galaxy ישירות מהמחשב - בלי Android Studio, בלי חנות, עם צילומי מסך מהשעון עצמו">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⌚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css?v=8768823d">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
+</head>
+<body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🛠️ פיתוח וזרימת עבודה</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true"><span>⌚</span></div>
+  <h1 class="rise">אפליקציה לשעון גלקסי</h1>
+  <p class="sub rise">בונה, מתקין ובודק אפליקציות לשעון Samsung Galaxy ישירות מהמחשב - בלי Android Studio, בלי חנות, עם צילומי מסך מהשעון עצמו</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/galaxy-watch-app">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section class="reveal"><h2>מה זה עושה</h2>
+<div class="card prose"><p>מבקשים מקלוד אפליקציה לשעון: טיימר, מצב שבת, תזכורת, מסך מלא שלא נכבה. קלוד פותח פרויקט מתבנית מוכנה ובדוקה (Kotlin ו-Compose for Wear OS), בונה אותו, ומתקין אותו על השעון באוויר דרך Wireless debugging. אין צורך ב-Android Studio או באמולטור, כי השעון האמיתי הוא מכשיר הבדיקה.</p><p>הסקיל כולל את הסקריפטים לחיבור, להתקנה ולמתן הרשאות שאפליקציה מותקנת-צד לא יכולה לבקש לבד: שינוי הגדרות מערכת, נא לא להפריע, הצגה מעל אפליקציות. יש בו גם מתכונים לבדיקה על המכשיר: צילומי מסך, איזו אפליקציה פתוחה, מצב המסך, התראות ושעונים מעוררים.</p><p>הכי חשוב, הוא מכיר את המלכודות של Wear OS שלא כתובות בתיעוד ועלו שעות בפעם הראשונה. אפליקציה במצב Always-on נזרקת לפני השעון אחרי 20 שניות. מסך מתעורר כל דקה. סמסונג מכבה את התצוגה כשהשעון לא על היד. נתיב תיקייה בעברית שובר את הבדיקות.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>אפליקציה אישית לשעון שלא קיימת בחנות, למשל מצב שבת עם זמני כניסה ויציאה</li><li>שינוי באפליקציה קיימת שבנית, ובדיקה מיידית על השעון</li><li>קריאת הגדרות, לוגים וצילומי מסך מהשעון כדי להבין למה משהו לא עובד</li><li>בדיקה האם השעון בכלל תומך ביכולת מסוימת לפני שמתחילים</li></ul></div></section>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say reveal">"תבנה לי אפליקציה לשעון גלקסי"</li><li class="say reveal">"תתקין את האפליקציה על השעון ותצלם מסך"</li><li class="say reveal">"האם השעון שלי תומך במסך שלא נכבה?"</li><li class="say reveal">"תוסיף לאפליקציה בשעון כפתור עצירה"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">תבנה לי אפליקציית מצב שבת לשעון: מסך שעון גדול שלא נכבה ולא מגיב למגע, עם נא לא להפריע אוטומטי</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">אפליקציה שמותקנת על השעון ומציגה שעון מלא גם במצב Always-on, עם שירות שמחזיק אותה על המסך, הפעלה וכיבוי של נא לא להפריע, וצילומי מסך מהשעון שמוכיחים שהכול עובד</div></div></div>
+</section>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>מחשב Windows</b></td><td>הסקריפטים נכתבו ב-PowerShell</td></tr><tr><td><b>JDK 17 ו-Android SDK (בלי Android Studio)</b></td><td>קלוד מתקין אותם בפעם הראשונה: JDK כקובץ zip נייד ו-platform-tools דרך sdkmanager</td></tr><tr><td><b>שעון Galaxy עם Wear OS 5 ומעלה</b></td><td>נבדק על Galaxy Watch 7 עם Wear OS 6. צריך להפעיל אפשרויות מפתחים ו-Wireless debugging, והשעון והמחשב צריכים להיות באותה רשת Wi-Fi</td></tr></table><p class="tag"><b>לתשומת לבך:</b> אפליקציה שמותקנת כך מיועדת לשימוש אישי ולא עוברת את בדיקות החנות. הרשאות מערכת רחבות ניתנות רק למה שהאפליקציה באמת צריכה. בנוסף, אחרי אתחול של השעון ה-Wireless debugging נכבה, וצריך לחבר מחדש</p></div></section>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;אפליקציה לשעון גלקסי&quot; (galaxy-watch-app).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/galaxy-watch-app.tar.gz
+3. חלץ ממנה את התיקייה skills/galaxy-watch-app אל ~/.claude/skills/galaxy-watch-app. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: מחשב Windows, JDK 17 ו-Android SDK (בלי Android Studio), שעון Galaxy עם Wear OS 5 ומעלה. אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תבנה לי אפליקציה לשעון גלקסי&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- galaxy-watch-app</pre>
+</div>
+<p class="muted">או <a href="../../dl/galaxy-watch-app.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

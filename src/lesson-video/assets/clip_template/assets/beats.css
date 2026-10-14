@@ -1,0 +1,92 @@
+/* Beat-type and caption styles for the generated chapters (loaded after kit.css). */
+.beat > .in { padding: 140px 110px 230px; }
+.beat .sub { margin-top: 30px; max-width: 1400px; }
+
+/* title / closing */
+.t-title .wipe, .t-closing .wipe { position: absolute; inset: 0; background: var(--torah); transform-origin: left center; z-index: 5; }
+.t-title .tt, .t-closing .tt { font-size: 124px; max-width: 1600px; }
+.t-title .rule, .t-closing .rule { width: 280px; height: 6px; border-radius: 3px; background: var(--torah); margin: 34px auto 0; transform-origin: center; }
+.t-title .eyebrow, .t-closing .eyebrow { margin-bottom: 22px; font-size: 34px; }
+.closing .tt { color: var(--torah); }
+
+/* question */
+.t-question .qmark { position: absolute; left: 140px; top: -60px; font-family: var(--display); font-weight: 700;
+  font-size: 720px; line-height: 1; color: var(--torah); opacity: 0; }
+.t-question .qq { font-size: 112px; max-width: 1500px; }
+
+/* say: a spoken line, big */
+.t-say .qt { position: absolute; right: 150px; top: 110px; font-family: var(--display); font-size: 320px; line-height: 1;
+  color: var(--torah); opacity: 0; }
+.t-say .say { font-size: 96px; line-height: 1.22; max-width: 1560px; }
+
+/* source / verse cards */
+.src.verse .q { font-size: 66px; text-align: center; }
+.src .q { text-align: center; }
+.src .cite { text-align: center; }
+
+/* keyword */
+.t-keyword .big { font-size: 104px; margin-bottom: 44px; }
+.t-keyword .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; max-width: 1600px; }
+.t-keyword .kw { font-size: 50px; padding: 18px 44px; }
+
+/* number */
+.t-number .bignum { font-size: 270px; line-height: 1; color: var(--torah); }
+.t-number .nlabel { margin-top: 18px; }
+
+/* story: full-frame illustration */
+.t-story .scap { position: absolute; top: 128px; right: 110px; max-width: 1100px; padding: 22px 40px; border-radius: 14px;
+  background: rgba(15, 23, 18, 0.84); border-inline-start: 6px solid var(--torah); }
+.t-story .ct { font-family: var(--display); font-weight: 700; font-size: 58px; line-height: 1.2; }
+.t-story .cs { font-family: var(--ui); font-size: 31px; color: var(--muted); margin-top: 6px; }
+.t-story .cs:empty { display: none; }
+
+/* imgtext: picture on the left half, text on the right */
+.t-imgtext .half { position: absolute; left: 0; top: 0; bottom: 0; width: 50%; overflow: hidden; }
+.t-imgtext .half img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.t-imgtext .side { position: absolute; right: 100px; top: 170px; width: 760px; display: flex; flex-direction: column; gap: 30px; }
+
+/* compare: two columns, the right one first */
+.t-compare .cols { position: absolute; top: 160px; right: 110px; left: 110px; bottom: 240px; display: flex; gap: 40px; }
+.t-compare .col { flex: 1; display: flex; flex-direction: column; gap: 22px; padding: 44px 50px; border-radius: 18px;
+  background: rgba(24, 36, 28, 0.88); border: 3px solid rgba(232, 184, 74, 0.55); }
+.t-compare .cl { border-color: rgba(141, 184, 224, 0.6); }
+.t-compare .vs { align-self: center; font-family: var(--display); font-weight: 700; font-size: 60px; color: var(--torah); }
+
+/* list */
+.t-list .lt { margin-bottom: 44px; }
+.t-list .items { display: flex; flex-direction: column; gap: 30px; }
+.t-list .li { display: flex; align-items: center; gap: 28px; font-family: var(--ui); font-size: 50px; }
+.t-list .dot { width: 22px; height: 22px; border-radius: 50%; background: var(--torah); flex: none; }
+
+/* karaoke captions */
+.caps { position: absolute; inset: 0; pointer-events: none; z-index: 40; }
+.caprow { position: absolute; left: 0; right: 0; bottom: 54px; display: flex; justify-content: center; }
+.capbox { opacity: 0; direction: rtl; max-width: 1560px; padding: 14px 36px; border-radius: 14px; text-align: center;
+  background: rgba(9, 15, 11, 0.78); font-family: var(--ui); font-weight: 700; font-size: 44px; line-height: 1.35; color: var(--fg); }
+
+/* ---- added by lesson-video: richer motion ---- */
+.cw { display: inline-block; margin-inline: 0.09em; }
+.cw.ck { color: var(--torah); font-size: 1.08em; }
+.illus .kb, .half .kb { position: absolute; inset: 0; overflow: hidden; }
+.illus .kb img, .half .kb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.motes { position: absolute; inset: 0; pointer-events: none; }
+.mote { position: absolute; border-radius: 50%; background: #FFE7A8; opacity: 0; filter: blur(1px);
+  box-shadow: 0 0 12px 4px rgba(255, 220, 140, 0.45); }
+.tr-flash { position: absolute; inset: 0; background: #FFF6DC; opacity: 0; pointer-events: none; z-index: 30; }
+.tr-blinds { position: absolute; inset: 0; pointer-events: none; z-index: 30; }
+.tr-blinds i { position: absolute; top: 0; bottom: 0; width: calc(100% / 6 + 1px); background: var(--bg); transform-origin: left center; }
+.chnum { font-size: 150px; line-height: 1; color: var(--torah); opacity: 0.9; margin-bottom: 6px; }
+.chmap { display: flex; gap: 14px; margin-top: 46px; direction: rtl; }
+.chmap .cm { width: 16px; height: 16px; border-radius: 50%; background: rgba(241, 233, 214, 0.18); }
+.chmap .cm.done { background: rgba(232, 184, 74, 0.45); }
+.chmap .cm.on { background: var(--torah); box-shadow: 0 0 14px rgba(232, 184, 74, 0.8); }
+.numwrap { position: relative; width: 440px; height: 440px; display: flex; align-items: center; justify-content: center; }
+.numwrap .ring { position: absolute; inset: 0; width: 440px; height: 440px; }
+.numwrap .rg { fill: none; stroke: var(--torah); stroke-width: 8; stroke-linecap: round; opacity: 0.6; }
+.t-number .numwrap .bignum { font-size: 200px; }
+.kin { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; gap: 18px 44px; max-width: 1640px; }
+.kn { font-family: var(--display); font-weight: 700; line-height: 1.1; color: var(--fg); display: inline-block; }
+.kn.gold { color: var(--torah); }
+.t-split .half { position: absolute; left: 0; top: 0; bottom: 0; width: 50%; overflow: hidden; }
+.t-split .side { position: absolute; right: 90px; top: 0; bottom: 230px; width: 800px; display: flex; align-items: center; }
+.t-split .src { max-width: 800px; padding: 44px 52px; }

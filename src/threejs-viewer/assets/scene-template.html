@@ -1,0 +1,463 @@
+<title>גביש</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: full-bleed WebGL stage; a glass control panel docks to the inline-start edge (bottom sheet on phones); live readouts sit on the opposite edge */
+:root {
+  --bg: #e7ecf0;
+  --panel: rgba(248, 250, 252, 0.88);
+  --chip: rgba(248, 250, 252, 0.82);
+  --fg: #14202c;
+  --muted: #566676;
+  --line: rgba(20, 32, 44, 0.14);
+  --accent: #0b6bcb;
+  --accent-fg: #ffffff;
+  --font-ui: "Rubik", "Segoe UI", Arial, sans-serif;
+  --font-data: "IBM Plex Mono", Consolas, "Courier New", monospace;
+  --radius: 14px;
+  --shadow: 0 10px 34px rgba(8, 14, 22, 0.22);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0b1117; --panel: rgba(16, 23, 31, 0.86); --chip: rgba(16, 23, 31, 0.8);
+    --fg: #e3eaf1; --muted: #91a0af; --line: rgba(227, 234, 241, 0.14);
+    --accent: #58a6ff; --accent-fg: #04101d; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0b1117; --panel: rgba(16, 23, 31, 0.86); --chip: rgba(16, 23, 31, 0.8);
+  --fg: #e3eaf1; --muted: #91a0af; --line: rgba(227, 234, 241, 0.14);
+  --accent: #58a6ff; --accent-fg: #04101d; color-scheme: dark;
+}
+[hidden] { display: none !important; }
+html, body { height: 100%; }
+body { margin: 0; overflow: hidden; background: var(--bg); color: var(--fg); font-family: var(--font-ui); font-size: 15px; line-height: 1.45; }
+#stage { position: fixed; inset: 0; }
+#stage canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+
+.panel {
+  position: fixed; z-index: 2;
+  inset-block-start: calc(16px + env(safe-area-inset-top, 0px)); inset-inline-start: 16px;
+  width: min(310px, calc(100vw - 32px)); max-height: calc(100% - 32px - env(safe-area-inset-top, 0px));
+  overflow: auto; display: flex; flex-direction: column; gap: 14px; padding: 14px 16px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  box-shadow: var(--shadow); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+}
+.panel-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.panel-head h1 { margin: 0; font-size: 1.15rem; font-weight: 700; text-wrap: balance; }
+.sub { margin: 2px 0 0; color: var(--muted); font-size: 0.85rem; }
+.panel-body { display: flex; flex-direction: column; gap: 14px; }
+
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.icon-btn { flex: none; inline-size: 30px; block-size: 30px; border-radius: 8px; border: 1px solid var(--line); background: transparent; line-height: 1; }
+.icon-btn[aria-expanded="false"] { transform: rotate(180deg); }
+.transport { display: flex; gap: 8px; }
+.primary { flex: 1; padding: 8px 12px; border: 0; border-radius: 9px; background: var(--accent); color: var(--accent-fg); font-weight: 500; }
+.ghost { padding: 8px 12px; border-radius: 9px; border: 1px solid var(--line); background: transparent; }
+
+.timeline { display: grid; grid-template-columns: 1fr auto; gap: 6px 10px; align-items: center; }
+.time { font-family: var(--font-data); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.speeds { grid-column: 1 / -1; display: flex; gap: 4px; }
+.speed { flex: 1; padding: 4px 0; border-radius: 7px; border: 1px solid var(--line); background: transparent; font-family: var(--font-data); font-size: 0.8rem; }
+.speed[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+input[type="range"] { inline-size: 100%; margin: 0; accent-color: var(--accent); }
+
+.controls { display: flex; flex-direction: column; gap: 12px; padding-block-start: 12px; border-block-start: 1px solid var(--line); }
+.ctl { display: grid; grid-template-columns: 1fr auto; gap: 4px 10px; align-items: center; }
+.ctl-range input, .ctl-select select { grid-column: 1 / -1; }
+.ctl-label { font-size: 0.9rem; }
+.ctl-value { font-family: var(--font-data); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.ctl select { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--line); background: var(--bg); color: var(--fg); }
+.ctl-toggle input { inline-size: 18px; block-size: 18px; margin: 0; accent-color: var(--accent); }
+
+.info { padding-block-start: 12px; border-block-start: 1px solid var(--line); font-size: 0.88rem; }
+.info p { margin: 0 0 8px; }
+.info code { font-family: var(--font-data); font-size: 0.82em; direction: ltr; unicode-bidi: isolate; }
+
+.hud {
+  position: fixed; z-index: 1; display: flex; flex-direction: column; align-items: flex-end; gap: 6px;
+  inset-block-start: calc(16px + env(safe-area-inset-top, 0px)); inset-inline-end: 16px; pointer-events: none;
+}
+.chip { display: flex; align-items: baseline; gap: 8px; padding: 6px 10px; border-radius: 10px; background: var(--chip); border: 1px solid var(--line); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.chip-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.02em; }
+.chip-value { font-family: var(--font-ui); font-weight: 500; font-size: 0.95rem; font-variant-numeric: tabular-nums; }
+.chip-unit { font-family: var(--font-data); font-size: 0.72rem; color: var(--muted); }
+
+.fallback { position: fixed; inset: 0; z-index: 3; display: grid; place-content: center; gap: 8px; padding-inline: 24px; text-align: center; background: var(--bg); }
+.fallback h2 { margin: 0; font-size: 1.2rem; }
+.fallback p { margin: 0; max-inline-size: 46ch; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .panel { inset-block-start: auto; inset-block-end: calc(12px + env(safe-area-inset-bottom, 0px)); inset-inline: 12px; width: auto; max-height: 46%; }
+  .hud { inset-inline-end: 12px; inset-block-start: calc(12px + env(safe-area-inset-top, 0px)); }
+  .chip { padding: 4px 8px; }
+}
+</style>
+
+<div id="stage" role="img" aria-label="סצנה תלת-ממדית. גררו לסיבוב, גלגלו או צבטו לזום."></div>
+<div id="hud" class="hud" dir="rtl" lang="he" hidden></div>
+<aside class="panel" dir="rtl" lang="he">
+  <header class="panel-head">
+    <div>
+      <h1 id="title"></h1>
+      <p id="subtitle" class="sub"></p>
+    </div>
+    <button id="collapse" class="icon-btn" type="button" aria-expanded="true" aria-controls="panel-body" aria-label="כיווץ הפאנל">&#9662;</button>
+  </header>
+  <div id="panel-body" class="panel-body">
+    <div class="transport">
+      <button id="play" class="primary" type="button"></button>
+      <button id="reset" class="ghost" type="button">איפוס מצלמה</button>
+    </div>
+    <div id="timeline" class="timeline" hidden>
+      <input id="scrub" type="range" min="0" max="1" step="0.01" value="0" aria-label="ציר זמן">
+      <span id="time" class="time" dir="ltr">0:00</span>
+      <div id="speeds" class="speeds" role="group" aria-label="מהירות הפעלה"></div>
+    </div>
+    <div id="controls" class="controls" hidden></div>
+    <div id="info" class="info" hidden></div>
+  </div>
+</aside>
+<div id="fallback" class="fallback" dir="rtl" lang="he" hidden>
+  <h2>אי אפשר להציג את הסצנה</h2>
+  <p></p>
+</div>
+
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.186.1/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.1/examples/jsm/"
+} }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// @@SCENE-BEGIN
+const META = { title: 'גביש', subtitle: 'תבנית בסיס. גררו לסיבוב, גלגלו לזום.' };
+const TIMELINE = { duration: 12, loop: true, speeds: [1, 2, 4, 8], speed: 1 };
+const CONTROLS = [
+  { id: 'spin', type: 'range', label: 'מהירות סיבוב', min: 0, max: 3, step: 0.1, value: 1, unit: '×' },
+  { id: 'detail', type: 'range', label: 'רמת פירוט', min: 0, max: 4, step: 1, value: 1 },
+  { id: 'wire', type: 'toggle', label: 'הצגת קווי רשת', value: false },
+  { id: 'tone', type: 'select', label: 'חומר', value: 'glass', options: [['glass', 'זכוכית כחולה'], ['copper', 'נחושת'], ['chalk', 'גיר']] },
+];
+const READOUTS = [{ id: 'faces', label: 'פאות' }, { id: 'angle', label: 'זווית', unit: '°' }];
+const INFO = '<p>איקוסהדרון בנוי מ-20 משולשים. כל רמת פירוט מחלקת את הצלעות מחדש, ומספר הפאות הוא <code>20×(n+1)²</code>.</p>';
+const CAMERA = { position: [3.2, 2.2, 4.6], target: [0, 0, 0], fov: 45, near: 0.1, far: 100 };
+
+const MATERIALS = {
+  glass: { color: 0x3b82f6, roughness: 0.15, metalness: 0.1 },
+  copper: { color: 0xb87333, roughness: 0.35, metalness: 0.9 },
+  chalk: { color: 0xe7e2d6, roughness: 0.95, metalness: 0 },
+};
+
+function crystalGeometry(detail) {
+  return new THREE.IcosahedronGeometry(1.2, detail);
+}
+
+function buildScene({ scene, params }) {
+  scene.add(new THREE.HemisphereLight(0xdfe8ff, 0x3a3226, 1.2));
+  const sun = new THREE.DirectionalLight(0xffffff, 2.4);
+  sun.position.set(4, 6, 3);
+  scene.add(sun);
+  const grid = new THREE.GridHelper(12, 24, 0x7f8c99, 0x7f8c99);
+  grid.material.transparent = true;
+  grid.material.opacity = 0.25;
+  grid.position.y = -1.6;
+  scene.add(grid);
+  const material = new THREE.MeshStandardMaterial({ ...MATERIALS[params.tone], flatShading: true, wireframe: params.wire });
+  const mesh = new THREE.Mesh(crystalGeometry(params.detail), material);
+  scene.add(mesh);
+  return { mesh, angle: 0 };
+}
+
+function update(ctx, state, t, dt) {
+  state.angle += dt * ctx.params.spin;
+  state.mesh.rotation.set(state.angle * 0.4, state.angle, 0);
+  state.mesh.position.y = Math.sin((t / TIMELINE.duration) * Math.PI * 2) * 0.35;
+  ctx.readout('faces', (state.mesh.geometry.attributes.position.count / 3).toLocaleString('en-US'));
+  ctx.readout('angle', Math.round(THREE.MathUtils.radToDeg(state.angle) % 360));
+}
+
+function onParam(ctx, state, id, value) {
+  const { mesh } = state;
+  if (id === 'detail') { mesh.geometry.dispose(); mesh.geometry = crystalGeometry(value); }
+  if (id === 'wire') mesh.material.wireframe = value;
+  if (id === 'tone') mesh.material.setValues(MATERIALS[value]);
+}
+// @@SCENE-END
+
+// ================= ENGINE (generic, no per-scene edits) =================
+const MAX_PIXEL_RATIO = 2;
+const MAX_FRAME_DT = 0.1;
+const MAX_PORTRAIT_FOV = 80;
+const PHONE_QUERY = '(max-width: 640px)';
+const NO_UNIT_GAP = new Set(['%', '°', '×']);
+const REDUCED_MOTION = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const MSG_NO_WEBGL = 'הדפדפן לא הצליח להפעיל WebGL. נסו דפדפן אחר, או הפעילו האצת חומרה בהגדרות הדפדפן.';
+const MSG_SCENE_ERROR = 'שגיאה בבניית הסצנה: ';
+const $ = (id) => document.getElementById(id);
+const clock = { t: 0, playing: !REDUCED_MOTION, speed: (TIMELINE && TIMELINE.speed) || 1 };
+const readoutNodes = {};
+
+function el(tag, cls, text) {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+function hasWebGL() {
+  try {
+    const canvas = document.createElement('canvas');
+    return Boolean(canvas.getContext('webgl2') || canvas.getContext('webgl'));
+  } catch { return false; }
+}
+
+function showFallback(message) {
+  $('fallback').querySelector('p').textContent = message;
+  $('fallback').hidden = false;
+}
+
+function createRenderer(stage) {
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MAX_PIXEL_RATIO));
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  stage.appendChild(renderer.domElement);
+  return renderer;
+}
+
+// On portrait screens widen the vertical FOV so the horizontal view matches a square frame.
+function portraitFov(fov, aspect) {
+  if (aspect >= 1) return fov;
+  const widened = THREE.MathUtils.radToDeg(2 * Math.atan(Math.tan(THREE.MathUtils.degToRad(fov) / 2) / aspect));
+  return Math.min(widened, MAX_PORTRAIT_FOV);
+}
+
+function watchResize(stage, renderer, camera) {
+  const fit = () => {
+    const w = stage.clientWidth, h = stage.clientHeight;
+    if (!w || !h) return;
+    renderer.setSize(w, h, false);
+    camera.aspect = w / h;
+    camera.fov = portraitFov(CAMERA.fov, camera.aspect);
+    camera.updateProjectionMatrix();
+  };
+  new ResizeObserver(fit).observe(stage);
+  fit();
+}
+
+function createContext(stage) {
+  const renderer = createRenderer(stage);
+  const camera = new THREE.PerspectiveCamera(CAMERA.fov, 1, CAMERA.near, CAMERA.far);
+  camera.position.fromArray(CAMERA.position);
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.target.fromArray(CAMERA.target);
+  controls.enableDamping = true;
+  controls.update();
+  watchResize(stage, renderer, camera);
+  const ctx = { THREE, scene: new THREE.Scene(), camera, renderer, controls, params: {}, timeScale: 1, readout: setReadout };
+  attachFollow(ctx);
+  return ctx;
+}
+
+// ctx.follow(pos) keeps the camera's offset to a moving object while the viewer can still orbit around it.
+function attachFollow(ctx) {
+  let prev = null;
+  const delta = new THREE.Vector3();
+  ctx.follow = (pos) => {
+    if (prev) {
+      delta.subVectors(pos, prev);
+      ctx.camera.position.add(delta);
+      ctx.controls.target.add(delta);
+    } else {
+      ctx.controls.target.copy(pos);
+      prev = new THREE.Vector3();
+    }
+    prev.copy(pos);
+  };
+  ctx.unfollow = () => { prev = null; };
+  ctx.resetView = () => {
+    const base = prev ? prev.clone() : new THREE.Vector3().fromArray(CAMERA.target);
+    const offset = new THREE.Vector3().fromArray(CAMERA.position).sub(new THREE.Vector3().fromArray(CAMERA.target));
+    ctx.camera.position.copy(base).add(offset);
+    ctx.controls.target.copy(base);
+  };
+}
+
+function buildReadouts() {
+  const hud = $('hud');
+  for (const r of READOUTS) {
+    const chip = el('div', 'chip');
+    const value = el('span', 'chip-value', '–');
+    chip.append(el('span', 'chip-label', r.label), value);
+    if (r.unit) chip.append(el('span', 'chip-unit', r.unit));
+    hud.append(chip);
+    readoutNodes[r.id] = value;
+  }
+  hud.hidden = READOUTS.length === 0;
+}
+
+function setReadout(id, text) {
+  const node = readoutNodes[id];
+  if (node && node.textContent !== String(text)) node.textContent = text;
+}
+
+function formatValue(c, v) {
+  if (!c.unit) return String(v);
+  return NO_UNIT_GAP.has(c.unit) ? `${v}${c.unit}` : `${v} ${c.unit}`;
+}
+
+const CONTROL_FACTORIES = {
+  range(c, set, row) {
+    const out = el('output', 'ctl-value', formatValue(c, c.value));
+    row.append(out);
+    const input = Object.assign(document.createElement('input'), { type: 'range', min: c.min, max: c.max, step: c.step ?? 1, value: c.value });
+    input.addEventListener('input', () => { const v = Number(input.value); out.textContent = formatValue(c, v); set(v); });
+    return input;
+  },
+  toggle(c, set) {
+    const input = Object.assign(document.createElement('input'), { type: 'checkbox', checked: Boolean(c.value) });
+    input.setAttribute('role', 'switch');
+    input.addEventListener('change', () => set(input.checked));
+    return input;
+  },
+  select(c, set) {
+    const select = document.createElement('select');
+    for (const [value, label] of c.options) select.append(Object.assign(el('option', '', label), { value }));
+    select.value = c.value;
+    select.addEventListener('change', () => set(select.value));
+    return select;
+  },
+};
+
+function controlRow(c, set) {
+  const row = el('div', `ctl ctl-${c.type}`);
+  const label = el('label', 'ctl-label', c.label);
+  label.htmlFor = `ctl-${c.id}`;
+  row.append(label);
+  const input = CONTROL_FACTORIES[c.type](c, set, row);
+  input.id = `ctl-${c.id}`;
+  row.append(input);
+  return row;
+}
+
+function initParams(ctx) {
+  for (const c of CONTROLS) ctx.params[c.id] = c.value;
+}
+
+function buildControls(ctx, onChange) {
+  const box = $('controls');
+  for (const c of CONTROLS) {
+    box.append(controlRow(c, (v) => { ctx.params[c.id] = v; onChange(c.id, v); }));
+  }
+  box.hidden = CONTROLS.length === 0;
+}
+
+function fmtTime(s) {
+  return `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
+}
+
+function syncTime() {
+  if (!TIMELINE) return;
+  $('scrub').value = clock.t;
+  $('time').textContent = `${fmtTime(clock.t)} / ${fmtTime(TIMELINE.duration)}`;
+}
+
+function setPlaying(on) {
+  clock.playing = on;
+  $('play').textContent = on ? '❚❚ השהיה' : '▶ הפעלה';
+  $('play').setAttribute('aria-pressed', String(on));
+}
+
+function buildSpeeds() {
+  const box = $('speeds');
+  for (const s of TIMELINE.speeds || [1]) {
+    const b = el('button', 'speed', `×${s}`);
+    b.type = 'button';
+    b.setAttribute('aria-pressed', String(s === clock.speed));
+    b.addEventListener('click', () => {
+      clock.speed = s;
+      for (const other of box.children) other.setAttribute('aria-pressed', String(other === b));
+    });
+    box.append(b);
+  }
+}
+
+function buildTransport(ctx) {
+  $('play').addEventListener('click', () => setPlaying(!clock.playing));
+  $('reset').addEventListener('click', () => ctx.resetView());
+  setPlaying(clock.playing);
+  if (!TIMELINE) return;
+  $('timeline').hidden = false;
+  $('scrub').max = TIMELINE.duration;
+  $('scrub').addEventListener('input', () => { clock.t = Number($('scrub').value); syncTime(); });
+  buildSpeeds();
+  syncTime();
+}
+
+function buildPanel() {
+  $('title').textContent = META.title;
+  $('subtitle').textContent = META.subtitle || '';
+  if (INFO) { $('info').innerHTML = INFO; $('info').hidden = false; }
+  const setOpen = (open) => {
+    $('panel-body').hidden = !open;
+    $('collapse').setAttribute('aria-expanded', String(open));
+  };
+  $('collapse').addEventListener('click', () => setOpen($('panel-body').hidden));
+  setOpen(!window.matchMedia(PHONE_QUERY).matches);
+}
+
+function advance(ctx, rawDt) {
+  if (!clock.playing) return 0;
+  const dt = rawDt * clock.speed * ctx.timeScale;
+  clock.t += dt;
+  if (TIMELINE && clock.t >= TIMELINE.duration) {
+    if (TIMELINE.loop) clock.t %= TIMELINE.duration;
+    else { clock.t = TIMELINE.duration; setPlaying(false); }
+  }
+  syncTime();
+  return dt;
+}
+
+function runLoop(ctx, state) {
+  let last = performance.now();
+  ctx.renderer.setAnimationLoop((now) => {
+    const dt = advance(ctx, Math.min((now - last) / 1000, MAX_FRAME_DT));
+    last = now;
+    try {
+      update(ctx, state, clock.t, dt);
+    } catch (err) {
+      ctx.renderer.setAnimationLoop(null);
+      showFallback(MSG_SCENE_ERROR + err.message);
+      return;
+    }
+    ctx.controls.update();
+    ctx.renderer.render(ctx.scene, ctx.camera);
+  });
+}
+
+function start() {
+  if (!hasWebGL()) return showFallback(MSG_NO_WEBGL);
+  let ctx, state;
+  try {
+    ctx = createContext($('stage'));
+    initParams(ctx);
+    state = buildScene(ctx);
+  } catch (err) {
+    return showFallback(MSG_SCENE_ERROR + err.message);
+  }
+  buildPanel();
+  buildReadouts();
+  buildControls(ctx, (id, v) => onParam(ctx, state, id, v));
+  buildTransport(ctx);
+  window.__viewer = { clock, ctx, state };
+  runLoop(ctx, state);
+}
+
+start();
+</script>

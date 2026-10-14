@@ -1,0 +1,42 @@
+{
+  "_comment": "Poly Haven assets (CC0, polyhaven.com/license) used by game mode. Keys are what the engine asks for; ids are Poly Haven slugs. repeat_m = metres covered by one texture tile; maps limits the exported maps (relief-only materials skip the colour map).",
+  "textures": {
+    "floor_oak":        {"id": "oak_wood_planks",       "repeat_m": 2.0},
+    "floor_light_oak":  {"id": "laminate_floor_02",     "repeat_m": 2.0},
+    "floor_herringbone":{"id": "herringbone_parquet",   "repeat_m": 1.6},
+    "floor_porcelain":  {"id": "marble_01",             "repeat_m": 1.8},
+    "floor_concrete":   {"id": "interior_tiles",        "repeat_m": 2.4},
+    "wall_plaster":     {"id": "painted_plaster_wall",  "repeat_m": 2.5, "tint": true, "maps": ["nor_gl", "rough"]},
+    "wall_bath_tile":   {"id": "long_white_tiles",      "repeat_m": 1.2},
+    "veneer_oak":       {"id": "oak_veneer_01",         "repeat_m": 1.0},
+    "veneer_white_oak": {"id": "white_oak_veneer",      "repeat_m": 1.0},
+    "veneer_walnut":    {"id": "natural_walnut_veneer", "repeat_m": 1.0},
+    "fabric_cotton":    {"id": "cotton_jersey",         "repeat_m": 0.6, "maps": ["nor_gl", "rough"]},
+    "fabric_linen":     {"id": "rough_linen",           "repeat_m": 0.6, "maps": ["nor_gl", "rough"]},
+    "fabric_velvet":    {"id": "velour_velvet",         "repeat_m": 0.6, "maps": ["nor_gl", "rough"]}
+  },
+  "hdris": {
+    "morning":   "qwantani_mid_morning_puresky",
+    "afternoon": "qwantani_late_afternoon_puresky",
+    "sunset":    "belfast_sunset_puresky",
+    "night":     "qwantani_night"
+  },
+  "models": {
+    "armchair":      {"id": "modern_arm_chair_01"},
+    "lounge_chair":  {"id": "mid_century_lounge_chair"},
+    "coffee_table":  {"id": "coffee_table_round_01"},
+    "ceiling_lamp":  {"id": "modern_ceiling_lamp_01"},
+    "plant":         {"id": "potted_plant_02"},
+    "plant_small":   {"id": "potted_plant_04"},
+    "tv_console":    {"id": "modern_wooden_cabinet"},
+    "picture":       {"id": "standing_picture_frame_01"},
+    "vase":          {"id": "ceramic_vase_01"},
+    "shelves":       {"id": "steel_frame_shelves_01"},
+    "desk_lamp":     {"id": "desk_lamp_arm_01"},
+    "outdoor_set":   {"id": "outdoor_table_chair_set_01"}
+  },
+  "tiers": {
+    "high": {"texture_px": 2048, "detail_px": 1024, "model_px": 1024, "hdri": "1k"},
+    "lite": {"texture_px": 1024, "detail_px": 512,  "model_px": 512,  "hdri": "1k"}
+  }
+}

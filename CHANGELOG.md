@@ -3,6 +3,14 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.6.0] - 2026-10-14
+
+### Added (תוסף)
+- סקיל חדש "תלת-מימד חי": סצנת Three.js אינטראקטיבית עם לוח בקרה בעברית, כדף לשיתוף ([threejs-viewer](src/threejs-viewer/SKILL.md))
+- סקיל חדש "תוכנית דירה בתלת-מימד": תוכנית אדריכל הופכת למודל, לסיור ולמצב משחק ([floorplan-3d](src/floorplan-3d/SKILL.md))
+- סקיל חדש "שיעור מוקלט לסרטון": הקלטת שיעור מלאה הופכת לסרטון יוטיוב מונפש ([lesson-video](src/lesson-video/SKILL.md))
+- סקיל חדש "אפליקציה לשעון גלקסי": בנייה, התקנה ובדיקה של אפליקציות Wear OS מהמחשב ([galaxy-watch-app](src/galaxy-watch-app/SKILL.md))
+
 ## [1.5.0] - 2026-09-30
 
 ### Added (תוסף)

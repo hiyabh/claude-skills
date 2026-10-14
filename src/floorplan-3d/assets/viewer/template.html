@@ -1,0 +1,246 @@
+<title>@@TITLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* Layout: full-bleed WebGL stage. Info card on the inline-start edge, mode switch + menu on the inline-end edge,
+   a floating glass toolbar at the bottom (views | toggles), and a side sheet (bottom sheet on phones). */
+:root {
+  --bg: #eef0f2; --stage: #e9ecef;
+  --glass: rgba(250, 251, 252, 0.78); --glass-strong: rgba(250, 251, 252, 0.92);
+  --fg: #16191d; --muted: #5d6670; --line: rgba(22, 25, 29, 0.12);
+  --accent: #c9773a; --accent-soft: rgba(201, 119, 58, 0.16); --accent-fg: #ffffff;
+  --drawn: #1f6fb2; --estimated: #b7791f; --question: #c2410c;
+  --font-ui: "Rubik", "Segoe UI", Arial, sans-serif;
+  --font-num: "IBM Plex Mono", Consolas, monospace;
+  --radius: 16px; --shadow: 0 12px 36px rgba(10, 14, 20, 0.18), 0 1px 0 rgba(255, 255, 255, 0.5) inset;
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101317; --stage: #14181d; --glass: rgba(24, 28, 34, 0.74); --glass-strong: rgba(24, 28, 34, 0.92);
+    --fg: #eef1f4; --muted: #9aa4ae; --line: rgba(238, 241, 244, 0.12);
+    --accent: #e39a5f; --accent-soft: rgba(227, 154, 95, 0.2); --accent-fg: #1a1007;
+    --drawn: #6cb4f0; --estimated: #e3b25f; --question: #fb923c;
+    --shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.06) inset; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101317; --stage: #14181d; --glass: rgba(24, 28, 34, 0.74); --glass-strong: rgba(24, 28, 34, 0.92);
+  --fg: #eef1f4; --muted: #9aa4ae; --line: rgba(238, 241, 244, 0.12);
+  --accent: #e39a5f; --accent-soft: rgba(227, 154, 95, 0.2); --accent-fg: #1a1007;
+  --drawn: #6cb4f0; --estimated: #e3b25f; --question: #fb923c;
+  --shadow: 0 12px 36px rgba(0, 0, 0, 0.45), 0 1px 0 rgba(255, 255, 255, 0.06) inset; color-scheme: dark;
+}
+[hidden] { display: none !important; }
+* { box-sizing: border-box; }
+html, body { height: 100%; }
+body { margin: 0; overflow: hidden; background: var(--bg); color: var(--fg); font: 15px/1.45 var(--font-ui); -webkit-font-smoothing: antialiased; }
+#stage { position: fixed; inset: 0; background: var(--stage); }
+#stage canvas { display: block; width: 100%; height: 100%; touch-action: none; outline: none; }
+.num { font-family: var(--font-num); font-variant-numeric: tabular-nums; direction: ltr; unicode-bidi: isolate; }
+
+.glass { background: var(--glass); border: 1px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow);
+  backdrop-filter: blur(18px) saturate(170%); -webkit-backdrop-filter: blur(18px) saturate(170%); }
+button { font: inherit; color: inherit; cursor: pointer; border: 0; background: none; -webkit-tap-highlight-color: transparent; }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.press { transition: transform 140ms var(--ease-out), background-color 160ms ease, color 160ms ease; }
+.press:active { transform: scale(0.96); }
+
+/* Info card */
+.info { position: fixed; z-index: 3; inset-block-start: calc(14px + env(safe-area-inset-top, 0px)); inset-inline-start: 14px;
+  width: min(330px, calc(100vw - 28px)); padding: 14px 16px 13px; }
+.eyebrow { margin: 0; color: var(--muted); font-size: 0.72rem; letter-spacing: 0.06em; font-weight: 500; }
+.info h1 { margin: 2px 0 4px; font-size: 1.28rem; line-height: 1.15; letter-spacing: -0.01em; font-weight: 700; text-wrap: balance; }
+.info .sub { margin: 0; color: var(--muted); font-size: 0.86rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 12px; margin-top: 10px; font-size: 0.8rem; color: var(--muted); align-items: center; }
+.chip { display: inline-flex; align-items: center; gap: 2px; padding: 1px 7px; border-radius: 7px; font: 500 0.78rem/1.5 var(--font-num);
+  direction: ltr; unicode-bidi: isolate; background: var(--glass-strong); white-space: nowrap; }
+.chip.drawn { color: var(--drawn); border: 1.5px solid var(--drawn); }
+.chip.estimated { color: var(--estimated); border: 1.5px dashed var(--estimated); }
+.hint { margin: 9px 0 0; font-size: 0.78rem; color: var(--muted); }
+.info-toggle { position: absolute; inset-block-start: 10px; inset-inline-end: 10px; width: 28px; height: 28px; border-radius: 8px; color: var(--muted); }
+.info.collapsed .collapsible { display: none; }
+
+/* Top-end controls */
+.topbar { position: fixed; z-index: 3; inset-block-start: calc(14px + env(safe-area-inset-top, 0px)); inset-inline-end: 14px; display: flex; gap: 8px; }
+.seg { display: inline-flex; padding: 3px; gap: 2px; }
+.seg button { padding: 6px 12px; border-radius: 11px; font-size: 0.86rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.icon { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; }
+.icon svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Bottom toolbar */
+.toolbar { position: fixed; z-index: 3; inset-block-end: calc(16px + env(safe-area-inset-bottom, 0px)); inset-inline: 0; margin-inline: auto;
+  width: max-content; max-width: calc(100vw - 20px); display: flex; gap: 6px; padding: 5px; overflow-x: auto; scrollbar-width: none; }
+.toolbar::-webkit-scrollbar { display: none; }
+.group { display: flex; gap: 2px; flex: none; }
+.sep { width: 1px; background: var(--line); margin: 6px 2px; flex: none; }
+.tb { padding: 8px 12px; border-radius: 11px; font-size: 0.86rem; font-weight: 500; white-space: nowrap; color: var(--fg); }
+.tb[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); }
+.tb.toggle[aria-pressed="true"] { background: var(--accent-soft); color: var(--accent); }
+.badge { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 5px; margin-inline-start: 6px; border-radius: 9px;
+  background: var(--question); color: #fff; font: 600 0.7rem/1 var(--font-num); }
+@media (hover: hover) and (pointer: fine) { .tb:hover:not([aria-pressed="true"]), .seg button:hover:not([aria-pressed="true"]) { background: var(--line); } }
+
+/* Side sheet */
+.sheet { position: fixed; z-index: 4; inset-block: calc(64px + env(safe-area-inset-top, 0px)) 84px; inset-inline-end: 14px; width: min(340px, calc(100vw - 28px));
+  display: flex; flex-direction: column; overflow: hidden; transform-origin: top left;
+  transition: transform 220ms var(--ease-out), opacity 180ms ease, filter 220ms ease; }
+[dir="rtl"] .sheet { transform-origin: top left; }
+.sheet.closed { opacity: 0; transform: scale(0.96) translateY(-6px); filter: blur(6px); pointer-events: none; }
+.tabs { display: flex; gap: 2px; padding: 6px; border-block-end: 1px solid var(--line); overflow-x: auto; scrollbar-width: none; flex: none; }
+.tabs button { padding: 6px 11px; border-radius: 10px; font-size: 0.84rem; font-weight: 500; color: var(--muted); white-space: nowrap; }
+.tabs button[aria-selected="true"] { background: var(--accent-soft); color: var(--accent); }
+.pane { padding: 12px 14px 16px; overflow: auto; flex: 1; }
+.pane h2 { margin: 2px 0 8px; font-size: 0.95rem; }
+.list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; }
+.row { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; padding: 8px 10px; border-radius: 10px; text-align: start; }
+@media (hover: hover) and (pointer: fine) { .row:hover { background: var(--line); } }
+.row .meta { color: var(--muted); font-size: 0.82rem; }
+.total { display: flex; justify-content: space-between; padding: 9px 10px 0; margin-top: 6px; border-block-start: 1px solid var(--line); font-weight: 600; }
+.note { padding: 9px 10px; border-radius: 10px; display: flex; gap: 10px; align-items: flex-start; text-align: start; width: 100%; }
+.note .pin { flex: none; }
+.note p { margin: 0; font-size: 0.86rem; }
+.note small { color: var(--muted); }
+.swatches { display: flex; flex-wrap: wrap; gap: 8px; margin: 4px 0 14px; }
+.swatch { display: flex; align-items: center; gap: 8px; padding: 5px 10px 5px 6px; border-radius: 12px; border: 1px solid var(--line); font-size: 0.84rem; }
+.swatch i { width: 22px; height: 22px; border-radius: 7px; border: 1px solid var(--line); }
+.swatch[aria-pressed="true"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.actions { display: flex; flex-direction: column; gap: 8px; }
+.action { padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); text-align: start; display: flex; justify-content: space-between; }
+.empty { color: var(--muted); font-size: 0.86rem; padding: 6px 2px; }
+
+/* Labels drawn over the canvas */
+#labels { position: fixed; inset: 0; z-index: 2; pointer-events: none; overflow: hidden; }
+.lbl { position: absolute; left: 0; top: 0; will-change: transform; white-space: nowrap; transition: opacity 160ms ease; }
+.lbl.room { padding: 4px 10px; border-radius: 10px; text-align: center; font-size: 0.84rem; font-weight: 600; line-height: 1.25; }
+.lbl.room small { display: block; font: 500 0.74rem var(--font-num); color: var(--muted); direction: ltr; }
+.lbl.item { padding: 2px 8px; border-radius: 8px; font-size: 0.76rem; background: var(--glass-strong); border: 1px solid var(--line); }
+.lbl.item .chip { margin-inline-end: 5px; padding: 0 5px; }
+.lbl.dim .chip { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12); }
+.lbl.wallid { font: 600 0.7rem var(--font-num); color: #b4232f; background: var(--glass-strong); padding: 0 4px; border-radius: 5px; }
+.pin { width: 24px; height: 24px; border-radius: 50%; display: inline-grid; place-items: center; font: 700 0.74rem var(--font-num); color: #fff;
+  background: var(--question); box-shadow: 0 3px 10px rgba(0, 0, 0, 0.25); }
+.pin.assumption { background: var(--estimated); }
+.lbl.notepin { pointer-events: auto; cursor: pointer; }
+.pop { position: fixed; z-index: 5; max-width: 260px; padding: 10px 12px; font-size: 0.86rem; transform-origin: bottom center;
+  transition: opacity 150ms ease, transform 180ms var(--ease-out); }
+.pop.closed { opacity: 0; transform: scale(0.96); pointer-events: none; }
+
+/* Walk mode: the scene gets the whole screen; only the walk HUD and joystick stay */
+body.walking .info, body.walking .topbar, body.walking .toolbar { opacity: 0; pointer-events: none; transform: translateY(-6px); }
+.info, .topbar, .toolbar { transition: opacity 200ms ease, transform 240ms var(--ease-out); }
+body.walking .toolbar { transform: translateY(6px); }
+
+/* Walk mode */
+.walkhud { position: fixed; z-index: 3; inset-block-start: calc(14px + env(safe-area-inset-top, 0px)); inset-inline: 0; margin-inline: auto; width: max-content;
+  display: flex; gap: 10px; align-items: center; padding: 6px 6px 6px 14px; font-size: 0.86rem; }
+.walkhud .tb { background: var(--accent); color: var(--accent-fg); }
+.joy { position: fixed; z-index: 3; inset-block-end: calc(92px + env(safe-area-inset-bottom, 0px)); inset-inline-end: 28px; width: 116px; height: 116px; border-radius: 50%;
+  touch-action: none; }
+.joy i { position: absolute; left: 50%; top: 50%; width: 46px; height: 46px; margin: -23px 0 0 -23px; border-radius: 50%; background: var(--accent); opacity: 0.9; }
+.crosshair { position: fixed; z-index: 2; left: 50%; top: 50%; width: 6px; height: 6px; margin: -3px 0 0 -3px; border-radius: 50%; background: var(--fg); opacity: 0.35; pointer-events: none; }
+.caption { position: fixed; z-index: 3; inset-block-end: calc(84px + env(safe-area-inset-bottom, 0px)); inset-inline: 0; margin-inline: auto; width: max-content; max-width: calc(100vw - 32px);
+  padding: 10px 16px; font-size: 1rem; font-weight: 600; transition: opacity 200ms ease, transform 240ms var(--ease-out); }
+.caption.closed { opacity: 0; transform: translateY(8px); }
+.caption small { display: block; font-weight: 400; font-size: 0.82rem; color: var(--muted); }
+.measure-hint { position: fixed; z-index: 3; inset-block-start: calc(70px + env(safe-area-inset-top, 0px)); inset-inline: 0; margin-inline: auto; width: max-content; padding: 7px 14px; font-size: 0.84rem; }
+
+/* States */
+.state { position: fixed; inset: 0; z-index: 10; display: grid; place-items: center; background: var(--bg); transition: opacity 360ms ease; }
+.state.done { opacity: 0; pointer-events: none; }
+.state .box { text-align: center; max-width: 360px; padding: 24px; }
+.spinner { width: 34px; height: 34px; margin: 0 auto 14px; border-radius: 50%; border: 3px solid var(--line); border-top-color: var(--accent); animation: spin 650ms linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.state h2 { margin: 0 0 6px; font-size: 1.05rem; }
+.state p { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+@media (max-width: 640px) {
+  .info { width: max(150px, calc(100vw - 214px)); padding: 11px 13px; }
+  .info .eyebrow { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* the toolbar scrolls sideways on phones: fade its far edge so it reads as "more this way" */
+  .toolbar { -webkit-mask-image: linear-gradient(to left, #000 82%, transparent); mask-image: linear-gradient(to left, #000 82%, transparent); }
+  .info h1 { font-size: 1.08rem; }
+  .sheet { inset-block: auto calc(76px + env(safe-area-inset-bottom, 0px)); inset-inline: 10px; width: auto; max-height: 58vh; transform-origin: bottom center; }
+  .sheet.closed { transform: translateY(14px); }
+  .seg button { padding: 6px 9px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .press:active { transform: none; }
+  .sheet.closed, .pop.closed, .caption.closed { transform: none; filter: none; }
+  .spinner { animation-duration: 1.6s; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass { background: var(--glass-strong); backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+</style>
+
+<div id="stage" aria-label="מודל תלת-מימד של התוכנית" role="img"></div>
+<div id="labels" aria-hidden="true"></div>
+
+<section class="info glass" id="info">
+  <p class="eyebrow" id="eyebrow"></p>
+  <h1 id="title"></h1>
+  <div class="collapsible">
+    <p class="sub" id="subtitle"></p>
+    <div class="legend">
+      <span><span class="chip drawn">277</span> מהשרטוט</span>
+      <span><span class="chip estimated">≈60</span> הערכה</span>
+      <span class="num" id="area-total"></span>
+    </div>
+    <p class="hint" id="hint">גרירה לסיבוב · גלגלת או צביטה לזום · לחיצה על חדר כדי לטוס אליו</p>
+  </div>
+  <button class="info-toggle press" id="info-toggle" aria-label="כיווץ כרטיס המידע" aria-expanded="true">⌃</button>
+</section>
+
+<div class="topbar">
+  <div class="seg glass" role="group" aria-label="מצב תצוגה">
+    <button class="press" data-mode="present" aria-pressed="true">מצגת</button>
+    <button class="press" data-mode="work" aria-pressed="false">עבודה</button>
+  </div>
+  <button class="icon glass press" id="menu-btn" aria-label="תפריט" aria-expanded="false" aria-controls="sheet">
+    <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+</div>
+
+<nav class="toolbar glass" id="toolbar" aria-label="מבטים ושכבות">
+  <div class="group" id="views" role="group" aria-label="מבטים"></div>
+  <div class="sep"></div>
+  <div class="group" id="toggles" role="group" aria-label="שכבות"></div>
+</nav>
+
+<aside class="sheet glass closed" id="sheet" aria-hidden="true">
+  <div class="tabs" role="tablist" id="tabs"></div>
+  <div class="pane" id="pane"></div>
+</aside>
+
+<div class="pop glass closed" id="pop" role="tooltip"></div>
+<div class="caption glass closed" id="caption" aria-live="polite"></div>
+<div class="walkhud glass" id="walkhud" hidden>
+  <span id="walk-room">סיור</span>
+  <button class="tb press" id="walk-exit">יציאה מהסיור</button>
+</div>
+<div class="joy glass" id="joy" hidden><i></i></div>
+<div class="crosshair" id="crosshair" hidden></div>
+<div class="measure-hint glass" id="measure-hint" hidden>לחיצה על שתי נקודות במודל · Esc לסיום</div>
+
+<div class="state" id="state-loading" role="status">
+  <div class="box"><div class="spinner"></div><h2>בונה את המודל</h2><p>קירות, פתחים, נגרות ומידות...</p></div>
+</div>
+<div class="state" id="state-error" hidden role="alert">
+  <div class="box"><h2>לא הצלחתי להציג את המודל</h2><p id="error-text"></p></div>
+</div>
+
+<script type="application/json" id="plan-data">@@DATA</script>
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@@@THREE/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@@@THREE/examples/jsm/",
+  "fflate": "https://cdn.jsdelivr.net/npm/fflate@@@FFLATE/esm/browser.js"
+} }
+</script>
+<script type="module">
+@@BUNDLE
+</script>

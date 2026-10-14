@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>תוכנית דירה בתלת-מימד - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="תוכנית אדריכל (PDF או תמונה) הופכת למודל תלת-ממדי שמסתובבים בו, עם מידות מהתוכנית, חומרי גמר וסיור וירטואלי - בקישור אחד">
+<meta property="og:title" content="תוכנית דירה בתלת-מימד - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="תוכנית אדריכל (PDF או תמונה) הופכת למודל תלת-ממדי שמסתובבים בו, עם מידות מהתוכנית, חומרי גמר וסיור וירטואלי - בקישור אחד">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏠%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css?v=8768823d">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
+</head>
+<body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🧩 עוד</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true"><span>🏠</span></div>
+  <h1 class="rise">תוכנית דירה בתלת-מימד</h1>
+  <p class="sub rise">תוכנית אדריכל (PDF או תמונה) הופכת למודל תלת-ממדי שמסתובבים בו, עם מידות מהתוכנית, חומרי גמר וסיור וירטואלי - בקישור אחד</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/floorplan-3d">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section class="reveal"><h2>מה זה עושה</h2>
+<div class="card prose"><p>נותנים לקלוד תוכנית דירה, ואם יש גם חזיתות של המטבח או של ארונות. קלוד קורא את הגיליון: חדרים, דלתות, חלונות, מחרוזות מידה וריצות מטבח. אחר כך הוא מאמת כל מספר. שטחי חדרים מול המידות, מעברים בין חדרים, וכל מידה מסומנת &quot;מהתוכנית&quot; או &quot;הערכה&quot;. שום דבר לא מומצא בלי סימון.</p><p>התוצאה היא דף אחד לשיתוף. במצב תצוגה (לקונים) התוכנית שוכבת על הרצפה והקירות עולים ממנה, ואחריהם מבט בית בובות עם ריהוט, סיור מודרך, הליכה בגוף ראשון והחלפת חומרי גמר. במצב עבודה (לאדריכל) יש מידות לפי מקור, מדידה, התוכנית כשכבת רקע, הערות ושאלות פתוחות, השוואה בין חלופה א&#x27; לב&#x27;, וייצוא GLB, PNG ו-JSON.</p><p>יש גם מצב משחק פוטוריאליסטי: חומרים סרוקים, שמש לפי שעה ביום, יום ולילה, נוף מהחלונות, הליכה עם מקשי WASD, פתיחת דלתות והדלקת אורות, וצילום מסך באיכות גבוהה.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>דירה על הנייר שרוצים להראות ללקוח או למשפחה לפני שנבנתה</li><li>מטבח מתוכנן: לראות את הארונות, המשטח והמכשירים בתלת-מימד מתוך החזיתות</li><li>בדיקת תוכנית: האם המידות מסתדרות, האם יש מעבר לכל חדר, מה חסר בגיליון</li><li>השוואה בין שתי חלופות תכנון זו לצד זו</li><li>סיור וירטואלי לשיווק פרויקט</li></ul></div></section>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say reveal">"תהפוך את תוכנית הדירה הזאת לתלת-מימד"</li><li class="say reveal">"תבנה הדמיית מטבח מהחזיתות האלה"</li><li class="say reveal">"תעשה סיור וירטואלי בדירה מהתוכנית"</li><li class="say reveal">"תשווה בתלת-מימד בין חלופה א&#x27; לחלופה ב&#x27;"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">הנה תוכנית של דירת 4 חדרים וחזיתות של המטבח. תבנה מודל תלת-מימד שאוכל לשלוח ללקוח</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">קישור לדף: התוכנית שוכבת והקירות עולים, ואחריהם מבט בית בובות מרוהט וסיור מודרך. כל חדר מוצג עם השטח שלו, כל מידה מסומנת &quot;מהתוכנית&quot; או &quot;הערכה&quot;, יש רשימת שאלות פתוחות לאדריכל, והמטבח בנוי לפי החזיתות</div></div></div>
+</section>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Claude Code עם כלי Artifact</b></td><td>המודל מתפרסם כדף Artifact פרטי ב-claude.ai, ואפשר לשתף אותו</td></tr><tr><td><b>Python 3 עם pillow, PyMuPDF ו-Playwright</b></td><td>לרינדור הגיליון, לזום עם רשת קואורדינטות, ולבדיקה של הדף בדפדפן לפני המסירה</td></tr><tr><td><b>Node.js</b></td><td>לאריזה של מצב המשחק ושל הנכסים התלת-ממדיים דרך npx</td></tr><tr><td><b>מפתח GOOGLE_API_KEY (לא חובה)</b></td><td>רק לנוף מהחלונות במצב משחק, נוצר ב-Gemini. בלי מפתח המודל עובד במלואו, בלי נוף</td></tr></table><p class="tag"><b>לתשומת לבך:</b> קלוד קורא את התוכנית טוב, אבל מחרוזת המידה בגיליון היא שמכריעה. כשמשהו לא ברור הוא מסמן אותו כהערכה או כשאלה פתוחה, ולא מנחש. לפני ששולחים ללקוח כדאי לעבור על רשימת ההערכות</p></div></section>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;תוכנית דירה בתלת-מימד&quot; (floorplan-3d).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/floorplan-3d.tar.gz
+3. חלץ ממנה את התיקייה skills/floorplan-3d אל ~/.claude/skills/floorplan-3d. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Claude Code עם כלי Artifact, Python 3 עם pillow, PyMuPDF ו-Playwright, Node.js, מפתח GOOGLE_API_KEY (לא חובה). אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;תהפוך את תוכנית הדירה הזאת לתלת-מימד&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- floorplan-3d</pre>
+</div>
+<p class="muted">או <a href="../../dl/floorplan-3d.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>
