@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """Text beats: title, question, say, source, verse, keyword, number, list, closing.
 Every renderer returns (html, js_lines). Text may mark highlight words with *word*."""
+import sfx
 from beat_util import HL_RE, breathe, esc, q, times, word_reveal
 
 RING_R = 190
@@ -14,6 +15,13 @@ def _chapter_map(b):
     return f'<div class="chmap">{dots}</div>'
 
 
+def _poster_title(bid, s, dur):
+    """First frame of the lesson: everything already in place, only gentle life after it."""
+    js = [f'tl.set(R.querySelector("#{bid} .wipe"), {{ scaleX: 0 }}, 0);',
+          f'K.mark(tl, R, "#{bid} .hl", {s + 0.6});']
+    return js + breathe(bid, ".tt", s + 0.5, dur - 1)
+
+
 def title(bid, b, s, dur, rel, i):
     num = b.get("_chnum")
     badge = f'<div class="chnum num" id="{bid}-n">{num}</div>' if num else ""
@@ -21,6 +29,8 @@ def title(bid, b, s, dur, rel, i):
          f'<div class="eyebrow gold">{esc(b.get("eyebrow"))}</div>'
          f'<h1 class="h1 tt">{esc(b["title"])}</h1><div class="rule"></div>'
          f'<div class="body dim sub">{esc(b.get("sub"))}</div>{_chapter_map(b)}</div>')
+    if b.get("_poster"):
+        return h, _poster_title(bid, s, dur)
     js = [f'tl.fromTo(R.querySelector("#{bid} .wipe"), {{ scaleX: 1 }}, {{ scaleX: 0, duration: 0.9, ease: "power3.inOut" }}, {s});',
           f'K.in(tl, R, "#{bid} .eyebrow", {s + 0.3}, {{ y: 20 }});',
           f'K.words(tl, R, "#{bid} .tt", {s + 0.5}, {{ stagger: 0.09 }});',
@@ -107,6 +117,7 @@ def number(bid, b, s, dur, rel, i):
           f'K.count(tl, R, "#{bid}-n", {b.get("from", 0)}, {b["n"]}, {s + 0.2}, 1.6, {{ suffix: "{b.get("suffix", "")}" }});',
           f'K.in(tl, R, "#{bid} .nlabel", {s + 0.7}, {{ y: 30 }});',
           f'K.in(tl, R, "#{bid} .sub", {rel[0] if rel else s + 1.5}, {{ y: 24 }});']
+    sfx.ev("pop", s + 1.8)   # the count has landed
     return h, js + breathe(bid, ".numwrap", s + 2, dur - 2.5, 1.04)
 
 

@@ -6,16 +6,21 @@ Sub-anchors: "reveal" (list of phrases) and "shots" (list of {"at", "focus", "zo
 import json
 import sys
 
+import beat_types_device
 import beat_types_diagram
 import beat_types_text
 import beat_types_visual
+import deco
+import sfx
 from anchor import find, stream
 from captions_layer import captions_section
-from config import BUILD, CLIP
+from config import BUILD, CFG, CLIP
 from transitions import pick, transition
 
 CHAPTERS = json.loads((BUILD / "chapters.json").read_text(encoding="utf-8"))
-RENDER = {**beat_types_text.RENDER, **beat_types_visual.RENDER, **beat_types_diagram.RENDER}
+RENDER = {**beat_types_text.RENDER, **beat_types_visual.RENDER, **beat_types_diagram.RENDER,
+          **beat_types_device.RENDER}
+SFX_FILE = BUILD / "sfx.json"
 LEAD = 0.15          # a beat appears this long after its anchor word starts
 MIN_BEAT = 2.5       # shorter beats are a spec error
 BEAT_TRACKS = (1, 4)
@@ -51,23 +56,50 @@ def resolve(words, beats, ch):
     return beats
 
 
+def _decorate(bid, b, n, s, dur, inner):
+    """Floating shapes and graph paper go inside the beat's .in div; returns (inner, js)."""
+    shapes_html, shapes_js = deco.shapes(bid, b["t"], n, s, dur)
+    paper_html, paper_js = deco.paper(bid, b["t"], s)
+    layers = paper_html + shapes_html
+    if layers and inner.startswith("<div"):
+        cut = inner.index(">") + 1
+        inner = inner[:cut] + layers + inner[cut:]
+    return inner, paper_js + shapes_js
+
+
+def _sound(b, s):
+    sfx.ev("whoosh", max(0.0, s - 0.12))
+    if b["t"] in ("title", "closing"):
+        sfx.ev("chime", s + 0.25)
+
+
 def _beat_html(cid, k, b, s, dur, chnum):
     bid = f"{cid}-b{k}"
     if b["t"] == "title":
         b = {**b, "_chnum": chnum + 1, "_chcount": len(CHAPTERS["chapters"]) if chnum >= 0 else 0}
+    poster = chnum == 0 and k == 0 and b["t"] == "title"   # frame 0 is the preview image in players and WhatsApp
+    if poster:
+        b = {**b, "_poster": True}
     rel = [round(t - (b["g"] - s), 2) for t in b.get("_reveal", [])]
     shots = {**b, "_shots": [round(t - (b["g"] - s), 2) for t in b.get("_shots", [])]}
     inner, lines = RENDER[b["t"]](bid, shots, s, dur, rel, k)
     overlay, tr_js = transition(bid, pick(b["t"], k, b.get("tr")), s)
-    section = (f'<section id="{bid}" class="clip beat t-{b["t"]}" data-start="{s}" data-duration="{dur}" '
+    inner, deco_js = _decorate(bid, b, chnum * 10 + k, s, dur, inner)
+    accent = "" if b["t"] in ("title", "closing") else f' style="--torah:{deco.accent(chnum * 10 + k)}"'
+    section = (f'<section id="{bid}" class="clip beat t-{b["t"]}"{accent} data-start="{s}" data-duration="{dur}" '
                f'data-track-index="{BEAT_TRACKS[k % 2]}">{inner}{overlay}</section>')
-    return section, [f'K.beat(tl, R, "{bid}", {s}, {dur});'] + tr_js + lines
+    if poster:
+        fade = f'tl.to(R.querySelector("#{bid} > .in"), {{ opacity: 0, duration: 0.4, ease: "power1.in" }}, {round(s + dur - 0.4, 2)});'
+        return section, [fade] + lines + deco_js
+    _sound(b, s)
+    return section, [f'K.beat(tl, R, "{bid}", {s}, {dur});'] + tr_js + lines + deco_js
 
 
 def build_chapter(chnum, ch, spec, words):
     beats = resolve(words, spec["beats"], ch)
     start, end, cid = ch["start"], ch["end"], ch["id"]
     sections, js = [], []
+    mark = len(sfx.EVENTS)
     for k, b in enumerate(beats):
         s = round(b["g"] - start, 2)
         e = round((beats[k + 1]["g"] if k + 1 < len(beats) else end) - start, 2)
@@ -76,6 +108,8 @@ def build_chapter(chnum, ch, spec, words):
         html, lines = _beat_html(cid, k, b, s, round(e - s, 2), chnum)
         sections.append(html)
         js.extend(lines)
+    for e in sfx.EVENTS[mark:]:
+        e["t"] = round(e["t"] + start, 3)   # chapter-local -> lesson time
     cap_html, cap_js = captions_section(cid, start, end, spec.get("keywords", []))
     return page(cid, round(end - start, 3), spec.get("ghost", ""), sections, js + cap_js, cap_html)
 
@@ -118,6 +152,14 @@ def load_spec(cid):
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
+def write_sfx():
+    """Sound events for the mux step; video.json "sfx": false removes them (default: on)."""
+    if CFG.get("sfx", True):
+        sfx.save(SFX_FILE)
+    else:
+        SFX_FILE.unlink(missing_ok=True)
+
+
 def main(ids):
     words = stream()
     for chnum, ch in enumerate(CHAPTERS["chapters"]):
@@ -127,6 +169,8 @@ def main(ids):
         html = build_chapter(chnum, ch, spec, words)
         (CLIP / "compositions" / f"{ch['id']}.html").write_text(html, encoding="utf-8")
         print(f"{ch['id']}: {len(spec['beats'])} beats")
+    if not ids:
+        write_sfx()
     print(chr(10).join(ERRORS) or "all anchors resolved")
     sys.exit(1 if ERRORS else 0)
 

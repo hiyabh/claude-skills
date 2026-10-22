@@ -18,7 +18,7 @@ SKIP = {"new_project.py"}
 def video_json(args):
     return {
         "title": args.title, "subtitle": args.subtitle, "audio": str(Path(args.audio).resolve()),
-        "density_max_gap": 12, "keywords": [],
+        "density_max_gap": 12, "sfx": True, "keywords": [],
         "blocked_names": [], "blocked_stems": [], "timed_drops": [], "fixes": {},
         "thumb": {"img": "thumb-hero", "title": args.title, "kicker": "שיעור", "sub": args.subtitle, "badge": ""},
         "youtube": {"title": args.title, "description": "", "tags": [], "category": "Education", "playlist": ""},

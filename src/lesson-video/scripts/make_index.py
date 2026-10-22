@@ -59,6 +59,7 @@ def timeline_js(chapters, total):
         f'      tl.fromTo("#glow", {{ scale: 1 }}, {{ scale: 1.12, duration: {GLOW_PERIOD / 2}, ease: "sine.inOut", yoyo: true, repeat: reps }}, 0);',
         '      tl.fromTo("#ghostgrain", { x: 0, y: 0 }, { x: -60, y: -40, duration: TOTAL, ease: "none" }, 0);',
         f'      tl.fromTo("#glow2", {{ x: 0, y: 0 }}, {{ x: 900, y: 260, duration: {GLOW_PERIOD * 4}, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(TOTAL / {GLOW_PERIOD * 4}) - 1) }}, 0);',
+        f'      tl.fromTo("#glow3", {{ x: 0, y: 0, scale: 1 }}, {{ x: -700, y: -240, scale: 1.25, duration: {GLOW_PERIOD * 3}, ease: "sine.inOut", yoyo: true, repeat: Math.max(0, Math.floor(TOTAL / {GLOW_PERIOD * 3}) - 1) }}, 0);',
         '      document.querySelectorAll("#bg .bgm").forEach((m, k) => tl.fromTo(m, { y: 0 }, { y: -900 - (k % 7) * 120, duration: TOTAL, ease: "none" }, 0));',
     ]
     prev = None
@@ -92,13 +93,15 @@ def main():
     <link rel="stylesheet" href="assets/kit.css" />
     <link rel="stylesheet" href="assets/beats.css" />
     <link rel="stylesheet" href="assets/diagrams.css" />
+    <link rel="stylesheet" href="assets/device.css" />
     <link rel="stylesheet" href="assets/index.css" />
     <script src="assets/kit.js"></script>
   </head>
   <body>
     <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="{total}">
-      <div id="bg"><div id="glow"></div><div id="glow2"></div><div id="ghostgrain"></div>{bg_motes()}</div>
+      <div id="bg"><div id="glow"></div><div id="glow2"></div><div id="glow3"></div><div id="ghostgrain"></div>{bg_motes()}</div>
 {chr(10).join(host(ch) for ch in chapters)}
+      <div id="vignette"></div><div id="bloom"></div>
 {chrome(chapters, total)}
 {audio_tag(total)}
     </div>

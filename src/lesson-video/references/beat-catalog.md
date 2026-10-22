@@ -47,3 +47,12 @@ Keep node/label text short (1-3 words) - boxes are ~300px wide at 44px type.
 - Captions: line slides in, the spoken word pops gold, chapter `keywords` stay gold.
 - Background: breathing glow in the chapter colour, drifting motes, grain, giant ghost word per chapter.
 - Progress chrome: chapter segments + chapter name at the top.
+
+## Device (optional)
+| Helper | Use for | Motion |
+|---|---|---|
+| `PHONE(at, steps, title, sub, reveal)` | a conversation in a mobile app; `steps=[you("..."), say("..."), ask("...", "detail"), done("...")]`, one `reveal` phrase per step | phone tilts in, each message rises + pops, Allow button pops after an `ask` |
+| `LINK(at, title, url, sub, icon, reveal=[sub_at])` | pointing to a link; say where it is ("מתחת לסרטון"), never read the address | card springs in, QR code spins in; needs `pip install qrcode` |
+
+Not ported from the course engine because the lesson pipeline has no such beat: the laptop mockup and 3D tilt of the
+app-window/screenshot beats, and the confetti burst on a finished app step.

@@ -3,10 +3,13 @@ html, body { margin: 0; background: #0F1712; }
 #root { position: relative; width: 100%; height: 100%; overflow: hidden; background: #0F1712; }
 #bg { position: absolute; inset: 0; overflow: hidden; }
 #glow { position: absolute; width: 1500px; height: 1500px; right: -300px; top: -520px; border-radius: 50%;
-  opacity: 0.16; filter: blur(140px); }
+  opacity: 0.24; filter: blur(140px); }
 #glow2 { position: absolute; width: 900px; height: 900px; left: -300px; bottom: -420px; border-radius: 50%;
-  opacity: 0.10; filter: blur(120px); background: #8DB8E0; }
-.bgm { position: absolute; border-radius: 50%; background: #F1E9D6; opacity: 0.07; }
+  opacity: 0.16; filter: blur(120px); background: #8DB8E0; }
+#glow3 { position: absolute; width: 1000px; height: 1000px; left: 30%; top: 35%; border-radius: 50%;
+  opacity: 0.12; filter: blur(150px); background: #B9A2E8; }
+.bgm { position: absolute; border-radius: 50%; background: #F1E9D6; opacity: 0.10; }
+.bgm:nth-child(3n+1) { background: #EE9A70; } .bgm:nth-child(3n+2) { background: #86B9EA; } .bgm:nth-child(4n) { background: #6CCB9C; }
 #ghostgrain { position: absolute; inset: -80px; background: url("assets/img/grain.png"); opacity: 0.07; mix-blend-mode: overlay; }
 #chrome { position: absolute; inset: 0; pointer-events: none; z-index: 50; }
 #bar { position: absolute; top: 48px; right: 110px; left: 110px; height: 8px; }
@@ -16,3 +19,9 @@ html, body { margin: 0; background: #0F1712; }
   transform-origin: right center; }
 .chlabel { position: absolute; top: 72px; right: 110px; font-family: var(--ui); font-weight: 700; font-size: 26px;
   color: var(--muted); letter-spacing: 0.03em; direction: rtl; }
+
+/* cinematic finish: edge vignette and a faint warm bloom, above the beats and below captions/chrome */
+#vignette { position: absolute; inset: 0; pointer-events: none; z-index: 30;
+  background: radial-gradient(ellipse 78% 88% at 50% 44%, rgba(0, 0, 0, 0) 60%, rgba(5, 6, 10, 0.5) 100%); }
+#bloom { position: absolute; inset: 0; pointer-events: none; z-index: 31; mix-blend-mode: screen; opacity: 0.08;
+  background: radial-gradient(ellipse 50% 40% at 30% 20%, #FFD9B8 0%, rgba(255, 217, 184, 0) 70%); }

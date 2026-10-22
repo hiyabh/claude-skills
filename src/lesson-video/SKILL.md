@@ -28,7 +28,7 @@ picture **never stands still more than 12 seconds** - the engine fails the build
 - **Private names never on screen.** Ask once what to do with names/sensitive stories; block them in captions.
 - **Hebrew/RTL:** sequences start on the right; only "-" (no em/en dash); fractions in words; niqqud only on
   verified text (pull pesukim from Sefaria or the lesson's verified MD).
-- **Render silent, mux with ffmpeg** - the HyperFrames audio mix timed out on long lessons.
+- **Render silent, mux with ffmpeg (`mux.sh`, which also mixes the sound effects)** - the HyperFrames audio mix timed out on long lessons.
 
 ## Workflow
 
@@ -72,6 +72,8 @@ first. Match the beat to the content - the richer the match, the more alive the 
 | The punchline sentence | `KIN` (each word slams in when spoken) or `SAY` with *highlight* |
 | A question to the audience | `Q` |
 | Pasuk / source quote | `V` / `SRC` / `SPLIT` (picture + quote) |
+| A chat/app conversation on a phone | `PHONE` (messages pop in; `you/say/ask/done` steps) |
+| "The link is below the video" | `LINK` (card with a scannable QR code; needs `pip install qrcode`) |
 | A story, mashal, scene | `S` with `shots` (camera moves to details) or `IT` |
 | Contrast | `C` compare |
 
@@ -98,10 +100,27 @@ caption matches the image, modesty.
 
 ### 6. Render + deliver
 ```bash
+bash render.sh --draft && bash mux.sh --draft   # optional ~15fps preview -> build/qc/draft.mp4, for checking fixes fast
 bash render.sh   # background; ~1.2x lesson length. Never pipe through `head`.
-bash mux.sh      # "<title> - סרטון השיעור.mp4" in the lesson folder
+bash mux.sh      # "<title> - סרטון השיעור.mp4" in the lesson folder; mixes sfx, verifies, deletes clip/renders
 ```
 Verify: `ffprobe` duration = audio, 1920x1080, audio stream; extract 6 frames from the final file; `volumedetect`.
+
+### Polish layer (automatic, no spec changes needed)
+- **Poster first frame:** frame 0 (chapter 0's title card) is fully composed - no fade-in, wipe or count-up. It is the
+  WhatsApp / player preview image. Never start a lesson on an empty or half-animated frame.
+- **Accent per beat + floating shapes + graph paper:** `deco.py` gives every beat its own accent (overrides `--torah`;
+  titles keep the chapter ink), small SVG shapes drift in the margins of text/diagram beats (left side only for
+  right-aligned `L` lists; none on picture, title, phone or link beats), and live diagrams sit on faint graph paper.
+- **Sound effects:** `sfx.py` synthesizes soft whoosh (each beat change), chime (title/closing/link), pop (number landed,
+  phone message) and click (Allow) locally; events go to `build/sfx.json`, and `mux.sh` mixes them under the narration at
+  peak ~0.16 with a limiter. Turn off per project with `"sfx": false` in `video.json` (default on; needs numpy).
+- **Cinematic finish:** vignette + faint bloom over the beats (below captions), a third violet background glow and coloured motes.
+- **Stronger caption pop:** the spoken word scales to 1.22 and lifts 8px.
+- **Draft mode:** `render.sh --draft` (15 fps, draft quality) then `mux.sh --draft` -> `build/qc/draft.mp4` (~1 min per
+  minute of video). `mux.sh` after a real render verifies duration + audio stream and then deletes `clip/renders/*`.
+- Guidance: effects stay far under the voice (never raise `PEAK`); look at diagram and list snapshots for shapes
+  overlapping text; always check frame 0 in a snapshot (`--at 0`) before delivering.
 
 ### 7. Thumbnail + YouTube
 Fill `video.json` `thumb` (2-5 word title, `*gold word*`, kicker, sub, badge) and `youtube` (title ≤100, description,
@@ -117,9 +136,10 @@ Pick 2-3 self-contained 45-90s passages, add them to `video.json` `reels`, then
 Tell the user anything sensitive that stays in the audio (private names, personal details) before they publish.
 
 ## Files
-`scripts/` - engine (copied into each project's `build/` by new_project.py): `beats.py` (resolver + page),
+`scripts/` - engine (copied into each project's `build/` by new_project.py): `beats.py` (resolver + page), `deco.py` (accents, shapes, paper), `sfx.py` + `sfx_track.py` (sound effects),
+`beat_types_device.py` (PHONE, LINK),
 `beat_types_text.py` / `beat_types_visual.py` / `beat_types_diagram.py`, `transitions.py`, `captions_layer.py`,
 `clean_words.py`, `anchor.py`, `density_check.py`, `make_chapters.py`, `make_index.py`, `gen_images.py`,
 `edit_images.py`, `make_thumbnail.py`, `make_youtube.py`, `reels.py`, `build_all.sh`, `render.sh`, `mux.sh`.
-`assets/` - `clip_template/` (kit.css/js, beats.css, diagrams.css, fonts), `thumb_template/`, `reel_template.html`,
+`assets/` - `clip_template/` (kit.css/js, beats.css, diagrams.css, device.css, fonts), `thumb_template/`, `reel_template.html`,
 `project_template/` (scenes.py, edits.py, chapter_spec.json, `specs/ch00_example.py` showing every beat type).

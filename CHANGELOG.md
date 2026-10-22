@@ -3,6 +3,14 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.7.0] - 2026-10-22
+
+### Changed (שונה)
+- "שיעור מוקלט לסרטון": שיחה בטלפון, כרטיס קישור עם QR, שכבת ליטוש, אפקטי קול מקומיים ומצב טיוטה ([lesson-video](src/lesson-video/SKILL.md))
+- "סוף סשן": 8 שלבים - גיבוי מאומת לגיטהאב, ריפו פרטי אחרי סריקת סודות, ורישום פרויקטים כרשות ([דף](https://hiyabh.github.io/claude-end-session-skill/))
+- "עורך השיעורים": כותרת לא נשארת לבד בתחתית עמוד, ושורת טבלה לא נשברת בין עמודים ([דף](https://hiyabh.github.io/claude-shiur-editor-skill/))
+- "סטודיו וידאו": סיכום אירוע במצב דרמטי עם מעברים מונפשים, מוזיקה, כותרת וסימן מים ([דף](https://hiyabh.github.io/claude-video-skills/))
+
 ## [1.6.0] - 2026-10-14
 
 ### Added (תוסף)

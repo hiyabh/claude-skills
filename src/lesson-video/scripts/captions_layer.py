@@ -25,7 +25,7 @@ def _word_js(bid, times, keys_mask):
     """One compact loop per caption: pop each word at its start, settle at its end."""
     return (f'(function () {{ const ws = R.querySelectorAll("#{bid} .cw"); const T = {json.dumps(times)}; '
             f'const K = {json.dumps(keys_mask)}; T.forEach((t, i) => {{ '
-            f'tl.to(ws[i], {{ color: "{GOLD}", scale: 1.1, y: -5, duration: {POP}, ease: "back.out(3)" }}, t[0]); '
+            f'tl.to(ws[i], {{ color: "{GOLD}", scale: 1.22, y: -8, duration: {POP}, ease: "back.out(3)" }}, t[0]); '
             f'tl.to(ws[i], {{ color: K[i] ? "{GOLD}" : "{FG}", scale: 1, y: 0, duration: 0.25 }}, Math.max(t[1], t[0] + {POP})); '
             f'}}); }})();')
 

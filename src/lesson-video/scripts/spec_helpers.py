@@ -4,7 +4,8 @@ Every beat after a chapter's first needs `at` = a phrase as transcribed in words
 `reveal=[...]` anchors inner elements (items, nodes, chips) to the moment they are said."""
 
 __all__ = ["T", "S", "Q", "SAY", "KW", "KIN", "L", "C", "V", "SRC", "N", "IT", "SPLIT",
-           "FLOW", "CYCLE", "TL", "BARS", "SCALE", "VENN", "STACK", "LADDER", "END"]
+           "FLOW", "CYCLE", "TL", "BARS", "SCALE", "VENN", "STACK", "LADDER", "END",
+           "PHONE", "LINK", "you", "say", "done", "ask"]
 
 
 def _b(t, at, reveal=None, **kw):
@@ -115,3 +116,30 @@ def LADDER(at, steps, title="", reveal=None):
 
 def END(at, title, eyebrow="", sub=""):
     return _b("closing", at, title=title, eyebrow=eyebrow, sub=sub)
+
+
+def PHONE(at, steps, title="השיחה במחשב", sub="", reveal=None):
+    """Phone mockup of a mobile-app conversation. steps = [you(..), say(..), ask(..), done(..)];
+    reveal = one phrase per step (messages appear as they are said)."""
+    return _b("phone", at, reveal, steps=steps, title=title, sub=sub)
+
+
+def LINK(at, title, url, sub="", icon="🔗", reveal=None):
+    """A link card with a scannable QR code. Say where the link is, never read the address aloud."""
+    return _b("link", at, reveal, title=title, url=url, sub=sub, icon=icon)
+
+
+def you(text):
+    return {"k": "you", "text": text}
+
+
+def say(text):
+    return {"k": "say", "text": text}
+
+
+def done(text):
+    return {"k": "done", "text": text}
+
+
+def ask(text, detail=""):
+    return {"k": "ask", "text": text, "detail": detail}
