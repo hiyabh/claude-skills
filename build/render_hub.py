@@ -167,6 +167,29 @@ def install_all_html(total):
      קלוד יגיד לך בדיוק מה להתקין.</p>
 </div></section>"""
 
+def course_html(course):
+    """Band that points to the Claude Code video course; empty when catalog has none."""
+    if not course:
+        return ""
+    facts = "".join(f"<li>{esc(f)}</li>" for f in course["facts"])
+    return f"""<section class="course reveal" aria-labelledby="course-h">
+<a class="course-card" href="{esc(course['url'])}" target="_blank" rel="noopener">
+  <picture class="course-pic">
+    <source media="(min-width:860px)" srcset="{esc(course['flyer'])}" width="600" height="900">
+    <img class="course-img" src="{esc(course['image'])}" width="2400" height="1260" loading="lazy"
+         alt="{esc(course['alt'])}">
+  </picture>
+  <span class="course-body">
+    <span class="eyebrow">🎓 {esc(course['eyebrow'])}</span>
+    <span class="course-t" id="course-h">{esc(course['title'])}</span>
+    <span class="course-d">{esc(course['text'])}</span>
+    <ul class="course-facts">{facts}</ul>
+    <span class="course-cta"><span class="course-btn">{esc(course['cta'])} ←</span>
+      <span class="muted">{esc(course['price'])}</span></span>
+  </span>
+</a></section>"""
+
+
 def hero_html(total, pages, guide, phrases):
     words = "".join(f'<span class="w" style="--i:{i}">{esc(w)}</span> '
                     for i, w in enumerate(TITLE_WORDS))
@@ -210,6 +233,7 @@ def render():
     total = sum(skill_count(item) for item, _ in items)
     body = "\n".join([aurora_html(), '<div class="wrap">', constellation_html(items),
                       hero_html(total, len(items), catalog["guide"], ticker_phrases(items)),
+                      course_html(catalog.get("course")),
                       featured_html(items, catalog.get("featured", [])),
                       install_all_html(total),
                       filterbar_html(buckets), '<main id="skills">', sections_html(buckets),

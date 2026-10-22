@@ -324,3 +324,31 @@ body{position:relative; overflow-x:hidden}
 }
 @keyframes fade{to{opacity:1}}
 @media (prefers-reduced-transparency:reduce){ .aurora{display:none} }
+
+/* ---------- course band: the Claude Code video course ---------- */
+.course{max-width:none; margin-top:34px}
+.course-card{position:relative; display:grid; overflow:hidden; text-decoration:none; color:var(--ink);
+  border:1px solid #3d3360; border-radius:calc(var(--radius) + 4px);
+  background:linear-gradient(160deg,#1d1830 0%,var(--card) 60%);
+  transition:transform 160ms var(--ease-out), border-color 160ms var(--ease-out)}
+.course-img{display:block; width:100%; height:auto; aspect-ratio:1200/630; max-width:100%}
+.course-body{display:grid; gap:10px; padding:20px 22px 22px; min-width:0}
+.course-body .eyebrow{margin:0}
+.course-t{font-size:clamp(1.3rem,3.2vw,1.65rem); font-weight:750; line-height:1.2; letter-spacing:-.01em; text-wrap:balance}
+.course-d{color:var(--muted); max-width:58ch}
+.course-facts{list-style:none; padding:0; margin:2px 0 0; display:flex; flex-wrap:wrap; gap:8px}
+.course-facts li{padding:4px 12px; border-radius:999px; background:rgba(160,130,255,.12);
+  border:1px solid #3d3360; font-size:.9rem}
+.course-cta{display:flex; flex-wrap:wrap; align-items:center; gap:8px 16px; margin-top:6px}
+.course-btn{background:var(--gold); color:#1a1407; font-weight:700; border-radius:10px; padding:10px 18px}
+.course-card:active{transform:scale(.99)}
+.course-pic{display:block; min-width:0}
+@media (min-width:860px){
+  .course-card{grid-template-columns:1fr 300px; align-items:center}
+  .course-pic{order:2; align-self:stretch; display:grid; place-items:center; padding-block:22px; padding-inline:0 26px;
+    background:radial-gradient(circle at 50% 45%,rgba(160,130,255,.22),rgba(160,130,255,0) 70%)}
+  .course-img{aspect-ratio:2/3; border-radius:12px; box-shadow:0 24px 50px -20px rgba(0,0,0,.7)}
+  .course-body{padding:30px 32px}
+}
+@media (hover:hover) and (pointer:fine){ .course-card:hover{border-color:#7b66c9} }
+@media (prefers-contrast:more){ .course-card,.course-facts li{border-color:#5a6473} .course-d{color:#c6ccd6} }

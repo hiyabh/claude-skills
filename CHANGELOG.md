@@ -3,6 +3,11 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.8.0] - 2026-10-22
+
+### Added (תוסף)
+- פס "Claude Code לכולם" בדף הראשי: הפניה לקורס הווידאו בעברית, עם הפלאייר וקישור לדף הקורס ([render_hub.py](build/render_hub.py))
+
 ## [1.7.0] - 2026-10-22
 
 ### Changed (שונה)
