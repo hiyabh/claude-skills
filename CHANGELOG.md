@@ -3,6 +3,11 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.9.0] - 2026-10-25
+
+### Added (תוסף)
+- "אפקטים לסרטון שאתה מדבר בו": 20 אפקטי ריל מכוונים לפנים ומתוזמנים לדיבור, וכתוביות מילה-מילה ([talking-head-fx](src/talking-head-fx/SKILL.md))
+
 ## [1.8.0] - 2026-10-22
 
 ### Added (תוסף)

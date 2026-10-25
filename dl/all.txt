@@ -1,5 +1,6 @@
 skill geulah
 skill galaxy-watch-app
+skill talking-head-fx
 skill archive-organizer
 skill stress-test-setup
 skill rabbi-rag-telegram-bot
