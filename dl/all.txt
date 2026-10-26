@@ -23,6 +23,7 @@ skill coherent-transcript-editor
 skill poster-motion
 skill prototype
 skill website-launch-checklist
+skill archive-media
 skill production-safety-guard
 skill lesson-video
 skill floorplan-3d

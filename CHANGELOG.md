@@ -3,6 +3,14 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.10.0] - 2026-10-26
+
+### Added (תוסף)
+- "צילומי ארכיון ומוזיקה תקופתית": סרטי Prelinger ותקליטי 78 מ-archive.org, עם בדיקת זכויות וקרדיטים ([archive-media](src/archive-media/SKILL.md))
+
+### Changed (שונה)
+- "סטודיו וידאו": ארבעה סקילי וידאו מפנים עכשיו לצילומי הארכיון ולמוזיקה התקופתית ([דף](https://hiyabh.github.io/claude-video-skills/))
+
 ## [1.9.0] - 2026-10-25
 
 ### Added (תוסף)
