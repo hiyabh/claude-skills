@@ -60,7 +60,7 @@
       "repo": "claude-end-session-skill",
       "icon": "🔚",
       "title": "סוף סשן",
-      "tagline": "כותבים \"סיימנו\" - וקלוד שומר, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.",
+      "tagline": "כותבים \"סיימנו\" - וקלוד מסדר את התיקייה, מתעד ומגבה את כל מה שנעשה בסשן, בלי לאבד כלום.",
       "category": "claude",
       "url": "https://hiyabh.github.io/claude-end-session-skill/",
       "install": {
