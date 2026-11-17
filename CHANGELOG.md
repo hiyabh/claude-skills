@@ -3,6 +3,11 @@
 כל שינוי משמעותי לפרויקט מתועד כאן.
 פורמט: [Keep a Changelog](https://keepachangelog.com) · גרסאות: [SemVer](https://semver.org).
 
+## [1.11.0] - 2026-11-17
+
+### Added (תוסף)
+- "ספר לדפוס": כריכה קשה לפי שרטוט הכריכייה או רכה לבוקפוד, טקסט וקטורי, CMYK, ברקוד, בדיקות והגדרות Word ([book-to-print](src/book-to-print/SKILL.md))
+
 ## [1.10.0] - 2026-10-26
 
 ### Added (תוסף)

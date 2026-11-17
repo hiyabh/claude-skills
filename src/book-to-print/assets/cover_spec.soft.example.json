@@ -1,0 +1,69 @@
+{
+  "_הערה": "כריכה רכה לבוקפוד. בשדרה צרה מ-5 מ\"מ (בערך פחות מ-100 עמודים) הכיתוב בשדרה מושמט אוטומטית.",
+  "title": "שם הספר",
+  "printer": "bookpod",
+  "binding": "soft",
+  "direction": "rtl",
+  "trim": [
+    148,
+    210
+  ],
+  "pages": 240,
+  "paper": "white-80",
+  "art": {
+    "wrap": "art/wrap.png",
+    "fit": "visible"
+  },
+  "fonts": {
+    "title": "SuezOne-Regular.ttf",
+    "body": "FrankRuhlLibre[wght].ttf"
+  },
+  "text": [
+    {
+      "panel": "front",
+      "text": "שם הספר",
+      "font": "title",
+      "size": 54,
+      "box": [
+        "center",
+        30,
+        124,
+        50
+      ],
+      "colour": "#ffffff"
+    },
+    {
+      "panel": "front",
+      "text": "שם המחבר",
+      "font": "body",
+      "size": 20,
+      "box": [
+        "center",
+        170,
+        124,
+        16
+      ],
+      "colour": "#ffffff"
+    },
+    {
+      "panel": "spine",
+      "text": "שם הספר  ·  שם המחבר",
+      "font": "body",
+      "size": 12,
+      "colour": "#ffffff"
+    },
+    {
+      "panel": "back",
+      "text": "כמה משפטים על הספר: על מה הוא, למי הוא מיועד, ומה הקורא יקבל ממנו.",
+      "font": "body",
+      "size": 14,
+      "box": [
+        "center",
+        30,
+        116,
+        80
+      ],
+      "colour": "#ffffff"
+    }
+  ]
+}

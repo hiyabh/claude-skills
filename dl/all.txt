@@ -17,6 +17,7 @@ skill il-law
 skill common-mistakes-tracker
 skill work-summary
 skill pdf-flipbook
+skill book-to-print
 skill code-snippets-library
 skill git-workflow
 skill coherent-transcript-editor

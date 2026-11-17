@@ -1,0 +1,25 @@
+{
+  "_הערה": "כריכה קשה. כשמגיע השרטוט של הכריכייה: להוסיף spine_override ו-hard (board, joint, wrap) ולבנות מחדש. עד אז הם משוערים ומסומנים.",
+  "title": "שם הספר",
+  "printer": "offset",
+  "binding": "hard",
+  "direction": "rtl",
+  "trim": [170, 240],
+  "pages": 320,
+  "paper": "white-80",
+  "hard": {},
+  "bleed": 3,
+  "safe": 6,
+  "icc": "auto",
+  "background": "#0b1a3a",
+  "art": {"front": "art/front.png", "back": "art/back.png", "spine_colour": "#0b1a3a"},
+  "fonts": {"title": "Bellefair-Regular.ttf", "body": "FrankRuhlLibre[wght].ttf"},
+  "text": [
+    {"panel": "front", "text": "שם הספר", "font": "title", "size": 64, "box": ["center", 35, 130, 60], "colour": "cmyk 4 16 70 0"},
+    {"panel": "front", "text": "שם המחבר", "font": "body", "size": 22, "box": ["center", 200, 130, 18], "colour": "cmyk 2 5 22 0"},
+    {"panel": "spine", "text": "שם הספר", "font": "title", "size": 26, "orient": "horizontal", "box": ["center", 20, 18, 60], "colour": "cmyk 4 16 70 0"},
+    {"panel": "spine", "text": "שם המחבר", "font": "body", "size": 13, "orient": "horizontal", "box": ["center", 185, 18, 30], "colour": "cmyk 2 5 22 0"},
+    {"panel": "back", "text": "כמה משפטים על הספר.", "font": "body", "size": 15, "box": ["center", 40, 125, 90], "colour": "cmyk 2 5 22 0"}
+  ],
+  "barcode": {"isbn": "", "zone": [40, 25], "position": "spine-bottom", "fill": "clear"}
+}

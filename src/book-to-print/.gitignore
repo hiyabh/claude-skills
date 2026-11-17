@@ -1,0 +1,4 @@
+# downloaded by scripts/setup_check.py - not ours to redistribute, fetched on each computer
+assets/icc/*.icc
+assets/tools/
+__pycache__/

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ספר לדפוס - סקיל ל-Claude Code · בין קודש לקלוד</title>
+<meta name="description" content="כריכה קשה או רכה והגדרות דפוס לספר שלך, כך שבית הדפוס מקבל קבצים שמודפסים נכון בפעם הראשונה">
+<meta property="og:title" content="ספר לדפוס - סקיל ל-Claude Code · בין קודש לקלוד">
+<meta property="og:description" content="כריכה קשה או רכה והגדרות דפוס לספר שלך, כך שבית הדפוס מקבל קבצים שמודפסים נכון בפעם הראשונה">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📚%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css?v=0f1ba058">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
+</head>
+<body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>📄 מסמכים ועברית</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true"><span>📚</span></div>
+  <h1 class="rise">ספר לדפוס</h1>
+  <p class="sub rise">כריכה קשה או רכה והגדרות דפוס לספר שלך, כך שבית הדפוס מקבל קבצים שמודפסים נכון בפעם הראשונה</p>
+  <div class="cta rise">
+    <a class="btn" href="#install">איך מתקינים</a>
+    <a class="btn ghost" href="https://github.com/hiyabh/claude-skills/tree/main/src/book-to-print">הקבצים ב-GitHub</a>
+  </div>
+</header>
+<section class="reveal"><h2>מה זה עושה</h2>
+<div class="card prose"><p>כתבת ספר ורוצה להדפיס אותו באמת, בבית דפוס או בבוקפוד. כאן מתחילות השאלות שאף אחד לא מסביר: כמה רחבה השדרה, מה זה גלישה, למה הצבע במסך לא ייצא כך בדפוס, ובאיזה צד בכלל נמצאת החזית בכריכה פרוסה של ספר עברי. הסקיל הזה עונה עליהן ובונה את הקבצים בעצמו. אתה נותן לו את הספר ואת הציור, והוא שואל כמה שאלות בהתחלה.</p><p>את הכריכה הוא בונה מקובץ מפרט אחד. כריכה קשה נבנית לפי השרטוט של הכריכייה (קרטון, ביג, גלישה ושדרה), ומהשרטוט הוא גם מסיק אם בית הדפוס הקטין את הדפים ומה עובי הנייר. כריכה רכה מחושבת לפי מספר העמודים וסוג הנייר. כל מילה על הכריכה נכתבת בגופן אמיתי מעל ציור בלי טקסט, כי מחוללי תמונות משבשים אותיות עבריות. הקובץ יוצא ב-CMYK בפרופיל הדפוס המקובל, עם גלישה, סימני חיתוך וקיפול, וברקוד למסת&quot;ב שנסרק בפועל.</p><p>אחרי כל בנייה הוא בודק את מה שיצא: שהטקסט בתוך האזור הבטוח, שהציור והכותרת ממורכזים על הקרטון (סטייה של כמה מילימטרים לא נראית בעין עד שהמדפיס מעיר), שהכותרת קריאה על הרקע, ושהגופן מכיל כל תו. גם בפנים הספר הוא מגדיר את Word לספר עברי, מייצא, ומודד בפועל שהשוליים הרחבים יצאו בצד של השדרה. בסוף הוא מכין הדמיה של הספר הסגור ומסמך הנחיות מסודר לבית הדפוס. הכללים בו נלמדו מסט אמיתי של שלושה כרכים בכריכה קשה.</p><h3>מתי זה שימושי</h3><ul class="checks"><li>ספר שכתבת ב-Word ואתה רוצה להוציא לבית דפוס בכריכה קשה</li><li>כריכה רכה לבוקפוד, כולל המקום לתווית הברקוד שלהם וגלישה של 3.2 מ&quot;מ</li><li>בית הדפוס שלח שרטוט כריכה, וצריך לעדכן את הכריכה לפיו בלי להתחיל מחדש</li><li>מעצב מכין לך את הכריכה, ואתה רוצה לתת לו תבנית במידות מדויקות ולבדוק את מה שהוא מחזיר</li><li>PDF שכבר מוכן ואתה רוצה לוודא שהוא באמת מוכן לדפוס: גופנים, רזולוציה, שוליים ומספר עמודים</li></ul></div></section>
+<section class="reveal"><h2>מה אומרים לקלוד</h2>
+<p class="muted">אין פקודות ללמוד. אחרי ההתקנה פשוט כותבים לקלוד משפט כמו:</p>
+<ul class="says"><li class="say reveal">"אני רוצה להוציא את הספר שלי לדפוס בכריכה קשה"</li><li class="say reveal">"תכין לי כריכה רכה לבוקפוד"</li><li class="say reveal">"בית הדפוס שלח שרטוט כריכה, תעדכן את הכריכה לפיו"</li><li class="say reveal">"תבדוק שה-PDF של הספר מוכן לדפוס"</li></ul></section>
+<section class="reveal"><h2>דוגמה</h2>
+<div class="ba"><div class="card"><h3>מה נותנים</h3><div class="sample">אני רוצה להדפיס את הספר בכריכה קשה, 436 עמודים, דף 17x24. הכריכייה שלחה שרטוט: קרטון 165x245, ביג 9, גלישה 20, שדרה 28</div></div>
+<div class="card after"><h3>מה מקבלים</h3><div class="sample">קובץ כריכה לדפוס בגיליון 416x285 מ&quot;מ בדיוק כמו בשרטוט, החזית משמאל, הכותרת וקטורית וממורכזת על הקרטון, דוח בדיקה עם 0 שגיאות, תצוגה עם קווי עזר לאישור, הדמיה של הספר הסגור, ומסמך הנחיות לבית הדפוס עם השאלות שעוד פתוחות</div></div></div>
+</section>
+<section class="reveal"><h2>מה צריך שיהיה מותקן</h2>
+<div class="card"><table class="tbl"><tr><th>מה</th><th>למה / הערה</th></tr><tr><td><b>Python 3.10+ ב-Windows</b></td><td>אחרי ההתקנה תגיד לקלוד: תריץ את setup_check.py של הסקיל book-to-print. הוא מתקין את הספריות, מוריד את פרופיל הצבע לדפוס ובונה כריכת ניסיון</td></tr><tr><td><b>Microsoft Word</b></td><td>רק לכלי ה-Word של פנים הספר. הכריכות עובדות גם בלעדיו</td></tr><tr><td><b>מפתח API של Gemini או OpenAI (לא חובה)</b></td><td>רק אם רוצים שהציור ייווצר ב-AI. עולה כסף בחשבון שלך, והסקיל אומר לפני שהוא מייצר</td></tr></table><p class="tag"><b>לתשומת לבך:</b> המספרים של בית הדפוס קובעים: עד שהם מגיעים הסקיל עובד עם הערכות ומסמן אותן בכל מקום. צבע על נייר, הטבעת זהב ורישיון של גופן מסחרי נבדקים רק מול בית הדפוס ובהדפסת ניסיון, ועותק ניסיון לפני ההדפסה המלאה הוא חובה. העובדות של בוקפוד נבדקו בנובמבר 2026 וצריך לאמת אותן מחדש</p></div></section>
+<section id="install" class="reveal"><h2>התקנה בהדבקה אחת</h2>
+<p>פותחים את Claude Code, מדביקים את הבלוק הבא, והוא מתקין הכול לבד:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! התקן לי בבקשה את הסקיל &quot;ספר לדפוס&quot; (book-to-print).
+1. זהה את מערכת ההפעלה שלי ואת התיקייה ~/.claude/skills/ (ב-Windows: C:\Users\&lt;user&gt;\.claude\skills\). צור אותה אם אינה קיימת.
+2. הורד את החבילה: https://hiyabh.github.io/claude-skills/dl/book-to-print.tar.gz
+3. חלץ ממנה את התיקייה skills/book-to-print אל ~/.claude/skills/book-to-print. אם כבר קיים סקיל בשם הזה - שאל אותי לפני שאתה דורס.
+4. בדוק אם מותקנים אצלי: Python 3.10+ ב-Windows, Microsoft Word, מפתח API של Gemini או OpenAI (לא חובה). אם חסר משהו - תגיד לי בדיוק מה להתקין ותציע להתקין בעצמך.
+5. הסבר לי בקצרה איך מפעילים - למשל שאני פשוט אומר: &quot;אני רוצה להוציא את הספר שלי לדפוס בכריכה קשה&quot;.</pre>
+</div>
+<details class="alt"><summary>מעדיף טרמינל? (Git Bash / Mac / Linux)</summary>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="cmd">העתק</button>
+<pre id="cmd" class="ltr">curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- book-to-print</pre>
+</div>
+<p class="muted">או <a href="../../dl/book-to-print.tar.gz">הורדה ידנית של החבילה</a> וחילוץ אל <code>~/.claude/skills/</code>.</p>
+</details></section>
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

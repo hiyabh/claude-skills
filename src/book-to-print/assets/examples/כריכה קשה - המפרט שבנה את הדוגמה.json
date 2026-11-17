@@ -1,0 +1,77 @@
+{
+ "_הערה": "המפרט שבנה את כרך א של קל\"ח פתחי חכמה לפי שרטוט הכריכייה. המסת\"ב כאן לדוגמה בלבד, לא אמיתי.",
+ "title": "קלח כרך א",
+ "binding": "hard",
+ "printer": "offset",
+ "trim": [
+  170,
+  240
+ ],
+ "pages": 436,
+ "spine_override": 28,
+ "hard": {
+  "board": [
+   165,
+   245
+  ],
+  "joint": 9,
+  "wrap": 20,
+  "board_thickness": 2.5,
+  "spine_extra": 1
+ },
+ "art": {
+  "wrap": "art/wrap.png",
+  "fit": "visible"
+ },
+ "fonts": {
+  "title": "Bellefair-Regular.ttf",
+  "body": "frank.ttf"
+ },
+ "text": [
+  {
+   "panel": "front",
+   "text": "קל\"ח\nפתחי חכמה",
+   "font": "title",
+   "size": 60,
+   "box": [
+    20,
+    30,
+    125,
+    70
+   ],
+   "colour": "cmyk 4 16 70 0"
+  },
+  {
+   "panel": "spine",
+   "text": "קל\"ח פתחי חכמה",
+   "font": "title",
+   "size": 30,
+   "box": [
+    20,
+    120
+   ],
+   "colour": "cmyk 4 16 70 0",
+   "orient": "vertical"
+  },
+  {
+   "panel": "back",
+   "text": "בספר שלפנינו לשון רבנו הרמח״ל בגוף הדף, ועמה באור ידית השער בהערות.",
+   "font": "body",
+   "size": 16,
+   "box": [
+    20,
+    60,
+    125,
+    60
+   ],
+   "colour": "cmyk 2 5 22 0"
+  }
+ ],
+ "barcode": {
+  "isbn": "9789650000004",
+  "zone": [
+   40,
+   25
+  ]
+ }
+}
