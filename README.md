@@ -31,7 +31,9 @@ curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- all
 ## הוספת סקיל
 
 **סקיל בתוך המרכז:** מעתיקים את התיקייה ל-`src/<name>/`, כותבים `content/<name>.json`
-(ראו דוגמה קיימת), מריצים `python build/build.py`, ודוחפים.
+(ראו דוגמה קיימת), מריצים `python build/og_images.py` (תמונת השיתוף לווטסאפ, 1200x630 - צריך Pillow
+ו-python-bidi, ורץ מקומית ב-Windows), אחר כך `python build/build.py`, ודוחפים. גם כששמים כותרת, תיאור או
+אייקון חדשים - מריצים שוב את `og_images.py`: לתמונה מתקבל שם קובץ חדש, והרשתות לא מציגות את הישנה מהזיכרון.
 
 **סקיל עם ריפו ודף משלו:** מוסיפים לריפו את ה-topic `claude-skill`.
 ה-Action היומי (`.github/workflows/sync.yml`) מוסיף אותו לבד ל-`catalog.json` ובונה מחדש.

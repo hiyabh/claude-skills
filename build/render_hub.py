@@ -238,6 +238,6 @@ def render():
                       install_all_html(total),
                       filterbar_html(buckets), '<main id="skills">', sections_html(buckets),
                       "</main>", footer_html(), "</div>"])
-    html = page_shell(HUB_TITLE, HUB_DESC, "🧰", "assets/site.css", body, SCRIPTS)
+    html = page_shell(HUB_TITLE, HUB_DESC, "🧰", "assets/site.css", body, SCRIPTS, page_path="", og_name="hub")
     write_text(ROOT / "index.html", html)
     return len(items), total

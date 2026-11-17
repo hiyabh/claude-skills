@@ -1,10 +1,13 @@
 """Shared paths, constants and small helpers for the site build."""
 import hashlib
+import re
 import html
 import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+OG_DIR = ROOT / "assets" / "og"
+OG_SIZE = (1200, 630)
 SRC_DIR = ROOT / "src"          # installable skill sources
 CONTENT_DIR = ROOT / "content"  # Hebrew landing-page content, one JSON per skill
 DL_DIR = ROOT / "dl"            # generated tarballs
@@ -79,7 +82,33 @@ def aurora_html(dim=False):
     return f'<div class="{cls}" aria-hidden="true"><i></i><i></i><i></i><i></i></div>'
 
 
-def page_shell(title, description, icon, css_href, body, scripts=()):
+def og_image(name):
+    """Absolute URL of the share image made by og_images.py for this page, or None."""
+    pattern = re.compile(rf"{re.escape(name)}-[0-9a-f]{{8}}\.jpg")
+    found = sorted(p.name for p in OG_DIR.glob(f"{name}-*.jpg") if pattern.fullmatch(p.name))
+    return f"{BASE_URL}/assets/og/{found[-1]}" if found else None
+
+
+def share_meta(title, description, page_path, og_name):
+    """Open Graph + Twitter tags: title, description, page URL, Hebrew locale, the share image."""
+    url = f"{BASE_URL}/{page_path}"
+    tags = [f'<meta property="og:title" content="{esc(title)}">',
+            f'<meta property="og:description" content="{esc(description)}">',
+            f'<meta property="og:url" content="{esc(url)}">', '<meta property="og:type" content="website">',
+            '<meta property="og:locale" content="he_IL">',
+            f'<meta property="og:site_name" content="{esc(COMMUNITY_NAME)} - סקילים ל-Claude Code">']
+    image = og_image(og_name) if og_name else None
+    if image:
+        tags += [f'<meta property="og:image" content="{esc(image)}">',
+                 f'<meta property="og:image:width" content="{OG_SIZE[0]}">',
+                 f'<meta property="og:image:height" content="{OG_SIZE[1]}">',
+                 f'<meta property="og:image:alt" content="{esc(title)}">',
+                 '<meta name="twitter:card" content="summary_large_image">',
+                 f'<meta name="twitter:image" content="{esc(image)}">']
+    return "\n".join(tags)
+
+
+def page_shell(title, description, icon, css_href, body, scripts=(), page_path="", og_name=None):
     """Wrap page body in the shared RTL document skeleton."""
     favicon = ("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' "
                "viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E"
@@ -98,8 +127,7 @@ def page_shell(title, description, icon, css_href, body, scripts=()):
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(description)}">
-<meta property="og:title" content="{esc(title)}">
-<meta property="og:description" content="{esc(description)}">
+{share_meta(title, description, page_path, og_name)}
 <link rel="icon" href="{favicon}">
 <link rel="stylesheet" href="{versioned(css_href)}">{script}
 </head>

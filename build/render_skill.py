@@ -103,5 +103,6 @@ def render(page):
         footer_html(), "</div>",
     ])
     title = f"{page['title']} - סקיל ל-Claude Code · בין קודש לקלוד"
-    html = page_shell(title, page["tagline"], page["icon"], CSS_HREF, body, SCRIPTS)
+    html = page_shell(title, page["tagline"], page["icon"], CSS_HREF, body, SCRIPTS,
+                      page_path=f"skills/{page['name']}/", og_name=page["name"])
     write_text(PAGES_DIR / page["name"] / "index.html", html)
