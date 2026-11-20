@@ -24,6 +24,7 @@ curl -fsSL https://hiyabh.github.io/claude-skills/install.sh | bash -s -- all
 |---|---|
 | `src/<name>/` | קוד המקור של כל סקיל (מה שמותקן ב-`~/.claude/skills/<name>`) |
 | `content/<name>.json` | תוכן דף ההסבר בעברית |
+| `guides_src/<name>.html` | דפי מדריך (גוף הדף, ולצדו קבצי טקסט לפרומפטים). רשומים תחת `guides` ב-`catalog.json` |
 | `catalog.json` | דפים חיצוניים (סקילים שיש להם ריפו משלהם) + כרטיס "מתחילים כאן" |
 | `build/` | סקריפטי הבנייה (Python, בלי תלויות) |
 | `skills/`, `dl/`, `index.html` | **נוצרים ע"י הבנייה** - לא לערוך ידנית |

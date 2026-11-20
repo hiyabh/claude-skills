@@ -190,7 +190,20 @@ def course_html(course):
 </a></section>"""
 
 
-def hero_html(total, pages, guide, phrases):
+def guide_link(guide, href):
+    return f"""<a class="guide rise" href="{esc(href)}">
+    <span class="ic" aria-hidden="true">{esc(guide['icon'])}</span>
+    <span><b>{esc(guide['title'])}</b><br><span class="d">{esc(guide['tagline'])}</span></span>
+    <span class="go" aria-hidden="true">←</span></a>"""
+
+
+def guides_html(guide, extra):
+    links = [guide_link(guide, guide["url"])]
+    links += [guide_link(g, f"guides/{g['name']}/") for g in extra]
+    return '<div class="guides">' + "\n".join(links) + "</div>"
+
+
+def hero_html(total, pages, guide, phrases, extra=()):
     words = "".join(f'<span class="w" style="--i:{i}">{esc(w)}</span> '
                     for i, w in enumerate(TITLE_WORDS))
     return f"""<header class="hero" id="top">
@@ -201,10 +214,7 @@ def hero_html(total, pages, guide, phrases):
   {ticker_html(phrases)}
   <div class="stats rise"><span><b data-count="{total}">{total}</b> סקילים</span>
     <span><b data-count="{pages}">{pages}</b> דפי הסבר</span><span><b>1</b> הדבקה להתקנה</span></div>
-  <a class="guide rise" href="{esc(guide['url'])}">
-    <span class="ic" aria-hidden="true">{esc(guide['icon'])}</span>
-    <span><b>{esc(guide['title'])}</b><br><span class="d">{esc(guide['tagline'])}</span></span>
-    <span class="go" aria-hidden="true">←</span></a>
+  {guides_html(guide, extra)}
 </header>"""
 
 
@@ -232,7 +242,7 @@ def render():
     buckets = group(items)
     total = sum(skill_count(item) for item, _ in items)
     body = "\n".join([aurora_html(), '<div class="wrap">', constellation_html(items),
-                      hero_html(total, len(items), catalog["guide"], ticker_phrases(items)),
+                      hero_html(total, len(items), catalog["guide"], ticker_phrases(items), catalog.get("guides", [])),
                       course_html(catalog.get("course")),
                       featured_html(items, catalog.get("featured", [])),
                       install_all_html(total),

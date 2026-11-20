@@ -8,6 +8,7 @@ import stat
 import sys
 
 import package
+import render_guides
 import render_hub
 import render_skill
 from common import (CATALOG, CATEGORIES, DL_DIR, PAGES_DIR, SRC_DIR, load_internal,
@@ -80,8 +81,9 @@ def main():
         render_skill.render(page)
     prune({p["name"] for p in pages})
     write_manifest(pages)
+    guides = render_guides.render_all()
     cards, skills = render_hub.render()
-    print(f"OK: {len(pages)} skill pages, hub with {cards} cards / {skills} skills")
+    print(f"OK: {len(pages)} skill pages, {guides} guides, hub with {cards} cards / {skills} skills")
     return 0
 
 

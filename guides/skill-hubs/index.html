@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>הסקילים שלכם יידלקו לבד, בעברית · בין קודש לקלוד</title>
+<meta name="description" content="מדריך ופרומפט אחד שמסדרים את כל הסקילים במרכזים לפי נושא, כדי ש-Claude Code יבחר לבד את הכלי הנכון לכל בקשה.">
+<meta property="og:title" content="הסקילים שלכם יידלקו לבד, בעברית · בין קודש לקלוד">
+<meta property="og:description" content="מדריך ופרומפט אחד שמסדרים את כל הסקילים במרכזים לפי נושא, כדי ש-Claude Code יבחר לבד את הכלי הנכון לכל בקשה.">
+<meta property="og:url" content="https://hiyabh.github.io/claude-skills/guides/skill-hubs/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<meta property="og:site_name" content="בין קודש לקלוד - סקילים ל-Claude Code">
+<meta property="og:image" content="https://hiyabh.github.io/claude-skills/assets/og/guide-skill-hubs-c44a1b4e.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="הסקילים שלכם יידלקו לבד, בעברית · בין קודש לקלוד">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hiyabh.github.io/claude-skills/assets/og/guide-skill-hubs-c44a1b4e.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧭%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="../../assets/site.css?v=dea8c111">
+<script>document.documentElement.classList.add('js');setTimeout(function(){if(!window.motionReady)document.documentElement.classList.remove('js')},2500)</script>
+<script src="../../assets/motion.js?v=8b14141c" defer></script>
+</head>
+<body>
+<div class="aurora dim" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<div class="wrap">
+<nav class="crumbs rise"><a href="../../">→ כל הסקילים</a>
+  <span class="sep">/</span> <span>🧭 מדריך</span></nav>
+<header class="hero hero-skill">
+  <div class="skill-icon rise" aria-hidden="true"><span>🧭</span></div>
+  <h1 class="rise">הסקילים שלכם יידלקו לבד, בעברית</h1>
+  <p class="sub rise">מסדרים את כל הסקילים במרכזים לפי נושא, עם שמות בעברית, ומלמדים את Claude Code
+     לבחור לבד את הכלי הנכון לכל בקשה. מדביקים פרומפט אחד, עונים על כמה שאלות, ומאשרים.</p>
+  <div class="cta rise">
+    <a class="btn" href="#prompt-sec">לפרומפט</a>
+    <a class="btn ghost" href="#how">איך זה עובד</a>
+  </div>
+</header>
+
+<section class="reveal"><h2>למה רוב הסקילים לא נדלקים</h2>
+<div class="tiles">
+  <div class="tile"><b>77 מתוך 150</b><span>סקילים אצלי שלא הופעלו אף פעם</span></div>
+  <div class="tile"><b>1%</b><span>מהזיכרון של השיחה מוקצה לרשימת הסקילים</span></div>
+  <div class="tile"><b>פי 3 עד 15</b><span>היה נפח התיאורים שלי לעומת המקום הזה</span></div>
+</div>
+<div class="card">
+  <p>בתחילת כל שיחה Claude מקבל רשימה של הסקילים המותקנים, ולכל סקיל משפט שמסביר מתי משתמשים בו.
+     לפי המשפט הזה הוא מחליט מה לטעון. לרשימה מוקצה מקום קטן, וכשיש הרבה סקילים התיאורים מתקצרים,
+     ואלה שלא שימשו לאחרונה מופיעים בשם בלבד.</p>
+  <p>סקיל שמופיע בשם בלבד כמעט לא נבחר, ולכן גם בהמשך אף אחד לא ישתמש בו. בנוסף, רוב התיאורים כתובים
+     באנגלית, וכשמבקשים בעברית קשה לו לחבר בין הבקשה לסקיל.</p>
+</div>
+</section>
+
+<section id="how" class="reveal"><h2>איך זה עובד</h2>
+<ol class="flow" aria-label="מהבקשה ועד הסקיל">
+  <li><span class="n">1</span><b>אתם כותבים</b><span>"תעשה לי סרטון לבר מצווה"</span></li>
+  <li><span class="n">2</span><b>המנתב מזהה</b><span>הבקשה שייכת לתחום הווידאו</span></li>
+  <li><span class="n">3</span><b>המרכז בוחר</b><span>עובר על כל כלי הווידאו ומרכיב שילוב</span></li>
+  <li><span class="n">4</span><b>הסקיל הנכון רץ</b><span>בלי שהייתם צריכים לדעת איך קוראים לו</span></li>
+</ol>
+<div class="layers">
+  <div class="card"><h3>🗺️ מפה קבועה</h3><p>סעיף קצר בקובץ ההנחיות הקבוע של Claude Code, שנקרא בכל שיחה במלואו.
+     הוא אומר איזה מרכז שייך לאיזה תחום, ולכן לא תלוי במקום ברשימה.</p></div>
+  <div class="card"><h3>🚦 מנתב</h3><p>סקריפט קטן שרץ על כל בקשה, מזהה מילים כמו "סרטון", "חוזה" או "מכתב",
+     ומזכיר ל-Claude לטעון את המרכז המתאים. פעם אחת לכל תחום בשיחה.</p></div>
+  <div class="card"><h3>🧭 מרכזים</h3><p>לכל תחום סקיל אחד עם שם בעברית ורשימה של כל הכלים שלו:
+     מתי משתמשים בכל אחד ועם מה משלבים. שאר הסקילים מופיעים ברשימה בשם בלבד, וכך נשאר מקום.</p></div>
+</div>
+</section>
+
+<section class="reveal"><h2>דוגמה: סרטון</h2>
+<div class="ba">
+  <div class="card"><h3>לפני</h3><div class="sample">Claude בנה כל סרטון באותו מנוע ובאותה דרך.
+רוב כלי הווידאו שהתקנתי, כמו אפקטים קוליים, קטעי ארכיון וקטעי וידאו מבינה מלאכותית, לא נבחרו אף פעם.</div></div>
+  <div class="card after"><h3>אחרי</h3><div class="sample">בכל סרטון הוא עובר על 36 כלי הווידאו, בוחר סוג סרטון, מנוע ולפחות שתי שכבות העשרה.
+הוא רושם מה נבחר, ובסרטון הבא מציע שילוב אחר.</div></div>
+</div>
+</section>
+
+<section class="reveal"><h2>מה צריך</h2>
+<div class="card"><table class="tbl">
+  <tr><th>מה</th><th>הערה</th></tr>
+  <tr><td><b>Claude Code</b></td><td>עוד לא מותקן? <a href="https://hiyabh.github.io/claude-code-guide/">המדריך להתקנה</a></td></tr>
+  <tr><td><b>כמה סקילים מותקנים</b></td><td>ככל שיש יותר, ההבדל גדול יותר. עם פחות מעשרה אפשר לדלג על המרכזים ולהסתפק בשמות בעברית.</td></tr>
+  <tr><td><b>בערך שעה</b></td><td>רוב הזמן הוא עובד לבד. אתם עונים על כמה שאלות ומאשרים תוכנית.</td></tr>
+</table></div>
+</section>
+
+<section class="reveal"><h2>איך עושים את זה</h2>
+<ol class="steps">
+  <li>מעתיקים את הפרומפט מהתיבה למטה ומדביקים ב-Claude Code, לא בצ'אט הרגיל של Claude, כי העבודה נעשית על הקבצים במחשב.</li>
+  <li>הוא בודק אילו סקילים יש לכם ובאילו השתמשתם, ומסביר למה השאר רדומים.</li>
+  <li>הוא שואל מה למחוק ומה להשאיר. שום דבר לא נמחק בלי אישור שלכם, והכול נשמר בגיבוי.</li>
+  <li>מאשרים את התוכנית, והוא בונה את המרכזים, את השמות בעברית ואת המנתב.</li>
+  <li>פותחים שיחה חדשה, מבקשים משהו רגיל, ורואים איך הסקיל הנכון נטען לבד.</li>
+</ol>
+</section>
+
+<section id="prompt-sec" class="reveal"><h2>הפרומפט</h2>
+<p>להעתיק את כל התיבה ולהדביק ב-Claude Code:</p>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="prompt">העתק</button>
+<pre id="prompt">הי קלוד! אני רוצה שהסקילים שלי יופעלו לבד כשאני צריך אותם, לפי מה שאני כותב בעברית, בלי שאצטרך לזכור את השם שלהם באנגלית. המדריך המלא: https://hiyabh.github.io/claude-skills/guides/skill-hubs/
+תתחיל במצב תכנון, ואל תשנה שום דבר לפני שאאשר תוכנית.
+
+1. בדיקה
+- תמפה את כל הסקילים שלי: ~/.claude/skills, סקילים של תוספים, וסקילים של הפרויקט.
+- תבדוק לכל סקיל כמה פעמים השתמשתי בו ומתי לאחרונה: השדה skillUsage בקובץ ~/.claude.json, ותמלולי השיחות ב-~/.claude/projects (קריאות לכלי Skill וקריאה של קבצי SKILL.md).
+- תמצא בתמלול השיחה האחרונה את רשימת הסקילים שנשלחה בתחילת השיחה (skill_listing), ותגיד לי אילו הופיעו עם תיאור ואילו בשם בלבד. הרשימה מוגבלת לאחוז אחד מחלון ההקשר (skillListingBudgetFraction) ומדורגת לפי שימוש אחרון.
+- תסכם לי בקצרה: מה בשימוש, מה כמעט לא, מה אף פעם, ולמה לדעתך.
+
+2. ניקוי, רק באישור שלי
+- סקילים כפולים, או כאלה ש-Claude Code עושה לבד בלי סקיל, תציע למחוק. על כל קבוצה שאתה לא בטוח לגביה, תשאל אותי עם אפשרויות בחירה.
+- לפני כל מחיקה, תעביר את התיקייה ל-~/.claude/skill-backups/&lt;תאריך&gt;/ ותגבה את settings.json. תוספים מסירים רק באישור שלי (claude plugin uninstall).
+- תתקן הפניות בסקילים אחרים שמצביעות על מה שנמחק.
+
+3. שמות בעברית
+- לכל סקיל שלי, תוסיף בתחילת ה-description שם בעברית ומילות הפעלה בעברית. בערך YAML רגיל אסור &quot;נקודתיים ורווח&quot;, ולכן &quot;שם בעברית - X&quot; או בלוק (description: &gt;-). תבדוק שכל ה-frontmatter עובר yaml.safe_load.
+- סקילים חיצוניים שמתעדכנים מהמקור לא עורכים. השם העברי שלהם נכנס רק למרכזים.
+
+4. מרכזים
+- תבנה סקיל-מרכז (hub-&lt;תחום&gt;) לכל תחום שיש לי בו כמה סקילים. בכל מרכז: שם עברי, מילות הפעלה בעברית, איך בוחרים, וטבלה של כל הסקילים בתחום (שם בעברית, מתי, עם מה משלבים, איך טוענים).
+- את המרכזים תייצר מקובץ הגדרות אחד וסקריפט בנייה, כדי שאפשר יהיה לעדכן אותם בקלות.
+- במרכז הווידאו, אם יש: בכל סרטון עוברים על כל הכלים, בוחרים סוג, מנוע ולפחות שתי שכבות העשרה, ורושמים בקובץ לקחים מה נבחר כדי לגוון בפעם הבאה.
+
+5. הפעלה אוטומטית
+- hook מסוג UserPromptSubmit: סקריפט Python עם מפת ביטויים בקובץ JSON, שמזהה את התחום ומזריק הוראה לטעון את המרכז. פעם אחת לכל מרכז בסשן. תכתוב לו בדיקות, תריץ אותו על הבקשות האמיתיות שלי מהתמלולים, ותחדד מילים שנדלקות בטעות.
+- סעיף &quot;מפת הסקילים&quot; ב-CLAUDE.md הגלובלי: טבלת תחום ומרכז, והכלל לטעון את המרכז לפני התכנון.
+- skillOverrides ב-settings.json: המרכזים והסקילים החשובים על &quot;on&quot;, השאר על &quot;name-only&quot;, כך שהרשימה לא תחרוג מהתקציב. על סקילים של תוספים ההגדרה לא חלה.
+
+6. אימות
+- claude -p בתיקייה זמנית: תבדוק בתמלול שכל המרכזים הגיעו עם תיאור מלא ושהרשימה לא קוצרה, ובקשת בדיקה אחת לכל תחום שמראה שהמרכז הנכון נטען.
+
+7. מעכשיו והלאה
+- תוסיף ל-CLAUDE.md הגלובלי את הכלל &quot;סקיל חדש&quot; מהמדריך (בסעיף &quot;מעכשיו והלאה&quot;), ותכתוב סקריפט קטן שרץ בתחילת כל סשן (SessionStart) ומזכיר כשיש סקיל שלא שויך לאף מרכז.
+- בסוף תסכם לי בעברית: מה נמחק, איפה הגיבוי, ודוגמאות למילים שמפעילות כל מרכז.</pre>
+</div>
+</section>
+
+<section id="from-now" class="reveal"><h2>מעכשיו והלאה: כל סקיל חדש</h2>
+<p>הסידור נשאר מסודר רק אם כל סקיל חדש נכנס למקום שלו. לכן השלב האחרון בפרומפט כותב בקובץ ההנחיות
+   הקבוע את הכלל הזה, ומוסיף תזכורת שרצה בתחילת כל שיחה כשיש סקיל שעוד לא שויך למרכז. כבר סידרתם בעבר?
+   אפשר להעתיק רק את הכלל ולבקש מ-Claude Code להוסיף אותו ל-CLAUDE.md הגלובלי.</p>
+<ul class="checks rule-points">
+  <li>לפני התקנה הוא בודק אם כבר יש סקיל שעושה את זה, ושואל לפני שמתקין כפול.</li>
+  <li>כל סקיל חדש מקבל שם בעברית ומילות הפעלה בעברית.</li>
+  <li>הוא נכנס למרכז המתאים, ומילים שמפעילות אותו נוספות למנתב.</li>
+  <li>בסוף הוא אומר לכם באיזה מרכז הסקיל נמצא ואיזה משפט מפעיל אותו.</li>
+</ul>
+<div class="card promptbox">
+  <button class="copybtn" type="button" data-copy="rule">העתק</button>
+<pre id="rule">## סקיל חדש - מה עושים בכל התקנה או יצירה של סקיל
+
+לפני ההתקנה:
+- בודקים אם סקיל קיים כבר עושה את זה. אם כן, אומרים לי ושואלים לפני שמתקינים כפול.
+
+אחרי ההתקנה, בלי לחכות שאבקש:
+1. שם בעברית ומילות הפעלה בעברית בתחילת ה-description (סקיל שלי; חיצוני - רק במרכז). בודקים שה-frontmatter עובר yaml.safe_load.
+2. מוסיפים אותו לקובץ ההגדרות של המרכז המתאים ומריצים את סקריפט הבנייה. תחום חדש עם כמה סקילים = מרכז חדש.
+3. מוסיפים למפת המנתב את המילים שאני אגיד כשאצטרך אותו, ומריצים את הבדיקות.
+4. skillOverrides: &quot;name-only&quot;, אלא אם הוא חייב לפעול לבד בלי מרכז (&quot;on&quot;).
+5. בודקים בסשן חדש (claude -p) שאף סקיל על &quot;on&quot; לא איבד את התיאור שלו ברשימה.
+6. אומרים לי בשורה אחת: באיזה מרכז הוא, ואיזה משפט בעברית מפעיל אותו.
+
+מוחקים סקיל: מעבירים לגיבוי, מוציאים מהמרכז ומהמנתב, ומתקנים הפניות אליו.</pre>
+</div>
+</section>
+
+<section class="reveal"><h2>שאלות</h2>
+<details class="faq"><summary>זה בטוח? מה אם יימחק משהו שאני צריך?</summary>
+<p>כל סקיל שנמחק עובר קודם לתיקיית גיבוי, וגם ההגדרות מגובות. אם משהו חסר, כותבים לו
+   "תחזיר את הסקיל X מהגיבוי". הוא גם לא מוחק בלי שאישרתם.</p></details>
+<details class="faq"><summary>הוא ישנה סקילים שהורדתי ממקומות אחרים?</summary>
+<p>לא. סקילים שמתעדכנים מהמקור שלהם לא נערכים, כי העדכון הבא היה דורס את השינוי. השם העברי שלהם
+   נכתב רק במרכז.</p></details>
+<details class="faq"><summary>זה עולה כסף?</summary>
+<p>לא מעבר לשימוש הרגיל ב-Claude Code. התהליך עצמו לוקח בערך שעה של עבודה שלו.</p></details>
+<details class="faq"><summary>זה עובד גם במק?</summary>
+<p>כן. הפרומפט לא תלוי במערכת ההפעלה, ו-Claude Code מתאים את הנתיבים לבד.</p></details>
+</section>
+
+<nav class="back"><a class="btn ghost" href="../../">→ לכל הסקילים</a></nav>
+<footer class="foot">
+  <p><span class="brand">👈 בין קודש לקלוד</span> ·
+     <a href="https://chat.whatsapp.com/Hr8UI2Oy6lkJTPY3tizdSd?s=cl&amp;p=a&amp;mlu=1">הצטרפות לקבוצה</a> ·
+     <a href="https://github.com/hiyabh/claude-skills">הקוד ב-GitHub</a></p>
+  <p>הסקילים מסופקים כמו שהם, לשימוש חופשי. מותר להעביר הלאה.</p>
+</footer>
+</div>
+</body>
+</html>

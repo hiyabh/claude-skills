@@ -352,3 +352,45 @@ body{position:relative; overflow-x:hidden}
 }
 @media (hover:hover) and (pointer:fine){ .course-card:hover{border-color:#7b66c9} }
 @media (prefers-contrast:more){ .course-card,.course-facts li{border-color:#5a6473} .course-d{color:#c6ccd6} }
+
+/* ---------- guide pages (guides/<name>/) ---------- */
+.guides{display:grid; gap:10px}
+.tiles{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin:0 0 14px}
+.tile{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:16px 18px}
+.tile b{display:block; color:var(--gold); font-size:1.6rem; line-height:1.15; letter-spacing:-.02em;
+  font-variant-numeric:tabular-nums; margin-bottom:6px}
+.tile span{color:var(--muted); font-size:.93rem}
+.flow{list-style:none; padding:0; margin:0 0 16px; display:grid; grid-template-columns:repeat(4,1fr); gap:12px; counter-reset:none}
+.flow li{position:relative; background:var(--card); border:1px solid var(--line); border-radius:var(--radius);
+  padding:16px 16px 14px; display:flex; flex-direction:column; gap:4px}
+.flow li:not(:last-child)::after{content:"←"; position:absolute; inset-inline-end:-12px; top:50%;
+  transform:translate(50%,-50%); color:var(--gold); font-size:1.1rem; z-index:1}
+.flow .n{display:inline-grid; place-items:center; width:26px; height:26px; border-radius:50%;
+  background:#2a2414; color:var(--gold); font-weight:700; font-size:.85rem; margin-bottom:4px}
+.flow b{font-size:1rem}
+.flow span:last-child{color:var(--muted); font-size:.9rem}
+.layers{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+.layers .card{margin:0}
+.layers p{color:#c9cfd9; font-size:.95rem; margin:0}
+ol.steps{list-style:none; counter-reset:step; padding:0; margin:0}
+ol.steps li{counter-increment:step; position:relative; padding-inline-start:44px; margin:0 0 14px; min-height:30px}
+ol.steps li::before{content:counter(step); position:absolute; inset-inline-start:0; top:0;
+  width:30px; height:30px; border-radius:50%; display:grid; place-items:center;
+  background:var(--gold); color:#1a1407; font-weight:700; font-size:.9rem}
+.rule-points{margin-bottom:14px}
+details.faq{background:var(--card); border:1px solid var(--line); border-radius:var(--radius); padding:4px 18px; margin:0 0 10px}
+details.faq summary{cursor:pointer; padding:12px 0; font-weight:600; list-style-position:inside}
+details.faq p{color:#c9cfd9; margin:0 0 14px}
+details.faq[open] summary{color:var(--gold)}
+@media (max-width:860px){
+  .flow{grid-template-columns:1fr 1fr}
+  .flow li:nth-child(2)::after{display:none}
+}
+@media (max-width:700px){
+  .tiles,.layers{grid-template-columns:1fr}
+  .flow{grid-template-columns:1fr}
+  .flow li:not(:last-child)::after{content:"↓"; inset-inline:0; top:auto; bottom:-12px; text-align:center;
+    transform:translateY(50%)}
+  .flow li:nth-child(2)::after{display:block}
+}
+@media (prefers-contrast:more){ .tile,.flow li,details.faq{border-color:#5a6473} .tile span,.flow span:last-child{color:#c6ccd6} }

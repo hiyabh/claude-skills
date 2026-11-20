@@ -96,6 +96,8 @@ def cards():
     out = [("hub", "🧰", "כל הסקילים ל-Claude Code", render_hub.HUB_DESC, "")]
     for p in load_internal():
         out.append((p["name"], p["icon"], p["title"], p["tagline"], CATEGORIES[category_of(p)][1]))
+    for g in load_json(CATALOG).get("guides", []):
+        out.append((f"guide-{g['name']}", g["icon"], g["title"], g["tagline"], "מדריך"))
     for e in load_json(CATALOG)["external"]:
         if e["repo"] in EXTERNAL:
             out.append((e["repo"], e["icon"], e["title"], e["tagline"], CATEGORIES[category_of(e)][1]))
